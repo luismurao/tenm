@@ -21,13 +21,13 @@
 #'                               layers_by_date_dir = tempora_layers_dir,
 #'                               layers_ext="*.tif$")
 #' abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
-#' plan("multisession",workers=10)
+#' future::plan("multisession",workers=10)
 #' abex <- tenm::ex_by_date(abtc,train_prop=0.7)
 #' varcorrs <- tenm::correlation_finder(environmental_data = abex$env_data[,-ncol(abex$env_data)],
 #'                                      method = "spearman",
 #'                                      threshold = 0.8,
 #'                                      verbose = FALSE)
-#' plan("sequential")
+#' future::plan("sequential")
 #' mod <- tenm::cov_center(data = abex$env_data,
 #'                         mve = TRUE,
 #'                         level = 0.975,
