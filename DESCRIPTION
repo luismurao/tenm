@@ -13,7 +13,7 @@ Description: A package to model time-specific ecological niche. A set of tools (
   the main objective of this package is to recover a lot of information that is wasted or at least neglected because of the typical depuration of occurrence points that are redundant in the same pixel. 
   The novelty in this package is the possibility to generate models from climate information that is in a very defined temporal resolution, for example, year, month, or even day, 
   although also in a very fine spatial resolution if possible. Contrasting with the traditional models made by average temporal information.
-License: GPL (>= 2)
+License: GPL (>= 3)
 Roxygen: list(markdown = TRUE)
 Imports:
     MASS,
