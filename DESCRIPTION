@@ -1,0 +1,41 @@
+Package: tenm
+Type: Package
+Title: Temporal ecological niche models
+Version: 1.0
+Date: 2022-02-15
+Authors@R: c(
+ person(given = "Luis", family = "Osorio-Olvera", email = "luismurao@gmail.com", role = c("aut", "cre")),
+ person(given = "Luis", family = "Osorio-Olvera", email = "luismurao@gmail.com", role = c("aut"),
+ comment = c(ORCID = "0000-0003-0701-5398")),
+ person (given = "Miguel", family = "Hernández", email = "316282666@iztacala.unam.mx", role = c("aut"),
+ comment = c(ORCID = "0000-0002-6086-3460")))
+Description: A package to model time-specific ecological niche. A set of tools (functions) made to generate ecological niche models (ENMs) with a time-specific focus. This is a framework package built to make ecological niche models with high temporal resolution environmental layers, 
+  the main objective of this package is to recover a lot of information that is wasted or at least neglected because of the typical depuration of occurrence points that are redundant in the same pixel. 
+  The novelty in this package is the possibility to generate models from climate information that is in a very defined temporal resolution, for example, year, month, or even day, 
+  although also in a very fine spatial resolution if possible. Contrasting with the traditional models made by average temporal information.
+License: GPL (>= 2)
+Roxygen: list(markdown = TRUE)
+Imports:
+    MASS,
+    raster,
+    purrr,
+    dplyr,
+    rgdal,
+    stringr,
+    sp,
+    magrittr,
+    rgl,
+    future,
+    tidyr,
+    furrr,
+    lubridate,
+    methods
+RoxygenNote: 7.2.3
+Encoding: UTF-8
+Depends: 
+    R (>= 3.5)
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -1,0 +1,152 @@
+---
+title: "Introduction to tenm package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tenm-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+ The main propose of this package is the capability of run ecological niche models time-specific
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  dpi = 200,
+  comment = "#>"
+)
+```
+
+---
+First we need to call the package
+```{r setup}
+library(tenm)
+```
+## Datasets included
+Inside the package it is contain a .dataFrame with a set of occurrences presence records between 1939 and 2016 of "Abronia graminea", a lizard specie with a limited geographic distribution, endemic of Veracruz and Puebla.
+
+```{r echo=TRUE,eval=TRUE}
+data("abronia")
+head(abronia)
+```
+Also there is a group of bioclimatic raster layers 
+We need to assign each directory layer path in an object
+
+```{r,eval=TRUE}
+data("suit_1970_2000")
+tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+head(tempora_layers_dir)
+```
+
+## Sp_temporal_data
+
+This function creates a .Species Temporal Data object, that means a data.frame with five columns, the first two are coordinates of latitude and longitude, the third is the data_var, the temporality to which the records of the species are stored in the data.frame of the occurrence points, this can be "year" as in the example, the fourth is the format of dates for each layer, organized in a particular pattern, for example "year/month/day", "year/month", just "year" or some other arrangement, and the fifth one is the path where is stored the bioclimatic layer corresponding to each year.
+
+```{r,eval=TRUE}
+abt <- tenm::sp_temporal_data(occs = abronia,
+                              longitude = "decimalLongitude",
+                              latitude = "decimalLatitude",
+                              sp_date_var = "year",
+                              occ_date_format="y",
+                              layers_date_format= "y",
+                              layers_by_date_dir = tempora_layers_dir,
+                              layers_ext="*.tif$")
+head(abt$temporal_df)
+```
+
+## clean_dup_by_date
+
+This function eliminates all the duplicated longitude and latitude data by year using a threshold distance. The main propose of this function is eliminate data occurrence points spliced in each different year or date in a given distance threshold.
+
+```{r,eval=TRUE}
+abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+```
+
+This function also allows you to clean duplicate data by pixel at a given resolution of a raster mask.
+
+```{r,eval=TRUE}
+abtc2 <- tenm::clean_dup_by_date(this_species = abt,
+                                 by_mask = TRUE,
+                                 raster_mask = suit_1970_2000,
+                                 n_ngbs = 0)
+```
+## Extract environmental data by date
+
+Function to extract environmental data by date. This function generates training and testing data sets of environmental information for each year, using a random partition with a define proportion.  
+
+```{r,eval=TRUE}
+future::plan("multisession",workers=10)
+abex <- tenm::ex_by_date(abtc,train_prop=0.7)
+future::plan("sequential")
+print(abex)
+```
+
+## Correlation finder
+
+Function to find out strong correlations in a correlation matrix. This enables us to estimate which variables have a strong correlation according to a correlation threshold.
+
+```{r,eval=TRUE}
+varcorrs <- tenm::correlation_finder(environmental_data = abex$env_data[,-ncol(abex$env_data)],
+                                     method = "pearson",
+                                     threshold = 0.8,
+                                     verbose = FALSE)
+```
+## Environmental background by date
+
+Get environmental background for each set of dated environmental layers. Function to obtain environmental records as background for each set of dated environmental layers.
+
+```{r,eval=TRUE}
+future::plan("multisession",workers=10)
+abbg <- tenm::bg_by_date(abex,buffer_ngbs=10,n_bg=50000)
+future::plan("sequential")
+summary(abbg)
+```
+
+## Temporal ecological niche model selection. 
+
+Function to find the best n-dimensional ellipsoid model using Partial Roc as a performance criteria.
+
+```{r,eval=TRUE}
+vars2fit <- varcorrs$descriptors
+mod_sel <- tenm::tenm_selection(this_species = abbg,
+                                omr_criteria =0.1,
+                                ellipsoid_level=0.975,
+                                vars2fit = vars2fit,
+                                nvars_to_fit=c(3),
+                                proc = T,
+                                RandomPercent = 50,
+                                NoOfIteration=1000,
+                                parallel=TRUE,
+                                n_cores=12)
+```
+
+## Plot the potencial distribution. 
+
+```{r, fig.align='center',fig.width=5, fig.height=5, fig.asp=0.7,eval=TRUE}
+layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
+suit_1970_2000 <- tenm::predict(mod_sel,model_variables = NULL,
+                                layers_path = layers_70_00_dir,
+                                layers_ext = ".tif$")
+rgl::rglwidget()
+par(mar=c(2,2,1,1))
+raster::plot(suit_1970_2000)
+
+```
+
+## Plot ocurrences presence points in different years along a time series. 
+
+```{r, fig.align='center',fig.width=4, fig.height=5, fig.asp=0.7,eval=TRUE}
+data("colors")
+id_70_20 <- which(abtc$temporal_df$year >= 1970 & abtc$temporal_df$year <= 2000)
+colors <- c(rev(colors))[1:length(id_70_20)]
+par(mar=c(2,2,1,1))
+raster::plot(suit_1970_2000,legend=FALSE)
+points(abtc$temporal_df[id_70_20,1:2],pch=25,cex=1.25,
+       col=colors)
+legend("topleft",legend = abtc$temporal_df$year[id_70_20][1:9],
+       col =colors[1:9],
+       cex=0.55,pch=25)
+legend("topright",legend = unique(abtc$temporal_df$year[id_70_20][10:18]),
+       col = colors[10:18],
+       cex=0.55, pch=25)
+
+```
+

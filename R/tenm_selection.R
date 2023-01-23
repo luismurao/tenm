@@ -1,0 +1,121 @@
+#' Function to find the best n-dimensional ellipsoid model using Partial Roc as a performance criteria.
+#' @param this_species, Species Temporal Environment "sp.temporal.env" object see \code{\link[tenm]{ex_by_date}}.
+#' @param vars2fit A vector with variable names that will be used to build the models
+#' @param omr_criteria Omission rate used to select best models. See \code{\link[tenm]{ellipsoid_selection}} for more details.
+#' @param ellipsoid_level The proportion of points to be included inside the ellipsoid.
+#' @param vars2fit  A vector with the names of environmental variables to be used in the selection process.
+#' @param nvars_to_fit Number of variables that will be used to model.
+#' @param RandomPercent Occurrence points to be sampled in randomly for the boostrap of the Partial Roc test \code{\link[tenm]{pROC}}.
+#' @param NoOfIteration Number of iteration for the bootstrapping of the Partial Roc test \code{\link[tenm]{pROC}}.
+#' @param proc Logical. If TRUE the partial ROC test will be computed for each model.
+#' @param sub_sample Logical. Indicates whether the test should run using a subsample of size sub_sample_size. It is recommended for big rasters
+#' @param sub_sample_size Numeric. Size of the sample to be used for computing pROC values.
+#' @param parallel Logical argument to run computations in parallel. Default TRUE
+#' @param n_cores Number of cores to be used in parallelization. Default 4
+#' @return A "sp.temp.best.model" object with metadata of the best model given the performance of the Partial Roc test.
+#' @examples
+#' \dontrun{
+#' library(tenm)
+#' data("abronia")
+#' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+#' abt <- tenm::sp_temporal_data(occs = abronia,
+#'                               longitude = "decimalLongitude",
+#'                               latitude = "decimalLatitude",
+#'                               sp_date_var = "year",
+#'                               occ_date_format="y",
+#'                               layers_date_format= "y",
+#'                               layers_by_date_dir = tempora_layers_dir,
+#'                               layers_ext="*.tif$")
+#' abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+#' abex <- tenm::ex_by_date(abtc,parallel=TRUE,ncores=10,train_prop=0.7)
+#' varcorrs <- tenm::correlation_finder(environmental_data = abex$env_data[,-ncol(abex$env_data)],
+#'                                      method = "spearman",
+#'                                      threshold = 0.8,
+#'                                      verbose = FALSE)
+#' vars2fit <- varcorrs$descriptors
+#' abbg <- tenm::bg_by_date(abex,parallel=TRUE,ncores=10,
+#'                          buffer_ngbs=10,n_bg=50000)
+#' mod_sel <- tenm::tenm_selection(this_species = abbg,
+#'                                 omr_criteria =0.1,
+#'                                 ellipsoid_level=0.975,
+#'                                 vars2fit = vars2fit,
+#'                                 nvars_to_fit=c(2,3,4,5,6,7),
+#'                                 proc = T,
+#'                                 RandomPercent = 50,
+#'                                 NoOfIteration=1000,
+#'                                 parallel=TRUE,
+#'                                 n_cores=20)
+#' # Project potential distribution using bioclimatic layers for 1970-2000
+#' # period.
+#' layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
+#' suit_1970_2000 <- predict(mod_sel,model_variables = NULL,
+#'                           layers_path = layers_70_00_dir,
+#'                           layers_ext = ".tif$")
+#' raster::plot(suit_1970_2000)
+#' colors <- c('#000004FF', '#040312FF', '#0B0725FF',
+#'             '#0B0725FF', '#160B38FF', '#160B38FF',
+#'             '#230C4CFF', '#310A5CFF', '#3F0966FF',
+#'             '#4D0D6CFF', '#5A116EFF', '#67166EFF',
+#'             '#741A6EFF', '#81206CFF', '#81206CFF',
+#'             '#8E2469FF', '#9B2964FF', '#A82E5FFF',
+#'             '#B53359FF', '#B53359FF', '#C03A50FF',
+#'             '#CC4248FF', '#D74B3FFF', '#E05536FF',
+#'             '#E9602CFF', '#EF6E21FF', '#F57B17FF',
+#'             '#F8890CFF', '#FB9806FF', '#FB9806FF',
+#'             '#FCA70DFF', '#FBB81DFF', '#F9C72FFF',
+#'             '#F9C72FFF', '#F6D847FF', '#F2E763FF',
+#'             '#F2E763FF', '#F3F585FF', '#FCFFA4FF',
+#'             '#FCFFA4FF')
+#' points(abtc$temporal_df[,1:2],pch=17,cex=1,
+#'        col=rev(colors))
+#' legend("topleft",legend = abtc$temporal_df$year[1:18],
+#'        col =rev(colors[1:18]),
+#'        cex=0.75,pch=17)
+#' legend("topright",legend = unique(abtc$temporal_df$year[19:40]),
+#'        col = rev(colors[19:40]),
+#'        cex=0.75,pch=17)
+#' }
+#' @export
+
+
+tenm_selection <- function(this_species,omr_criteria =0.1,
+                           ellipsoid_level=0.975,
+                           vars2fit,
+                           nvars_to_fit=c(2,3),
+                           proc = TRUE,
+                           sub_sample = TRUE,
+                           sub_sample_size = 1000,
+                           RandomPercent = 50,
+                           NoOfIteration=1000,
+                           parallel=TRUE,
+                           n_cores=4){
+
+  stopifnot(inherits(this_species, "sp.temporal.bg"))
+  enbg <- this_species$env_bg[,vars2fit]
+  env_test <- this_species$temporal_df[this_species$temporal_df$trian_test=="Test",vars2fit]
+  env_train <- this_species$temporal_df[this_species$temporal_df$trian_test=="Train",vars2fit]
+
+  seleccion_mods <- tenm::ellipsoid_selection(env_train = env_train,
+                                              env_test = env_test,
+                                              env_vars = vars2fit,
+                                              nvarstest = nvars_to_fit,
+                                              level = ellipsoid_level,
+                                              mve = TRUE,
+                                              ncores = n_cores,
+                                              comp_each = 100,
+                                              env_bg = enbg,
+                                              parallel = parallel,
+                                              omr_criteria = omr_criteria,
+                                              proc = proc,
+                                              proc_iter = NoOfIteration,
+                                              rseed = TRUE)
+
+  sp.temp.data.env <- list(temporal_df = this_species$temporal_df,
+                           sp_date_var = this_species$sp_date_var,
+                           lon_lat_vars =this_species$lon_lat_vars,
+                           layers_ext= this_species$layers_ext,
+                           env_bg = this_species$env_bg,
+                           mods_table = seleccion_mods)
+  class(sp.temp.data.env) <- c("sp.temporal.selection")
+  return(sp.temp.data.env)
+}
