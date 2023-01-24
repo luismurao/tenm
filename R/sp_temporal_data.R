@@ -14,9 +14,11 @@
 #'  both of the columns with the coordinates of longitude and latitude
 #'  correspondingly, layers_ext [1] is the final extension format of the
 #'  environmental information (“.tif$”).
-#' @param occs A data.frame or a SpatialPointsDataFrame with coordinates of the
-#' occurrence records. The data must have a time variable indicating the date
-#' of each observation.
+#' @param occs A DataFrame or a SpatialPointsDataFrame with information about
+#' the occurrence records of the specie that is being modeled. It is fundamental
+#' to count with exact geographical coordinates of longitude and latitude where
+#' the specie was detected or at least the nearest, also a temporal column
+#'   indicating the time at which was the record.
 #' @param longitude If occs is a data.frame the user must indicate the variable
 #' name of longitude data.
 #' @param latitude If occs is a data.frame the user must indicate the variable
