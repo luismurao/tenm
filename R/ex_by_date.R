@@ -56,7 +56,7 @@ ex_by_date <- function(this_species,train_prop=0.7){
                                  time_obs[,this_species$lon_lat_vars])
     df1 <- data.frame(time_obs[,c(1:6)],
                       layer_val,
-                      var_name = names(env_layers))
+                      var_name = metaras(env_layers))
     return(df1)
   },.progress = TRUE,.options = furrr::furrr_options(seed = NULL))
   gc()

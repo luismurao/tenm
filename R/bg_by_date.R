@@ -100,7 +100,7 @@ bg_by_date <- function(this_species,
     env_layers <- raster::raster(all_layers$layers_path[x])
     layer_val <- stats::na.omit(env_layers[cellids])
     df1 <- data.frame(ID_YEAR = all_layers$dir_paths[x],
-                      layer_val,var_name = names(env_layers))
+                      layer_val,var_name = metaras(env_layers))
     return(df1)
   },.progress = TRUE,.options = furrr::furrr_options(seed = NULL))
   gc()
