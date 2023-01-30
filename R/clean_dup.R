@@ -1,17 +1,27 @@
 #' Function to clean duplicated longitude and latitude data
-#' @description Clean duplicated longitude and latitude data using threshold distance. In a process that we call "cleaning of duplicated", this function has the main propose of eliminating data occurrence points spliced, through the information of longitude and latitude,
-#'             identifying the redundant environmental data in a given distance threshold.That means the possibility of be able to debug large occurrence point clouds
-#'             that could cause an overestimation of the future model. This function also allows you to eliminate duplicate occurrence points per pixel or in a given pixel neighborhood.
+#' @description Clean duplicated longitude and latitude data using threshold
+#' distance. In a process that we call "cleaning of duplicated", this function
+#' has the main propose of eliminating data occurrence points spliced, through
+#' the information of longitude and latitude,identifying the redundant
+#' environmental data in a given distance threshold.That means the possibility
+#' of be able to debug large occurrence point clouds that could cause an
+#' overestimation of the future model. This function also allows you to
+#' eliminate duplicate occurrence points per pixel or in a given pixel
+#' neighborhood.
 #' @param data A data.frame with longitude and latitude data
 #' @param longitude A character vector of the column name of longitude.
 #' @param latitude A character vector of the column name of latitude.
-#' @param threshold A numeric value representing the euclidean distance between coordinates
-#'            to be considered as a duplicate.
-#' @param by_mask Logical. If TRUE the elimination of duplicates will be done using a raster layer as a mask;
-#'If False the elimination of duplicates will be done by the distance threshold.
-#' @param raster_mask An object of class RasterLayer that will be used to clean duplicates that are present in the same ID pixel.
-#' @param n_ngbs DOCUMENTAR!!!! Number of pixel neighbors. Remove duplicates depending on how many pixels range you want, 1 is for eliminate duplicates in the same
-#' pixel, 2 is a neighborhood of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on depending on how much area you want to cover.
+#' @param threshold A numeric value representing the euclidean distance between
+#' coordinates to be considered as a duplicate.
+#' @param by_mask Logical. If TRUE the elimination of duplicates will be done
+#' using a raster layer as a mask; If False the elimination of duplicates will
+#' be done by the distance threshold.
+#' @param raster_mask An object of class RasterLayer that will be used to clean
+#' duplicates that are present in the same ID pixel.
+#' @param n_ngbs Number of pixel neighbors. Remove duplicates depending on how
+#' many pixels range you want, 1 is for eliminate duplicates in the same pixel,
+#' 2 is a neighborhood of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on
+#' depending on how much area you want to cover.
 #' @return Returns a data.frame with coordinate data from species
 #' @examples
 #' data(abronia)
@@ -40,7 +50,8 @@
 #' print(nrow(ab_2))
 #' @export
 #'
-clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE, raster_mask = NULL, n_ngbs = 0){
+clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
+                      raster_mask = NULL, n_ngbs = 0){
   data <- data[!is.na(data[,longitude]),]
   dat_sp <- sp::SpatialPointsDataFrame(data[,c(longitude ,latitude)],data)
   if(by_mask == TRUE && methods::is(raster_mask, "RasterLayer")){

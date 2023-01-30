@@ -4,14 +4,17 @@
 #' returns a list of variables names that can summarize the information
 #' and removes the variables that are redundant.
 #' @param environmental_data A matrix or a data.frame of environmental data
-#' @param method A method to estimate correlation matrix. Posible options are "spearman", "pearson" or
-#' "kendall".
-#' @param threshold Threshold value from which it is considered that the correlation is high.
+#' @param method A method to estimate correlation matrix. Posible options are
+#' "spearman", "pearson" or "kendall".
+#' @param threshold Threshold value from which it is considered that the
+#' correlation is high.
 #' @param verbose Verbose output.
-#' @return Returns a vector with variable names that can summarize the information.
+#' @return Returns a vector with variable names that can summarize the
+#' information.
 #' @export
 
-correlation_finder <- function(environmental_data,method="spearman",threshold,verbose=TRUE){
+correlation_finder <- function(environmental_data,method="spearman",threshold,
+                               verbose=TRUE){
   if(is.matrix(environmental_data) || is.data.frame(environmental_data)){
     environmental_data <- stats::na.omit(environmental_data)
     cor_mat <- data.frame(stats::cor(environmental_data,method = method))
@@ -25,10 +28,12 @@ correlation_finder <- function(environmental_data,method="spearman",threshold,ve
       return(cors)
     }
 
-    list_cor <- mapply(variables_cor,x=cor_mat,threshold=threshold,SIMPLIFY = FALSE)
+    list_cor <- mapply(variables_cor,x=cor_mat,threshold=threshold,
+                       SIMPLIFY = FALSE)
 
     nomvar <- names(cor_mat)
-    list_cor2 <- sapply(nomvar, function(x) list_cor[[x]][which(list_cor[[x]]!=1)])
+    list_cor2 <- sapply(nomvar,
+                        function(x) list_cor[[x]][which(list_cor[[x]]!=1)])
 
 
     nomvar2 <- nomvar

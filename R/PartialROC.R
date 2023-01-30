@@ -2,23 +2,35 @@
 #'
 #' @description pROC applies partial ROC tests to continuous niche models.
 #'
-#' @param continuous_mod a RasterLayer or a numeric vector of the ecological niche model to be evaluated. If a numeric vector is provided it should contain the values of the predicted suitability.
-#' @param test_data A numerical matrix, data.frame, or a numeric vector. If it is data.frame or matrix it should contain coordinates of the occurrences used to test the ecological niche model to be evaluated; columns must be: longitude and latitude. If numeric vector it should contain the values of the predicted suitability.
-#' @param E_percent (numeric) value from 0 to 100 that will be used as a threshold (E);
-#' default = 5.
-#' @param boost_percent (numeric) value from 0 to 100 representing the percent of testing data
-#' to be used for performing the bootstrap process for calculating the partial ROC;
-#' default = 50.
+#' @param continuous_mod a RasterLayer or a numeric vector of the ecological
+#' niche model to be evaluated. If a numeric vector is provided it should
+#' contain the values of the predicted suitability.
+#' @param test_data A numerical matrix, data.frame, or a numeric vector. If it
+#' is data.frame or matrix it should contain coordinates of the occurrences used
+#' to test the ecological niche model to be evaluated; columns must be:
+#' longitude and latitude. If numeric vector it should contain the values of the
+#' predicted suitability.
+#' @param E_percent (numeric) value from 0 to 100 that will be used as a
+#' threshold (E); default = 5.
+#' @param boost_percent (numeric) value from 0 to 100 representing the percent
+#' of testing data to be used for performing the bootstrap process for
+#' calculating the partial ROC; default = 50.
 #' @param n_iter (numeric) number of bootstrap iterations to be performed;
 #' default = 1000.
 #' @param rseed Logical. Whether or not to set a random seed. Default FALSE.
-#' @param sub_sample Logical. Indicates whether the test should run using a subsample of size sub_sample_size. It is recommended for big rasters
-#' @param sub_sample_size Numeric. Size of the sample to be used for computing pROC values.
-#' @return A data.frame containing the AUC values and AUC ratios calculated for each iteration.
+#' @param sub_sample Logical. Indicates whether the test should run using a
+#' subsample of size sub_sample_size. It is recommended for big rasters.
+#' @param sub_sample_size Numeric. Size of the sample to be used for computing
+#' pROC values.
+#' @return A data.frame containing the AUC values and AUC ratios calculated for
+#' each iteration.
 #' @details Partial ROC is calculated following Peterson et al.
-#' (2008; \url{http://dx.doi.org/10.1016/j.ecolmodel.2007.11.008}). This function is a modification
-#' of the PartialROC funcion, available at \url{https://github.com/narayanibarve/ENMGadgets}.
-#' @references Peterson, A.T. et al. (2008) Rethinking receiver operating characteristic analysis applications in ecological niche modeling. Ecol. Modell., 213, 63–72.
+#' (2008; \url{http://dx.doi.org/10.1016/j.ecolmodel.2007.11.008}).
+#' This function is a modification of the PartialROC funcion, available
+#' at \url{https://github.com/narayanibarve/ENMGadgets}.
+#' @references Peterson, A.T. et al. (2008) Rethinking receiver operating
+#' characteristic analysis applications in ecological niche modeling.
+#' Ecol. Modell., 213, 63–72.
 #' @importFrom purrr map_df
 #' @import future
 #' @examples

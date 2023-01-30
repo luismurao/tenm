@@ -1,19 +1,27 @@
 #' Function to clean duplicated coordinates data
-#' @description Clean up duplicated longitude and latitude data by year using a threshold distance. The main propose of this function is eliminate data occurrence points spliced in each different year or date
-#' by a given distance threshold. This function also allows you to clean duplicate data by pixel at a given resolution of a raster mask.
-#' @param this_species Species Temporal Data object see \code{\link[tenm]{sp_temporal_data}}.
-#' @param threshold A numeric value representing the distance between coordinates
-#'            to be considered as a duplicate.
-#' @param by_mask Logical. If TRUE the elimination of duplicates will be done using a raster layer as a mask;
-#'If False the elimination of duplicates will be done by the distance threshold.
-#' @param raster_mask An object of class RasterLayer that will be used to clean duplicates that are present in the same ID pixel.
-#' @param n_ngbs Number of pixel neighbors. Remove duplicates depending on how many pixels range you want,
-#' "0" is use in order to remove all the duplicated occurrence points present in a single pixel (1x1), "1" is to eliminate duplicates in a 1 pixel-long
-#' neighborhood of a 9 pixel area (3x3), "2" correspond to a neighborhood of 2 adjacent pixels of a 25 pixel area (5x5) and so
-#' on depending on how much area you want to cover.
+#' @description Clean up duplicated longitude and latitude data by year using a
+#' threshold distance. The main propose of this function is eliminate data
+#' occurrence points spliced in each different year or date
+#' by a given distance threshold. This function also allows you to clean
+#' duplicate data by pixel at a given resolution of a raster mask.
+#' @param this_species Species Temporal Data object
+#' see \code{\link[tenm]{sp_temporal_data}}.
+#' @param threshold A numeric value representing the distance
+#' between coordinates to be considered as a duplicate.
+#' @param by_mask Logical. If TRUE the elimination of duplicates will be done
+#' using a raster layer as a mask; If False the elimination of duplicates will
+#' be done by the distance threshold.
+#' @param raster_mask An object of class RasterLayer that will be used to clean
+#' duplicates that are present in the same ID pixel.
+#' @param n_ngbs Number of pixel neighbors. Remove duplicates depending on how
+#' many pixels range you want,"0" is use in order to remove all the duplicated
+#' occurrence points present in a single pixel (1x1), "1" is to eliminate
+#' duplicates in a 1 pixel-long neighborhood of a 9 pixel area (3x3), "2"
+#' correspond to a neighborhood of 2 adjacent pixels of a 25 pixel area (5x5)
+#' and so on depending on how much area you want to cover.
 #'
-#' @details This function is build on the basis of \code{\link[tenm]{clean_dup}}.
-#'          See the help of the function for more examples
+#' @details This function is build on the basis of
+#' \code{\link[tenm]{clean_dup}}. See the help of the function for more examples
 #' @examples
 #' library(tenm)
 #' data("abronia")

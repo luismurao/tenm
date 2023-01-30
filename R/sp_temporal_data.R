@@ -18,7 +18,7 @@
 #' the occurrence records of the specie that is being modeled. It is fundamental
 #' to count with exact geographical coordinates of longitude and latitude where
 #' the specie was detected or at least the nearest, also a temporal column
-#'   indicating the time at which was the record.
+#' indicating the time at which was the record.
 #' @param longitude If occs is a data.frame the user must indicate the variable
 #' name of longitude data.
 #' @param latitude If occs is a data.frame the user must indicate the variable

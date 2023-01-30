@@ -1,18 +1,31 @@
-#' Function to find the best n-dimensional ellipsoid model using Partial Roc as a performance criteria.
-#' @param this_species, Species Temporal Environment "sp.temporal.env" object see \code{\link[tenm]{ex_by_date}}.
-#' @param vars2fit A vector with variable names that will be used to build the models
-#' @param omr_criteria Omission rate used to select best models. See \code{\link[tenm]{ellipsoid_selection}} for more details.
-#' @param ellipsoid_level The proportion of points to be included inside the ellipsoid.
-#' @param vars2fit  A vector with the names of environmental variables to be used in the selection process.
+#' Function to find the best n-dimensional ellipsoid model using Partial Roc
+#' as a performance criteria.
+#' @param this_species, Species Temporal Environment "sp.temporal.env" object
+#' see \code{\link[tenm]{ex_by_date}}.
+#' @param vars2fit A vector with variable names that will be used to build the
+#' models
+#' @param omr_criteria Omission rate used to select best models.
+#' See \code{\link[tenm]{ellipsoid_selection}} for more details.
+#' @param ellipsoid_level The proportion of points to be included inside the
+#' ellipsoid.
+#' @param vars2fit  A vector with the names of environmental variables to be
+#' used in the selection process.
 #' @param nvars_to_fit Number of variables that will be used to model.
-#' @param RandomPercent Occurrence points to be sampled in randomly for the boostrap of the Partial Roc test \code{\link[tenm]{pROC}}.
-#' @param NoOfIteration Number of iteration for the bootstrapping of the Partial Roc test \code{\link[tenm]{pROC}}.
-#' @param proc Logical. If TRUE the partial ROC test will be computed for each model.
-#' @param sub_sample Logical. Indicates whether the test should run using a subsample of size sub_sample_size. It is recommended for big rasters
-#' @param sub_sample_size Numeric. Size of the sample to be used for computing pROC values.
-#' @param parallel Logical argument to run computations in parallel. Default TRUE
+#' @param RandomPercent Occurrence points to be sampled in randomly for the
+#' boostrap of the Partial Roc test \code{\link[tenm]{pROC}}.
+#' @param NoOfIteration Number of iteration for the bootstrapping of the Partial
+#' Roc test \code{\link[tenm]{pROC}}.
+#' @param proc Logical. If TRUE the partial ROC test will be computed for each
+#' model.
+#' @param sub_sample Logical. Indicates whether the test should run using a
+#' subsample of size sub_sample_size. It is recommended for big rasters
+#' @param sub_sample_size Numeric. Size of the sample to be used for computing
+#' pROC values.
+#' @param parallel Logical argument to run computations in parallel. Default
+#' TRUE
 #' @param n_cores Number of cores to be used in parallelization. Default 4
-#' @return A "sp.temp.best.model" object with metadata of the best model given the performance of the Partial Roc test.
+#' @return A "sp.temp.best.model" object with metadata of the best model given
+#' the performance of the Partial Roc test.
 #' @examples
 #' \dontrun{
 #' library(tenm)
