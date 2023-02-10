@@ -1,18 +1,30 @@
 #' Function to clean duplicated longitude and latitude data
-#' @description Clean duplicated longitude and latitude data using threshold
-#' distance. In a process that we call "cleaning of duplicated", this function
-#' has the main propose of eliminating data occurrence points spliced, through
-#' the information of longitude and latitude,identifying the redundant
-#' environmental data in a given distance threshold.That means the possibility
-#' of be able to debug large occurrence point clouds that could cause an
-#' overestimation of the future model. This function also allows you to
-#' eliminate duplicate occurrence points per pixel or in a given pixel
-#' neighborhood.
-#' @param data A data.frame with longitude and latitude data
-#' @param longitude A character vector of the column name of longitude.
-#' @param latitude A character vector of the column name of latitude.
+#' @description Clean up duplicated or redundant occurrence records whiches
+#' present overlapping longitude and latitude geographical coordinates regarding
+#' a referent system that the user can choose from fourth possible ways to
+#' eliminate: distance threshold, per single pixel grain of resolution, by pixel
+#' neighborhood, or both combined distance and pixel at the same time.This
+#' function has as its main purpose to eliminate occurrence points
+#' geographically spliced, using the information of the spatial position to
+#' determine it, in order to depurate large clouds of occurrence points that
+#' could cause an environmental overestimation in the future model, we call this
+#' process "cleaning of spatial duplicated data". The user has to set a distance
+#' in "units" that arose an overlapping area from a random choosen record where
+#' any other occurrence within this is consider as a duplicated and then
+#' eliminated. Also you can use a raster mask with a determinate pixel grain
+#' resolution as a base sift; see in \code{\link[tenm]
+#'
+#'
+
+#' @param data A dataframe with longitude and latitude of occurrence records
+#' belongings to some specie.
+#' @param longitude A character vector of the column name "longitude" within
+#' the dataframe.
+#' @param latitude A character vector of the column name of "latitude" within
+#' the dataframe.
 #' @param threshold A numeric value representing the euclidean distance between
-#' coordinates to be considered as a duplicate.
+#' coordinates to be considered as a duplicate. Also it could be view as a
+#' value of radio (r) that covers an area.
 #' @param by_mask Logical. If TRUE the elimination of duplicates will be done
 #' using a raster layer as a mask; If False the elimination of duplicates will
 #' be done by the distance threshold.

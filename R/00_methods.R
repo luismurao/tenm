@@ -1,5 +1,6 @@
 
-#' Predict potential distribution for \pkg{tenm}
+#' Predict potential distribution for \pkg{tenm} regarding to a specific time
+#' period of environmental conditions or averages.
 #' @importFrom methods new
 #' @docType methods
 #' @param object An object of class sp.temporal.selection
