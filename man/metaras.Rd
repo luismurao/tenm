@@ -17,5 +17,5 @@ tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
 p1 <- list.files(tempora_layers_dir,full.names=TRUE,
                  pattern=".tif$",recursive=TRUE)[1]
 r1 <- raster::raster(p1)
-print(metaras(r1))
+print(tenm::metaras(r1))
 }

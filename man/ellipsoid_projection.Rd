@@ -20,9 +20,11 @@ ellipsoid_projection(
 \arguments{
 \item{envlayers}{A RasterStack or RasterBrick object of the niche variables.}
 
-\item{centroid}{A vector with the values of the centers of the ellipsoid (see \code{\link[ntbox]{cov_center}}).}
+\item{centroid}{A vector with the values of the centers of the ellipsoid
+(see \code{\link[ntbox]{cov_center}}).}
 
-\item{covar}{The shape matrix (covariance) of the ellipoid (see \code{\link[ntbox]{cov_center}}).}
+\item{covar}{The shape matrix (covariance) of the ellipoid
+(see \code{\link[ntbox]{cov_center}}).}
 
 \item{level}{The proportion of points  to be included inside the ellipsoid}
 
@@ -39,10 +41,13 @@ ellipsoid_projection(
 \item{...}{Arguments passed to \code{\link[rgl]{plot3d}} function from rgl}
 }
 \value{
-Returns a list containing a data.frame with the suitability values; a suitability raster;
+Returns a list containing a data.frame with the suitability values;
+a suitability raster;
 a data.frame with the mahalanobis and euclidean distances to the centroid.
 }
 \description{
-Function to fit an ellipsoid model using the shape matrix (covariance matrix)
-of the niche variables. This is an optimized version of the \code{\link[ntbox]{ellipsoidfit}} function; the diffrence is that it does not give the table of distances to niche centroid.
+Function to fit an ellipsoid model using the shape matrix
+(covariance matrix) of the niche variables. This is an optimized version of
+the \code{\link[ntbox]{ellipsoidfit}} function; the diffrence is that it does
+not give the table of distances to niche centroid.
 }

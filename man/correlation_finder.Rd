@@ -14,15 +14,17 @@ correlation_finder(
 \arguments{
 \item{environmental_data}{A matrix or a data.frame of environmental data}
 
-\item{method}{A method to estimate correlation matrix. Posible options are "spearman", "pearson" or
-"kendall".}
+\item{method}{A method to estimate correlation matrix. Posible options are
+"spearman", "pearson" or "kendall".}
 
-\item{threshold}{Threshold value from which it is considered that the correlation is high.}
+\item{threshold}{Threshold value from which it is considered that the
+correlation is high.}
 
 \item{verbose}{Verbose output.}
 }
 \value{
-Returns a vector with variable names that can summarize the information.
+Returns a vector with variable names that can summarize the
+information.
 }
 \description{
 The function finds out which variables have strong

@@ -11,11 +11,10 @@
 #' process "cleaning of spatial duplicated data". The user has to set a distance
 #' in "units" that arose an overlapping area from a random choosen record where
 #' any other occurrence within this is consider as a duplicated and then
-#' eliminated. Also you can use a raster mask with a determinate pixel grain
-#' resolution as a base sift; see in \code{\link[tenm]
-#'
-#'
-
+#' eliminated, the so called threshold is the diameter of a circunference in
+#' grades asuming the aproximation of 1° = 111.2km in the Equator. Also you can
+#' use a raster mask with a determinate pixel grain resolution as a base sift;
+#' see in arguments raster_mask and n_ngbs.
 #' @param data A dataframe with longitude and latitude of occurrence records
 #' belongings to some specie.
 #' @param longitude A character vector of the column name "longitude" within
@@ -32,7 +31,8 @@
 #' duplicates that are present in the same ID pixel.
 #' @param n_ngbs Number of pixel neighbors. Remove duplicates depending on how
 #' many pixels range you want, 1 is for eliminate duplicates in the same pixel,
-#' 2 is a neighborhood of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on
+#' that means just one record per single pixel of resolution,2 is a neighborhood
+#' with one-pixel length of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on
 #' depending on how much area you want to cover.
 #' @return Returns a data.frame with coordinate data from species
 #' @examples

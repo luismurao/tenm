@@ -4,7 +4,8 @@
 \name{predict,sp.temporal.selection-method}
 \alias{predict,sp.temporal.selection-method}
 \alias{predict}
-\title{Predict potential distribution for \pkg{tenm}}
+\title{Predict potential distribution for \pkg{tenm} regarding to a specific time
+period of environmental conditions or averages.}
 \usage{
 \S4method{predict}{sp.temporal.selection}(
   object,
@@ -32,7 +33,8 @@
 \item{level}{Proportion of data used to fit the minimum volume ellipsoid}
 }
 \description{
-Predict potential distribution for \pkg{tenm}
+Predict potential distribution for \pkg{tenm} regarding to a specific time
+period of environmental conditions or averages.
 }
 \details{
 Note that the RasterStacks in layers parameter should have the same
