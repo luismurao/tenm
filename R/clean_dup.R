@@ -30,10 +30,11 @@
 #' @param raster_mask An object of class RasterLayer that will be used to clean
 #' duplicates that are present in the same ID pixel.
 #' @param n_ngbs Number of pixel neighbors. Remove duplicates depending on how
-#' many pixels range you want, 1 is for eliminate duplicates in the same pixel,
-#' that means just one record per single pixel of resolution,2 is a neighborhood
-#' with one-pixel length of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on
-#' depending on how much area you want to cover.
+#' many pixels range you want, "0" is for eliminate duplicates in the same pixel,
+#' that means just one record per single pixel of resolution,"1" is a neighborhood
+#' with one-pixel length of 3 for 3 pixels of area, "2" is an 5 for 5 vicinity
+#' with 25 pixel area, and so on depending on how much area you want to cover,
+#' following the formule: 2*n_ngbs+1
 #' @return Returns a data.frame with coordinate data from species
 #' @examples
 #' data(abronia)
