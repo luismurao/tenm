@@ -2,18 +2,30 @@
 #'
 #' @description Compute the omission rate of ellipspoid models
 #' @param env_data A data frame with the environmental data.
-#' @param env_test A data frame with the environmental testing data. The default is NULL if given the selection process will show the p-value of a binomial test.
-#' @param env_bg Environmental data to compute the approximated prevalence of the model. The data should be a sample of the environmental layers of the calibration area.
-#' @param cf_level Proportion of points to be included in the ellipsoids. This parameter is equivalent to the error (E) proposed by Peterson et al. (2008).
-#' @param mve A logical value. If TRUE a minimum volume ellipsoid will be computed using
-#' the function \code{\link[MASS]{cov.rob}} of the \pkg{MASS} package. If False the covariance matrix of the input data will be used.
+#' @param env_test A data frame with the environmental testing data. The default
+#' is NULL if given the selection process will show the p-value of a binomial
+#' test.
+#' @param env_bg Environmental data to compute the approximated prevalence of
+#' the model. The data should be a sample of the environmental layers of the
+#' calibration area.
+#' @param cf_level Proportion of points to be included in the ellipsoids. This
+#' parameter is equivalent to the error (E) proposed by Peterson et al. (2008).
+#' @param mve A logical value. If TRUE a minimum volume ellipsoid will be
+#' computed using
+#' the function \code{\link[MASS]{cov.rob}} of the \pkg{MASS} package. If False
+#' the covariance matrix of the input data will be used.
 #' @param proc Logical if TRUE a partial roc test will be run.
-#' @param proc_iter Numeric. The total number of iterations for the partial ROC bootstrap.
-#' @param rseed Logical. Whether or not to set a random seed for partial roc bootstrap. Default TRUE.
-#' @return A data.frame with 5 columns: i) "fitted_vars" the names of variables that were fitted; ii) "om_rate" omission rates of the model; iii) "bg_prevalence" approximated prevalence of the model see details section.
+#' @param proc_iter Numeric. The total number of iterations for the partial ROC
+#' bootstrap.
+#' @param rseed Logical. Whether or not to set a random seed for partial roc
+#' bootstrap. Default TRUE.
+#' @return A data.frame with 5 columns: i) "fitted_vars" the names of variables
+#' that were fitted; ii) "om_rate" omission rates of the model; iii)
+#' "bg_prevalence" approximated prevalence of the model see details section.
 #' @export
 
-ellipsoid_omr <- function(env_data,env_test=NULL,env_bg,cf_level,mve=TRUE,proc=FALSE,proc_iter=100,rseed=TRUE){
+ellipsoid_omr <- function(env_data,env_test=NULL,env_bg,cf_level,mve=TRUE,
+                          proc=FALSE,proc_iter=100,rseed=TRUE){
   emd <- try(tenm::cov_center(data = env_data,
                                mve = mve,
                                level = cf_level,

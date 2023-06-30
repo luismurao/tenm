@@ -1,17 +1,24 @@
 
-#' Function to compute the Minimum Volume covariance Matrix of an ellipsoid niche model.
-#' @description Function to compute the covariance matrix, the niche centroid and volume of an
-#' ellipsoid model. It uses the values of the niche variables of the ocurrences points.
+#' Function to compute the Minimum Volume covariance Matrix of an ellipsoid
+#' niche model.
+#' @description Function to compute the covariance matrix, the niche centroid
+#' and volume of an ellipsoid model. It uses the values of the niche variables
+#' of the ocurrences points.
 #' @param data A data.frame or a matrix with the numeric values of the variables
 #' that will be used to model the niche.
-#' @param mve A logical value. If TRUE a minimum volume ellipsoid will be computed using
-#' the function \code{\link[MASS]{cov.mve}} of the \pkg{MASS} package. If False the covariance matrix of the input data will be used.
+#' @param mve A logical value. If TRUE a minimum volume ellipsoid will be
+#' computed using
+#' the function \code{\link[MASS]{cov.mve}} of the \pkg{MASS} package. If False
+#' the covariance matrix of the input data will be used.
 #' @param level A numerical value specifying the proportion of the data to be
 #' used to compute the ellipsoid.
-#' @param vars A numeric or a string vector specifying the columns indexes/names of the variables of the input data which will be used to fit the ellipsoid model. If NULL the user will be asked to enter the indexes.
+#' @param vars A numeric or a string vector specifying the columns indexes/names
+#' of the variables of the input data which will be used to fit the ellipsoid
+#' model. If NULL the user will be asked to enter the indexes.
 #' interactively
-#' @return Returns a list containing the centroid of the ellipsoid, the covariance matrix based on
-#' the input data, ellipsoid volume, semi-axis length and axis coordinates.
+#' @return Returns a list containing the centroid of the ellipsoid, the
+#' covariance matrix based on the input data, ellipsoid volume, semi-axis length
+#'  and axis coordinates.
 #' @examples
 #' \donttest{
 #' library(tenm)

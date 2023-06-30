@@ -7,18 +7,22 @@
 bg_by_date(this_species, buffer_ngbs = 10, n_bg = 50000)
 }
 \arguments{
-\item{this_species}{Species Temporal Environmental Data object from \code{\link[tenm]{ex_by_date}}.}
+\item{this_species}{Species Temporal Environmental Data object
+from \code{\link[tenm]{ex_by_date}}.}
 
 \item{buffer_ngbs}{Number of pixel neighbors used to build the buffer.}
 
 \item{n_bg}{Number of background points.}
 }
 \description{
-Get environmental background for each set of dated environmental layers.
-Function to obtain environmental records as background for each set of dated environmental layers.
+Get environmental background for each set of dated environmental
+layers.
+Function to obtain environmental records as background for each set of dated
+environmental layers.
 }
 \details{
-The buffer is built around the occurrences using a neighborhood distance.
+The buffer is built around the occurrences using a neighborhood
+distance.
 }
 \examples{
 \dontrun{

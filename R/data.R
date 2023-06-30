@@ -12,7 +12,8 @@
 #'   \item{gbif_doi}{DOI id for citing the dataset}
 #'   ...
 #' }
-#' @source GBIF.org (22 February 2022) GBIF Occurrence Download \url{https://doi.org/10.15468/dl.teyjm9}
+#' @source GBIF.org (22 February 2022) GBIF Occurrence
+#' Download \url{https://doi.org/10.15468/dl.teyjm9}
 "abronia"
 
 

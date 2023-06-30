@@ -7,13 +7,18 @@
 ex_by_date(this_species, train_prop = 0.7)
 }
 \arguments{
-\item{this_species}{Species Temporal Data object see \code{\link[tenm]{sp_temporal_data}}.}
+\item{this_species}{Species Temporal Data object see
+\code{\link[tenm]{sp_temporal_data}}.}
 
-\item{train_prop}{Numeric. Training proportion. This is the proportion at which each record (occurrences points) will be used as training or testing.
-A 0.7 train_prop indicates that 70 of the data will be used to train the model, and the other 30 to model itself.}
+\item{train_prop}{Numeric. Training proportion. This is the proportion at
+which each record (occurrences points) will be used as training or testing.
+A 0.7 train_prop indicates that 70 of the data will be used to train the
+model, and the other 30 to model itself.}
 }
 \description{
-Function to extract environmental data by date. This function generates training and testing data sets using a random partition with a definite proportion.
+Function to extract environmental data by date. This function
+generates training and testing data sets using a random partition with a
+definite proportion.
 }
 \examples{
 \dontrun{

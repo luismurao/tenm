@@ -9,14 +9,18 @@ inEllipsoid(centroid, eShape, env_data, level)
 \arguments{
 \item{centroid}{A numeric vector of centroids for each environmental variable}
 
-\item{eShape}{Shape matrix of the ellipsoid (can be a covariance matrix or a minimum volume ellipsoid).}
+\item{eShape}{Shape matrix of the ellipsoid (can be a covariance matrix or a
+minimum volume ellipsoid).}
 
 \item{env_data}{A data frame with the environmental training data.}
 
-\item{level}{Proportion of points to be included in the ellipsoids. This parameter is equivalent to the error (E) proposed by Peterson et al. (2008).}
+\item{level}{Proportion of points to be included in the ellipsoids. This
+parameter is equivalent to the error (E) proposed by Peterson et al. (2008).}
 }
 \value{
-A data.frame with 2 columns. The first "in_Ellipsoid" binary response with values 1 (inside the ellipsoid) and zeros (outside the ellipsoid); the second "mh_dist" Mahalanobis distance to centroid.
+A data.frame with 2 columns. The first "in_Ellipsoid" binary response
+with values 1 (inside the ellipsoid) and zeros (outside the ellipsoid); the
+second "mh_dist" Mahalanobis distance to centroid.
 }
 \description{
 Determine if a point is inside or outside an ellipsoid.

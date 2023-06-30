@@ -60,7 +60,8 @@
 #' print(nrow(ab_2))
 #' @export
 #'
-clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE, raster_mask = NULL, n_ngbs = 0){
+clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
+                      raster_mask = NULL, n_ngbs = 0){
   data <- data[!is.na(data[,longitude]),]
   dat_sp <- sp::SpatialPointsDataFrame(data[,c(longitude ,latitude)],data)
   if(by_mask == TRUE && methods::is(raster_mask, "RasterLayer")){

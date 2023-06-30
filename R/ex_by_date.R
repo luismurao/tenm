@@ -1,8 +1,13 @@
 #' Extract environmental data by date
-#' @description Function to extract environmental data by date. This function generates training and testing data sets using a random partition with a definite proportion.
-#' @param this_species Species Temporal Data object see \code{\link[tenm]{sp_temporal_data}}.
-#' @param train_prop Numeric. Training proportion. This is the proportion at which each record (occurrences points) will be used as training or testing.
-#' A 0.7 train_prop indicates that 70 of the data will be used to train the model, and the other 30 to model itself.
+#' @description Function to extract environmental data by date. This function
+#' generates training and testing data sets using a random partition with a
+#' definite proportion.
+#' @param this_species Species Temporal Data object see
+#' \code{\link[tenm]{sp_temporal_data}}.
+#' @param train_prop Numeric. Training proportion. This is the proportion at
+#' which each record (occurrences points) will be used as training or testing.
+#' A 0.7 train_prop indicates that 70 of the data will be used to train the
+#' model, and the other 30 to model itself.
 #' @importFrom future plan tweak sequential
 #' @examples
 #' \dontrun{
