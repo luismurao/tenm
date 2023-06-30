@@ -45,11 +45,11 @@
 clean_dup_by_date <- function(this_species,threshold,by_mask = FALSE,
                               raster_mask = NULL, n_ngbs = 0){
   stopifnot(inherits(this_species, "sp.temporal.modeling"))
-  df_occs_year <- this_species$temporal_df
-  df_occs_yearL <- split(df_occs_year,df_occs_year$layers_path,drop=T)
-  clean_by_year <- seq_along(df_occs_yearL) %>%
+  df_occs_date <- this_species$temporal_df
+  df_occs_dateL <- split(df_occs_date,df_occs_date$layers_path,drop=T)
+  clean_by_date <- seq_along(df_occs_dateL) %>%
     purrr::map_df(function(x){
-      dd <- tenm::clean_dup(data = df_occs_yearL[[x]],
+      dd <- tenm::clean_dup(data = df_occs_dateL[[x]],
                             longitude = this_species$lon_lat_vars[1],
                             latitude = this_species$lon_lat_vars[2],
                             threshold = threshold,
@@ -59,7 +59,7 @@ clean_dup_by_date <- function(this_species,threshold,by_mask = FALSE,
       return(dd)
     })
 
-  sp.temp.data.clean <- list(temporal_df = clean_by_year,
+  sp.temp.data.clean <- list(temporal_df = clean_by_date,
                              sp_date_var = this_species$sp_date_var,
                              lon_lat_vars =this_species$lon_lat_vars ,
                              #layers_path = layers_all[dates_ids],
