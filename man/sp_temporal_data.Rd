@@ -66,16 +66,16 @@ a particular pattern, for example year/month/day, year/month, just year or
 some other arrangement like month/year, month/year/day, day/month/year and
 the fifth one is the path where is stored the bioclimatic layer
 corresponding to each year. The other three variables present in the list
-are character class objects: sp_date_var \link{1} is the name of the date
-variable column available in the occurrences records, lon_lat_vars \link{2} are
+are character class objects: sp_date_var[1] is the name of the date
+variable column available in the occurrences records, lon_lat_vars[2] are
 both of the columns with the coordinates of longitude and latitude
-correspondingly, layers_ext \link{1} is the final extension format of the
+correspondingly, layers_ext[1] is the final extension format of the
 environmental information (“.tif$”).
 }
 \examples{
 library(tenm)
 #A data.frame with occurrences points information of Abronia graminea.
-See help(abronia)
+# See help(abronia)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
 abt <- tenm::sp_temporal_data(occs = abronia,
