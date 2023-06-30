@@ -49,7 +49,8 @@ ex_by_date <- function(this_species,train_prop=0.7){
                              capasDatePath)
 
   ex_time <- seq_len(nrow(capasByResDF)) %>% furrr::future_map_dfr(function(x){
-    time_obs <- tdf  %>% dplyr::filter(layers_path == capasByResDF$layers_path[!!x])
+    time_obs <- tdf  %>% dplyr::filter(layers_path ==
+                                         capasByResDF$layers_path[!!x])
     env_layers <- raster::raster(capasByResDF$capasDatePath[x])
     #layer_val <- env_layers[time_obs$cell_ids_year]
     layer_val <- raster::extract(env_layers,
