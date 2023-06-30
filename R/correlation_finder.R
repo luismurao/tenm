@@ -25,10 +25,12 @@ correlation_finder <- function(environmental_data,method="spearman",threshold,ve
       return(cors)
     }
 
-    list_cor <- mapply(variables_cor,x=cor_mat,threshold=threshold,SIMPLIFY = FALSE)
+    list_cor <- mapply(variables_cor,x=cor_mat,
+                       threshold=threshold,SIMPLIFY = FALSE)
 
     nomvar <- names(cor_mat)
-    list_cor2 <- sapply(nomvar, function(x) list_cor[[x]][which(list_cor[[x]]!=1)])
+    list_cor2 <- sapply(nomvar, function(x)
+      list_cor[[x]][which(list_cor[[x]]!=1)])
 
 
     nomvar2 <- nomvar
@@ -48,13 +50,16 @@ correlation_finder <- function(environmental_data,method="spearman",threshold,ve
 
 
     if(verbose){
-      cat('*****************************************************************\n\n')
+      f1 <- '********************************'
+      f1 <- paste0(f1,'*********************************\n\n')
+      f2 <- '---------------------------------'
+      f2 <- paste0(f2,'-------------------------------\n\n')
+      cat(f1)
       cat(' Here is a list of variables that can summarize your niche\n')
       cat(' information, according to the threshold of',threshold,":\n\n")
       cat(' ',descriptors,'\n\n')
-      cat('*****************************************************************\n\n')
-
-      cat('----------------------------------------------------------------\n\n')
+      cat(f1)
+      cat(f2)
       cat('Correlation list:\n\n')
 
       for(i in 1:dim(cor_mat)[1]){
