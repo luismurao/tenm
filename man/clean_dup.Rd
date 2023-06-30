@@ -15,30 +15,50 @@ clean_dup(
 )
 }
 \arguments{
-\item{data}{A data.frame with longitude and latitude data}
+\item{data}{A dataframe with longitude and latitude of occurrence records
+belongings to some specie.}
 
-\item{longitude}{A character vector of the column name of longitude.}
+\item{longitude}{A character vector of the column name "longitude" within
+the dataframe.}
 
-\item{latitude}{A character vector of the column name of latitude.}
+\item{latitude}{A character vector of the column name of "latitude" within
+the dataframe.}
 
-\item{threshold}{A numeric value representing the euclidean distance between coordinates
-to be considered as a duplicate.}
+\item{threshold}{A numeric value representing the euclidean distance between
+coordinates to be considered as a duplicate. Also it could be view as a
+value of radio (r) that covers an area.}
 
-\item{by_mask}{Logical. If TRUE the elimination of duplicates will be done using a raster layer as a mask;
-If False the elimination of duplicates will be done by the distance threshold.}
+\item{by_mask}{Logical. If TRUE the elimination of duplicates will be done
+using a raster layer as a mask; If False the elimination of duplicates will
+be done by the distance threshold.}
 
-\item{raster_mask}{An object of class RasterLayer that will be used to clean duplicates that are present in the same ID pixel.}
+\item{raster_mask}{An object of class RasterLayer that will be used to clean
+duplicates that are present in the same ID pixel.}
 
-\item{n_ngbs}{DOCUMENTAR!!!! Number of pixel neighbors. Remove duplicates depending on how many pixels range you want, 1 is for eliminate duplicates in the same
-pixel, 2 is a neighborhood of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on depending on how much area you want to cover.}
+\item{n_ngbs}{Number of pixel neighbors. Remove duplicates depending on how
+many pixels range you want, 1 is for eliminate duplicates in the same pixel,
+that means just one record per single pixel of resolution,2 is a neighborhood
+with one-pixel length of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on
+depending on how much area you want to cover.}
 }
 \value{
 Returns a data.frame with coordinate data from species
 }
 \description{
-Clean duplicated longitude and latitude data using threshold distance. In a process that we call "cleaning of duplicated", this function has the main propose of eliminating data occurrence points spliced, through the information of longitude and latitude,
-identifying the redundant environmental data in a given distance threshold.That means the possibility of be able to debug large occurrence point clouds
-that could cause an overestimation of the future model. This function also allows you to eliminate duplicate occurrence points per pixel or in a given pixel neighborhood.
+Clean up duplicated or redundant occurrence records whiches
+present overlapping longitude and latitude geographical coordinates regarding
+a referent system that the user can choose from fourth possible ways to
+eliminate: distance threshold, per single pixel grain of resolution, by pixel
+neighborhood, or both combined distance and pixel at the same time.This
+function has as its main purpose to eliminate occurrence points
+geographically spliced, using the information of the spatial position to
+determine it, in order to depurate large clouds of occurrence points that
+could cause an environmental overestimation in the future model, we call this
+process "cleaning of spatial duplicated data". The user has to set a distance
+in "units" that arose an overlapping area from a random choosen record where
+any other occurrence within this is consider as a duplicated and then
+eliminated. Also you can use a raster mask with a determinate pixel grain
+resolution as a base sift; see in arguments raster_mask and n_ngbs.
 }
 \examples{
 data(abronia)
