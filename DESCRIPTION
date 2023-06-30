@@ -1,41 +1,41 @@
 Package: tenm
 Type: Package
 Title: Temporal ecological niche models
-Version: 1.0
+Version: 0.5.1
 Date: 2022-02-15
 Authors@R: c(
- person(given = "Luis", family = "Osorio-Olvera", email = "luismurao@gmail.com", role = c("aut", "cre")),
- person(given = "Luis", family = "Osorio-Olvera", email = "luismurao@gmail.com", role = c("aut"),
+ person(given = "Luis", family = "Osorio-Olvera", email = "luismurao@gmail.com", role = c("aut", "cre"),
  comment = c(ORCID = "0000-0003-0701-5398")),
  person (given = "Miguel", family = "Hernández", email = "316282666@iztacala.unam.mx", role = c("aut"),
- comment = c(ORCID = "0000-0002-6086-3460")))
+ comment = c(ORCID = "0000-0002-6086-3460")),
+ person(given = "Rusby G.", family = "Contreras-Díaz", email = "rusby.contreras.diaz@gmail.com", role = c("aut"),
+ comment = c(ORCID = "0000-0002-0569-8984")),
+ person(given = "Xavier", family = "Chiappa-Carrara", email = "xcc@ciencias.unam.mx", role = c("aut"),
+ comment = c(ORCID = "0000-0002-1708-2095")),
+ person(given = "Mariana", family = "Munguía-Carrara", email = "mariana.munguia@conabio.gob.mx", role = c("aut"),
+ comment = c(ORCID = "0000-0003-3514-3397")),
+  person(given = "Oliver", family = "López-Corona", email = "lopezoliverx@gmail.com", role = c("aut"),
+ comment = c(ORCID = "0000-0002-2926-7791")))
 Description: A package to model time-specific ecological niche. A set of tools (functions) made to generate ecological niche models (ENMs) with a time-specific focus. This is a framework package built to make ecological niche models with high temporal resolution environmental layers, 
   the main objective of this package is to recover a lot of information that is wasted or at least neglected because of the typical depuration of occurrence points that are redundant in the same pixel. 
   The novelty in this package is the possibility to generate models from climate information that is in a very defined temporal resolution, for example, year, month, or even day, 
   although also in a very fine spatial resolution if possible. Contrasting with the traditional models made by average temporal information.
 License: GPL (>= 3)
 Roxygen: list(markdown = TRUE)
-Imports:
-    MASS,
-    raster,
-    purrr,
-    dplyr,
-    rgdal,
-    stringr,
-    sp,
-    magrittr,
-    rgl,
-    future,
-    tidyr,
-    furrr,
-    lubridate,
-    methods
+Imports: MASS, raster, purrr, dplyr, rgdal, stringr, sp, magrittr, rgl,
+        future, tidyr, furrr, lubridate, methods
 RoxygenNote: 7.2.3
 Encoding: UTF-8
-Depends: 
-    R (>= 3.5)
+Depends: R (>= 3.5)
 LazyData: true
-Suggests: 
-    knitr,
-    rmarkdown
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2023-04-29 01:27:44 UTC; 
+Author: Luis Osorio-Olvera [aut, cre] (<https://orcid.org/0000-0003-0701-5398>),
+  Miguel Hernández [aut] (<https://orcid.org/0000-0002-6086-3460>),
+  Rusby G. Contreras-Díaz [aut] (<https://orcid.org/0000-0002-0569-8984>),
+  Xavier Chiappa-Carrara [aut] (<https://orcid.org/0000-0002-1708-2095>),
+  Mariana Munguía-Carrara [aut] (<https://orcid.org/0000-0003-3514-3397>),
+  Oliver López-Corona [aut] (<https://orcid.org/0000-0002-2926-7791>)
+Maintainer: Luis Osorio-Olvera <luismurao@gmail.com>
