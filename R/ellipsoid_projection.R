@@ -130,7 +130,8 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
     toSam <- sample(1:length(data1[,1]),np)
     data1 <- data1[toSam,]
 
-    rgl::plot3d(data1,size = size,col=grDevices::hsv(suits2[toSam]*.71,.95,.9),...)
+    rgl::plot3d(data1,size = size,col=grDevices::hsv(suits2[toSam]*.71,.95,.9),
+                xlab = xlab1, ylab = ylab1, zlab = zlab1,...)
     rgl::wire3d(ellips_E, col=4, lit=FALSE,alpha=.1)
   }
   rm(list=c("env_vars","suits"))
