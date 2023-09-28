@@ -6,7 +6,9 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
- The main propose of this package is the capability of run ecological niche models time-specific
+ The main propose of this package is the capability of run time-specific
+ ecological niche models. That means calibrate the models based on the 
+ environmental information 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
