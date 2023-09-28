@@ -21,8 +21,12 @@
 #' @export
 
 ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
-                          plot=T,size,
-                          xlab1="niche var 1",ylab1= "niche var 2",zlab1="S",...){
+                          plot=T,
+                          size,
+                          alpha = alpha,
+                          xlab1="niche var 1",
+                          ylab1= "niche var 2",
+                          zlab1="S",...){
 
   if(methods::is(envlayers, "RasterStack") ||
      methods::is(envlayers, "RasterBrick")){
