@@ -11,7 +11,7 @@
 #' @param by_mask Logical. If TRUE the elimination of duplicates will be done
 #' using a raster layer as a mask; If False the elimination of duplicates will
 #' be done by the distance threshold.
-#' @param raster_mask An object of class RasterLayer that will be used to clean
+#' @param raster_mask An object of class SpatRaster that will be used to clean
 #' duplicates that are present in the same ID pixel.
 #' @param n_ngbs Number of pixel neighbors. Remove duplicates depending on how
 #' many pixels range you want,"0" is use in order to remove all the duplicated
@@ -25,8 +25,8 @@
 #' @examples
 #' library(tenm)
 #' data("abronia")
-#' data(suit_1970_2000)
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+#' tenm_mask <- terra::rast(file.path(tempora_layers_dir,"1939/bio_01.tif"))
 #' # Clean duplicates without raster mask (just by distance threshold)
 #' abt <- tenm::sp_temporal_data(occs = abronia,
 #'                               longitude = "decimalLongitude",
@@ -36,13 +36,14 @@
 #'                               layers_date_format= "y",
 #'                               layers_by_date_dir = tempora_layers_dir,
 #'                               layers_ext="*.tif$")
-#' abtc1 <- tenm::clean_dup_by_date(abt,threshold = raster::res(suit_1970_2000))
+#' abtc1 <- tenm::clean_dup_by_date(abt,threshold = terra::res(tenm_mask)[1])
 #' # Check number of records
 #' print(nrow(abtc1$temporal_df))
 #' # Clean duplicates using a raster mask
 #' abtc2 <- tenm::clean_dup_by_date(this_species = abt,
 #'                                 by_mask = TRUE,
-#'                                 raster_mask = suit_1970_2000,
+#'                                 threshold = terra::res(tenm_mask)[1],
+#'                                 raster_mask = tenm_mask[1],
 #'                                 n_ngbs = 0)
 #' # Check number of records
 #' print(nrow(abtc2$temporal_df))
@@ -55,7 +56,7 @@ clean_dup_by_date <- function(this_species,threshold,by_mask = FALSE,
   stopifnot(inherits(this_species, "sp.temporal.modeling"))
   df_occs_date <- this_species$temporal_df
   df_occs_dateL <- split(df_occs_date,df_occs_date$layers_path,drop=T)
-  clean_by_date <- seq_along(df_occs_dateL) %>%
+  clean_by_date <- seq_along(df_occs_dateL) |>
     purrr::map_df(function(x){
       dd <- tenm::clean_dup(data = df_occs_dateL[[x]],
                             longitude = this_species$lon_lat_vars[1],

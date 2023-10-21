@@ -31,7 +31,7 @@ Also there is a group of bioclimatic raster layers
 We need to assign each directory layer path in an object
 
 ```{r,eval=TRUE}
-data("suit_1970_2000")
+#data("suit_1970_2000")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
 head(tempora_layers_dir)
 ```
@@ -58,15 +58,21 @@ This function eliminates all the duplicated longitude and latitude data by year 
 
 ```{r,eval=TRUE}
 abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+dim(abtc$temporal_df)
 ```
 
 This function also allows you to clean duplicate data by pixel at a given resolution of a raster mask.
 
 ```{r,eval=TRUE}
+#suit_1970_2000 <- terra::rast(suit_1970_2000)
+tenm_mask <- terra::rast(file.path(tempora_layers_dir,"1939/bio_01.tif"))
+terra::plot(tenm_mask)
 abtc2 <- tenm::clean_dup_by_date(this_species = abt,
                                  by_mask = TRUE,
-                                 raster_mask = suit_1970_2000,
+                                 raster_mask = tenm_mask,
+                                 threshold =terra::res(tenm_mask)[1], 
                                  n_ngbs = 0)
+dim(abtc2$temporal_df)
 ```
 ## Extract environmental data by date
 
@@ -74,7 +80,7 @@ Function to extract environmental data by date. This function generates training
 
 ```{r,eval=TRUE}
 future::plan("multisession",workers=10)
-abex <- tenm::ex_by_date(abtc,train_prop=0.7)
+abex <- tenm::ex_by_date(this_species = abtc,train_prop=0.7)
 future::plan("sequential")
 print(abex)
 ```
@@ -94,7 +100,7 @@ varcorrs <- tenm::correlation_finder(environmental_data = abex$env_data[,-ncol(a
 Get environmental background for each set of dated environmental layers. Function to obtain environmental records as background for each set of dated environmental layers.
 
 ```{r,eval=TRUE}
-future::plan("multisession",workers=10)
+future::plan("multisession",workers=2)
 abbg <- tenm::bg_by_date(abex,buffer_ngbs=10,n_bg=50000)
 future::plan("sequential")
 summary(abbg)
@@ -124,10 +130,10 @@ mod_sel <- tenm::tenm_selection(this_species = abbg,
 layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
 suit_1970_2000 <- tenm::predict(mod_sel,model_variables = NULL,
                                 layers_path = layers_70_00_dir,
-                                layers_ext = ".tif$")
+                                layers_ext = ".tif$",alpha=0.5)
 rgl::rglwidget()
 par(mar=c(2,2,1,1))
-raster::plot(suit_1970_2000)
+terra::plot(suit_1970_2000)
 
 ```
 
@@ -138,7 +144,7 @@ data("colors")
 id_70_20 <- which(abtc$temporal_df$year >= 1970 & abtc$temporal_df$year <= 2000)
 colors <- c(rev(colors))[1:length(id_70_20)]
 par(mar=c(2,2,1,1))
-raster::plot(suit_1970_2000,legend=FALSE)
+terra::plot(suit_1970_2000,legend=FALSE)
 points(abtc$temporal_df[id_70_20,1:2],pch=25,cex=1.25,
        col=colors)
 legend("topleft",legend = abtc$temporal_df$year[id_70_20][1:9],

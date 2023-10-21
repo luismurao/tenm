@@ -32,7 +32,7 @@ value of radio (r) that covers an area.}
 using a raster layer as a mask; If False the elimination of duplicates will
 be done by the distance threshold.}
 
-\item{raster_mask}{An object of class RasterLayer that will be used to clean
+\item{raster_mask}{An object of class SpatRaster that will be used to clean
 duplicates that are present in the same ID pixel.}
 
 \item{n_ngbs}{Number of pixel neighbors. Remove duplicates depending on how
@@ -62,7 +62,8 @@ resolution as a base sift; see in arguments raster_mask and n_ngbs.
 }
 \examples{
 data(abronia)
-data(suit_1970_2000)
+tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+tenm_mask <- terra::rast(file.path(tempora_layers_dir,"1939/bio_01.tif"))
 # Clean duplicates without raster mask (just by distance threshold)
 # First check the number of occurrence records
 print(nrow(abronia))
@@ -70,7 +71,7 @@ print(nrow(abronia))
 ab_1 <- tenm::clean_dup(data =abronia,
                         longitude = "decimalLongitude",
                         latitude = "decimalLatitude",
-                        threshold = raster::res(suit_1970_2000),
+                        threshold = terra::res(tenm_mask),
                         by_mask = FALSE,
                         raster_mask = NULL)
 # Check number of records
@@ -79,9 +80,9 @@ print(nrow(ab_1))
 ab_2 <- tenm::clean_dup(data =abronia,
                         longitude = "decimalLongitude",
                         latitude = "decimalLatitude",
-                        threshold = raster::res(suit_1970_2000),
+                        threshold = terra::res(tenm_mask)[1],
                         by_mask = TRUE,
-                        raster_mask = suit_1970_2000,
+                        raster_mask = tenm_mask,
                         n_ngbs = 0)
 # Check number of records
 print(nrow(ab_2))

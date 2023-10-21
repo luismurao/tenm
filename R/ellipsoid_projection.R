@@ -3,7 +3,7 @@
 #' (covariance matrix) of the niche variables. This is an optimized version of
 #' the \code{\link[ntbox]{ellipsoidfit}} function; the diffrence is that it does
 #' not give the table of distances to niche centroid.
-#' @param envlayers A RasterStack or RasterBrick object of the niche variables.
+#' @param envlayers A SpatRaster object of the niche variables.
 #' @param centroid A vector with the values of the centers of the ellipsoid
 #' (see \code{\link[ntbox]{cov_center}}).
 #' @param covar The shape matrix (covariance) of the ellipoid
@@ -14,6 +14,7 @@
 #' @param xlab1 For x label for 2-dimensional histogram
 #' @param ylab1 For y label for 2-dimensional histogram
 #' @param zlab1 For z label for 2-dimensional histogram
+#' @param alpha Control the transparency of the 3-dimensional ellipsoid
 #' @param ... Arguments passed to \code{\link[rgl]{plot3d}} function from rgl
 #' @return Returns a list containing a data.frame with the suitability values;
 #' a suitability raster;
@@ -22,18 +23,14 @@
 
 ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
                           plot=T,size,
-                          xlab1="niche var 1",ylab1= "niche var 2",zlab1="S",...){
+                          xlab1="niche var 1",ylab1= "niche var 2",zlab1="S",
+                          alpha=0.1,...){
 
-  if(methods::is(envlayers, "RasterStack") ||
-     methods::is(envlayers, "RasterBrick")){
-    #resolution <- raster::res(envlayers)
-    #extention <- raster::extent(envlayers)
-    #env_vars <- raster::getValues(envlayers)
+  if(methods::is(envlayers, "SpatRaster")){
     suitRaster <- envlayers[[1]]
     names(suitRaster) <- "Suitability"
     nonaids <- which(!is.na(suitRaster[]))
-    #suitVals <- rep(NA,raster::ncell(suitRaster))
-    env_vars <- 1:raster::nlayers(envlayers) %>% purrr::map_dfc(function(x){
+    env_vars <- 1:terra::nlyr(envlayers) |> purrr::map_dfc(function(x){
       val <- envlayers[[x]][]
       dfv <- data.frame(val[nonaids])
       names(dfv) <- names(envlayers[[x]])
@@ -42,7 +39,7 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
 
   }
   else{
-    stop("envlayers should be of class 'RasterStack' or 'RasterBrick'")
+    stop("envlayers should be of class 'SpatRaster'")
   }
   # Calculating distance to the centroid
   mahalanobisD <- stats::mahalanobis(env_vars,
@@ -56,7 +53,7 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
   # Computing the suitabilities
   suits <- suit( mahalanobisD)
   rm(list = c("mahalanobisD"))
-  suitVals <- rep(NA,raster::ncell(envlayers[[1]]))
+  suitVals <- rep(NA,terra::ncell(envlayers[[1]]))
   suitVals[nonaids] <- suits
   suitRaster[] <- suitVals
   rm(list=c("suitVals"))
@@ -132,7 +129,7 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
 
     rgl::plot3d(data1,size = size,col=grDevices::hsv(suits2[toSam]*.71,.95,.9),
                 xlab = xlab1, ylab = ylab1, zlab = zlab1,...)
-    rgl::wire3d(ellips_E, col=4, lit=FALSE,alpha=.1)
+    rgl::wire3d(ellips_E, col=4, lit=FALSE,alpha=alpha)
   }
   rm(list=c("env_vars","suits"))
 

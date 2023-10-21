@@ -16,14 +16,6 @@
 #' Download \url{https://doi.org/10.15468/dl.teyjm9}
 "abronia"
 
-
-#' Potential distribution of abronia graminea
-#'
-#' A dataset containing a niche model for Abronia graminea.
-#' The model was generated using the time-specific modeling approach implemented
-#' in the \emph{tenm} package.
-"suit_1970_2000"
-
 #' Colors for plotting
 #'
 #' A string vector of colors for plotting the vignette example.

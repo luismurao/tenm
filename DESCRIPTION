@@ -19,17 +19,15 @@ Description: A package to model time-specific ecological niche. A set of tools (
   the main objective of this package is to recover a lot of information that is wasted or at least neglected because of the typical depuration of occurrence points that are redundant in the same pixel. 
   The novelty in this package is the possibility to generate models from climate information that is in a very defined temporal resolution, for example, year, month, or even day, 
   although also in a very fine spatial resolution if possible. Contrasting with the traditional models made by average temporal information.
-License: GPL (>= 3)
+License: GPL-3 + file LICENSE
 Roxygen: list(markdown = TRUE)
 Imports:
     MASS,
-    raster,
+    terra (> 1.7.5),
+    sf,
     purrr,
     dplyr,
-    rgdal,
     stringr,
-    sp,
-    magrittr,
     rgl,
     future,
     tidyr,
@@ -39,9 +37,11 @@ Imports:
 RoxygenNote: 7.2.3
 Encoding: UTF-8
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1)
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3

@@ -14,11 +14,12 @@ ellipsoid_projection(
   xlab1 = "niche var 1",
   ylab1 = "niche var 2",
   zlab1 = "S",
+  alpha = 0.1,
   ...
 )
 }
 \arguments{
-\item{envlayers}{A RasterStack or RasterBrick object of the niche variables.}
+\item{envlayers}{A SpatRaster object of the niche variables.}
 
 \item{centroid}{A vector with the values of the centers of the ellipsoid
 (see \code{\link[ntbox]{cov_center}}).}
@@ -37,6 +38,8 @@ ellipsoid_projection(
 \item{ylab1}{For y label for 2-dimensional histogram}
 
 \item{zlab1}{For z label for 2-dimensional histogram}
+
+\item{alpha}{Control the transparency of the 3-dimensional ellipsoid}
 
 \item{...}{Arguments passed to \code{\link[rgl]{plot3d}} function from rgl}
 }

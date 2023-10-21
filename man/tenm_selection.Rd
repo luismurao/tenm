@@ -77,14 +77,17 @@ abt <- tenm::sp_temporal_data(occs = abronia,
                               layers_by_date_dir = tempora_layers_dir,
                               layers_ext="*.tif$")
 abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
-abex <- tenm::ex_by_date(abtc,parallel=TRUE,ncores=10,train_prop=0.7)
+future::plan("multisession",workers=10)
+abex <- tenm::ex_by_date(this_species = abtc,
+                         train_prop=0.7)
+abbg <- tenm::bg_by_date(abex,
+                         buffer_ngbs=10,n_bg=50000)
+future::plan("sequential")
 varcorrs <- tenm::correlation_finder(environmental_data = abex$env_data[,-ncol(abex$env_data)],
                                      method = "spearman",
                                      threshold = 0.8,
                                      verbose = FALSE)
 vars2fit <- varcorrs$descriptors
-abbg <- tenm::bg_by_date(abex,parallel=TRUE,ncores=10,
-                         buffer_ngbs=10,n_bg=50000)
 mod_sel <- tenm::tenm_selection(this_species = abbg,
                                 omr_criteria =0.1,
                                 ellipsoid_level=0.975,
@@ -101,7 +104,7 @@ layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
 suit_1970_2000 <- predict(mod_sel,model_variables = NULL,
                           layers_path = layers_70_00_dir,
                           layers_ext = ".tif$")
-raster::plot(suit_1970_2000)
+terra::plot(suit_1970_2000)
 colors <- c('#000004FF', '#040312FF', '#0B0725FF',
             '#0B0725FF', '#160B38FF', '#160B38FF',
             '#230C4CFF', '#310A5CFF', '#3F0966FF',

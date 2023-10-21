@@ -16,7 +16,7 @@ pROC(
 )
 }
 \arguments{
-\item{continuous_mod}{a RasterLayer or a numeric vector of the ecological
+\item{continuous_mod}{a SpatRaster or a numeric vector of the ecological
 niche model to be evaluated. If a numeric vector is provided it should
 contain the values of the predicted suitability.}
 
@@ -59,7 +59,8 @@ at \url{https://github.com/narayanibarve/ENMGadgets}.
 }
 \examples{
 data(abronia)
-data(suit_1970_2000)
+suit_1970_2000 <- terra::rast(system.file("extdata/suit_1970_2000.tif",
+                                          package = "tenm"))
 print(suit_1970_2000)
 proc_test <- tenm::pROC(continuous_mod = suit_1970_2000,
                         test_data = abronia[,c("decimalLongitude",

@@ -38,11 +38,11 @@ bg_by_date <- function(this_species,
   stopifnot(inherits(this_species, "sp.temporal.env"))
   tdf <- this_species$temporal_df
   samp_prop <- layer_dates <- var_name <- layer_val <- NULL
-  df_samps <-  tdf %>% dplyr::group_by(layer_dates) %>%
+  df_samps <-  tdf |> dplyr::group_by(layer_dates) |>
     dplyr::summarise(samp_prop = dplyr::n()/nrow(tdf),
                      n_samples = ceiling(samp_prop*n_bg))
 
-  paths_layers <-   split(tdf,tdf$layers_path) %>% purrr::map_df(function(x){
+  paths_layers <-   split(tdf,tdf$layers_path) |> purrr::map_df(function(x){
     layer_path <-     list.files(x$layers_path[1],
                                  pattern = this_species$layers_ext,
                                  full.names = TRUE)[1]
@@ -53,36 +53,19 @@ bg_by_date <- function(this_species,
 
   tdf$layer_path <-  paths_layers$layer_path
 
-  #nbase <- 2*buffer_ngbs+1
-  #ngMat <- base::matrix(rep(1,nbase*nbase),
-  #                      ncol =nbase,byrow = T )
-  #ngMat[buffer_ngbs+1,buffer_ngbs+1] <- 0
 
 
   ddL <- split(tdf,tdf$layer_path)
 
 
-  #t1 <- system.time({
-  #  cells_to_samp <-  seq_along(ddL)  %>% purrr::map(function(z){
-  #    r1 <- raster::raster(names(ddL[z]))
-  #    adj_cells <- raster::adjacent(x = r1,cells=ddL[[z]]$cell_ids_year,
-  #                                  directions = ngMat)
-  #    rcells <- unique(adj_cells[,2])
-  #    if(length(rcells)< df_samps$n_samples[z]){
-  #      nsamples <- length(rcells)
-  #    } else nsamples <- df_samps$n_samples[z]
-  #    sam <- sample(rcells,size = nsamples)
-  #    return(sam)
-  #  })
-  #})
 
-  cells_to_samp <-  seq_along(ddL)  %>% purrr::map(function(z){
+  cells_to_samp <-  seq_along(ddL)  |> purrr::map(function(z){
     cell_ids <- tenm::cells2samp(data = ddL[[z]],
                                  longitude = this_species$lon_lat_vars[1],
                                  latitude = this_species$lon_lat_vars[2],
                                  cell_ids = ddL[[z]]$cell_ids_year,
                                  buffer_ngbs = buffer_ngbs,
-                                 raster_mask = raster::raster(ddL[[z]]$layer_path[1]),
+                                 raster_mask = terra::rast(ddL[[z]]$layer_path[1]),
                                  n_bg =  df_samps$n_samples[z])
     return(cell_ids)
   })
@@ -90,7 +73,7 @@ bg_by_date <- function(this_species,
   gc()
   dir_paths <- unique(tdf$layers_path)
 
-  all_layers <- seq_along(dir_paths) %>% purrr::map_df(function(x){
+  all_layers <- seq_along(dir_paths) |> purrr::map_df(function(x){
     cp <- list.files(dir_paths[x],
                      pattern = this_species$layers_ext,
                      full.names = TRUE,recursive = FALSE)
@@ -99,12 +82,13 @@ bg_by_date <- function(this_species,
   names(cells_to_samp) <- dir_paths
 
 
-  ex_date <- seq_len(nrow(all_layers)) %>% furrr::future_map_dfr(function(x){
+  ex_date <- seq_len(nrow(all_layers)) |> furrr::future_map_dfr(function(x){
     cellids <-  cells_to_samp[[all_layers$dir_paths[x]]]
-    env_layers <- raster::raster(all_layers$layers_path[x])
+    env_layers <- terra::rast(all_layers$layers_path[x])
     layer_val <- stats::na.omit(env_layers[cellids])
     df1 <- data.frame(ID_YEAR = all_layers$dir_paths[x],
-                      layer_val,var_name = metaras(env_layers))
+                      layer_val= layer_val[[1]],
+                      var_name = env_layers@cpp$get_sourcenames())
     return(df1)
   },.progress = TRUE,.options = furrr::furrr_options(seed = NULL))
   gc()
@@ -112,9 +96,9 @@ bg_by_date <- function(this_species,
                                names_from = var_name,
                                values_from = layer_val)
 
-  bg_env <-   seq_along(bg_env$ID_YEAR) %>% purrr::map_dfr(function(x){
+  bg_env <-   seq_along(bg_env$ID_YEAR) |> purrr::map_dfr(function(x){
     ID_YEAR <- rep(bg_env$ID_YEAR[[x]],length(bg_env[[2]][[x]]))
-    df_year <- seq_along(bg_env[-1]) %>% purrr::map_dfc(function(y){
+    df_year <- seq_along(bg_env[-1]) |> purrr::map_dfc(function(y){
       data <- bg_env[-1]
       value <- data[[y]][[x]]
       df1 <- data.frame(value)

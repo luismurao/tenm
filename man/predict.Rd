@@ -14,7 +14,8 @@ period of environmental conditions or averages.}
   layers_path = NULL,
   layers_ext = NULL,
   mve = TRUE,
-  level = 0.975
+  level = 0.975,
+  ...
 )
 }
 \arguments{
@@ -22,7 +23,7 @@ period of environmental conditions or averages.}
 
 \item{model_variables}{A vector with variable names}
 
-\item{layers}{A RasterStack object or a list where each element is a RasterStack.}
+\item{layers}{A SpatRaster object or a list where each element is a SpatRaster.}
 
 \item{layers_path}{Path to layers}
 
@@ -31,14 +32,17 @@ period of environmental conditions or averages.}
 \item{mve}{If the projection will use the minimum volume ellipsoid algorithm}
 
 \item{level}{Proportion of data used to fit the minimum volume ellipsoid}
+
+\item{...}{Additional parameters passed to
+\code{\link[tenm]{ellipsoid_projection}}}
 }
 \description{
 Predict potential distribution for \pkg{tenm} regarding to a specific time
 period of environmental conditions or averages.
 }
 \details{
-Note that the RasterStacks in layers parameter should have the same
+Note that the SpatRaster in layers parameter should have the same
 number of elements (layers) than model_variables. The predict method will
-assume that variables in each RasterStack are the same as the ones in
+assume that variables in each SpatRaster are the same as the ones in
 model_variables.
 }

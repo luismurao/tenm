@@ -18,7 +18,7 @@ cells2samp <- function(data,longitude,latitude,cell_ids = NULL,buffer_ngbs = 2,
                        raster_mask,n_bg = 50000){
   if(is.null(cell_ids)){
     data <- data.frame(data[,c(longitude,latitude)])
-    cell_ids <- raster::cellFromXY(raster_mask,data[,c(longitude,latitude)])
+    cell_ids <- terra::cellFromXY(raster_mask,data[,c(longitude,latitude)])
   } else if(!is.numeric(cell_ids)){
     stop("Provide valid cell numbers")
   }
@@ -26,8 +26,8 @@ cells2samp <- function(data,longitude,latitude,cell_ids = NULL,buffer_ngbs = 2,
   nbase <- 2 * buffer_ngbs + 1
   ngMat <- base::matrix(rep(1, nbase * nbase), ncol = nbase, byrow = TRUE)
   ngMat[buffer_ngbs + 1, buffer_ngbs + 1] <- 0
-  adj_cells <- raster::adjacent(x = raster_mask, cells = cell_ids,
-                                directions = ngMat)
+  adj_cells <- terra::adjacent(x = raster_mask, cells = cell_ids,pairs=TRUE,
+                                directions = ngMat,include=F)
   rcells <- unique(adj_cells[, 2])
   if (length(rcells) < n_bg) {
     n_bg  <- length(rcells)

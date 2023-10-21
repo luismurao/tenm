@@ -43,9 +43,6 @@
 #' @return Returns a  sp.temporal.modeling object (list) with the coordinates
 #' of each occurrences points, the years of observation and the path to the
 #' temporal layers.
-#' @importFrom rgdal readOGR
-#' @importFrom raster raster stack
-#' @importFrom magrittr %>%
 #'
 #' @examples
 #' library(tenm)
@@ -84,10 +81,10 @@ sp_temporal_data <- function(occs,longitude,
     if(sp_date_var %in% names(occs)){
 
       nearest_date_id <- function(occ_dates,layers_dates){
-        r1 <-  seq_along(occ_dates) %>% purrr::map_int(function(x){
+        r1 <-  seq_along(occ_dates) |> purrr::map_int(function(x){
           id_layer_dir <- which.min(abs(occ_dates[x] - layers_dates))
           return(id_layer_dir)
-        }) #%>% do.call('c', .)
+        }) #|> do.call('c', .)
         return(r1)
       }
       date_formats <- c("y","ym","ymd","my","myd","dmy")
