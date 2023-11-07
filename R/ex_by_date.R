@@ -50,7 +50,11 @@ ex_by_date <- function(this_species,train_prop=0.7){
                              full.names = T,recursive = T) |>
     normalizePath()
 
-  capasByResDF <- data.frame(layers_path=unique(tdf$layers_path),
+
+  unicos <-  paste0("/",unique(base::basename(capasDatePath)),
+                    collapse = "|")
+  lpaths <- gsub(pattern = unicos,replacement = "",capasDatePath)
+  capasByResDF <- data.frame(layers_path=lpaths,
                              capasDatePath)
 
   ex_time <- seq_len(nrow(capasByResDF)) |> furrr::future_map_dfr(function(x){

@@ -6,7 +6,11 @@
 #' @param this_species Species Temporal Environmental Data object
 #' from \code{\link[tenm]{ex_by_date}}.
 #' @param buffer_ngbs Number of pixel neighbors used to build the buffer.
+#' @param buffer_distance Distance used to create a buffer in which background
+#' data will be taken.
 #' @param n_bg Number of background points.
+#' @param process_ngbs_by Numeric. Estimates neighbor cells each x cells. This
+#' is for memory management.
 #' @details The buffer is built around the occurrences using a neighborhood
 #' distance.
 #' @examples
@@ -34,7 +38,9 @@
 #'
 
 bg_by_date <- function(this_species,
-                       buffer_ngbs=10,n_bg=50000){
+                       buffer_ngbs=NULL,
+                       buffer_distance=1000,n_bg=50000,
+                       process_ngbs_by = 100){
   stopifnot(inherits(this_species, "sp.temporal.env"))
   tdf <- this_species$temporal_df
   samp_prop <- layer_dates <- var_name <- layer_val <- NULL
@@ -56,20 +62,37 @@ bg_by_date <- function(this_species,
 
 
   ddL <- split(tdf,tdf$layer_path)
+  if(!is.null(buffer_ngbs)){
+    cells_to_samp <-  seq_along(ddL)  |> purrr::map(function(z){
 
+      cell_ids <- tenm::cells2samp(data = ddL[[z]],
+                                   longitude = this_species$lon_lat_vars[1],
+                                   latitude = this_species$lon_lat_vars[2],
+                                   cell_ids = ddL[[z]]$cell_ids_year,
+                                   buffer_ngbs = buffer_ngbs,
+                                   raster_mask = terra::rast(ddL[[z]]$layer_path[1]),
+                                   n_bg =  df_samps$n_samples[z],
+                                   process_ngbs_by = process_ngbs_by,
+                                   progress = FALSE)
+      return(cell_ids)
+    })
+  } else if(is.null(buffer_ngbs) && is.numeric(buffer_distance)) {
+    cells_to_samp <-  seq_along(ddL)  |> purrr::map(function(z){
+      occ_va <- ddL[[z]][,c(this_species$lon_lat_vars[1],
+                            this_species$lon_lat_vars[2])]
+      r <- terra::rast(ddL[[z]]$layer_path)
+      crsL <- terra::crs(r)
 
-
-  cells_to_samp <-  seq_along(ddL)  |> purrr::map(function(z){
-    cell_ids <- tenm::cells2samp(data = ddL[[z]],
-                                 longitude = this_species$lon_lat_vars[1],
-                                 latitude = this_species$lon_lat_vars[2],
-                                 cell_ids = ddL[[z]]$cell_ids_year,
-                                 buffer_ngbs = buffer_ngbs,
-                                 raster_mask = terra::rast(ddL[[z]]$layer_path[1]),
-                                 n_bg =  df_samps$n_samples[z])
-    return(cell_ids)
-  })
-
+      vec_occ <- terra::vect(as.matrix(occ_va),crs=crsL)
+      buff_te <- terra::buffer(vec_occ,
+                               width = buffer_distance)
+      cell2sa <- terra::cells(r,buff_te)[,2]
+      nsamples <- ifelse(df_samps$n_samples[z]>length(cell2sa),
+                         length(cell2sa),df_samps$n_samples[z])
+      cell_ids <- sample(cell2sa,nsamples)
+      return(cell_ids)
+    })
+  }
   gc()
   dir_paths <- unique(tdf$layers_path)
 
@@ -86,6 +109,7 @@ bg_by_date <- function(this_species,
     cellids <-  cells_to_samp[[all_layers$dir_paths[x]]]
     env_layers <- terra::rast(all_layers$layers_path[x])
     layer_val <- stats::na.omit(env_layers[cellids])
+    if(nrow(layer_val) ==0L) return()
     df1 <- data.frame(ID_YEAR = all_layers$dir_paths[x],
                       layer_val= layer_val[[1]],
                       var_name = env_layers@cpp$get_sourcenames())
