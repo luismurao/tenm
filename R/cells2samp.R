@@ -44,7 +44,7 @@ cells2samp <- function(data,longitude,latitude,cell_ids = NULL,buffer_ngbs = 2,
   rcellsL <- seq_along(cell_idsL) |> purrr::map(function(x){
     adj_cells <- terra::adjacent(x = raster_mask,
                                  cells = cell_idsL[[x]],pairs=TRUE,
-                                 directions = ngMat,include=F)
+                                 directions = ngMat,include=FALSE)
     rcells <- unique(adj_cells[, 2])
     return(rcells)
 

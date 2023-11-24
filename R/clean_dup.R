@@ -87,9 +87,10 @@ clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
       return(dat2)
     } else {
       dat2$cellid <- cellids2
-      cellids2 <- sort(cellids[ids_nodup])
+      cellids2 <- sort(cellids2)
       adj_cells <- terra::adjacent(x = raster_mask,cells=cellids2,
-                                    directions = ngMat)
+                                   directions = ngMat,
+                                   pairs = TRUE)
 
       adj_cellsL <- split(adj_cells[,2], adj_cells[,1])
       targets <- names(adj_cellsL)
