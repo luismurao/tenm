@@ -48,7 +48,7 @@ ex_by_date <- function(this_species,train_prop=0.7){
   capasDatePath <- list.files(unique(tdf$layers_path),
                              pattern = this_species$layers_ext,
                              full.names = T,recursive = T) |>
-    normalizePath()
+    normalizePath(winslash = "/")
 
 
   unicos <-  paste0("/",unique(base::basename(capasDatePath)),

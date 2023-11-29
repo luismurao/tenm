@@ -31,7 +31,6 @@ Also there is a group of bioclimatic raster layers
 We need to assign each directory layer path in an object
 
 ```{r,eval=TRUE}
-#data("suit_1970_2000")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
 head(tempora_layers_dir)
 ```
