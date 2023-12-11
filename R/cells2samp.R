@@ -16,9 +16,25 @@
 #' is for memory management.
 #' @param n_bg Number of background pixels.
 #' @param progress Logical. Show computation progress
+#' @examples
+#' # cells to sample
+#' data(abronia)
+#' temporal_layer <- system.file("extdata/bio/2016/bio_01.tif",package = "tenm")
+#' raster_mask <- terra::rast(temporal_layer)
+#' set.seed(123)
+#' samp_01 <- tenm::cells2samp(data = abronia,
+#'                             longitude = "decimalLongitude",
+#'                             latitude = "decimalLatitude",
+#'                             cell_ids = NULL,
+#'                             buffer_ngbs = 4,
+#'                             raster_mask = raster_mask,
+#'                             process_ngbs_by = 10,
+#'                             n_bg = 50000,
+#'                             progress =TRUE)
+#'
 #' @export
 cells2samp <- function(data,longitude,latitude,cell_ids = NULL,buffer_ngbs = 2,
-                       raster_mask,process_ngbs_by = 100,n_bg = 50000,
+                       raster_mask,process_ngbs_by = 10,n_bg = 50000,
                        progress =TRUE){
   if(is.null(cell_ids)){
     data <- data.frame(data[,c(longitude,latitude)])

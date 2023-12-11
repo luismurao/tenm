@@ -154,4 +154,4 @@ legend("topright",legend = unique(abtc$temporal_df$year[id_70_20][10:18]),
        cex=0.55, pch=25)
 
 ```
-
+)
