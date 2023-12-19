@@ -82,7 +82,11 @@ clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
     names(coo) <- c(longitude,latitude)
     dat2 <- sf::st_drop_geometry(dat_sp)
     dat2 <- data.frame(coo,dat2)
-    dat2 <- dat2[ids_nodup,c(3,1,2,(4:ncol(dat2)))]
+    if(ncol(dat2)>=4){
+      dat2 <- dat2[ids_nodup,c(3,1,2,(4:ncol(dat2)))]
+    } else{
+      dat2 <- dat2[ids_nodup,c(3,1,2)]
+    }
     if (n_ngbs == 0){
       return(dat2)
     } else {
