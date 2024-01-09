@@ -3,22 +3,36 @@ Type: Package
 Title: Temporal ecological niche models
 Version: 1.0
 Authors@R: c(
- person(given = "Luis", family = "Osorio-Olvera", email = "luismurao@gmail.com", role = c("aut", "cre"),
- comment = c(ORCID = "0000-0003-0701-5398")),
- person (given = "Miguel", family = "Hernández", email = "316282666@iztacala.unam.mx", role = c("aut"),
- comment = c(ORCID = "0000-0002-6086-3460")),
- person(given = "Rusby G.", family = "Contreras-Díaz", email = "rusby.contreras.diaz@gmail.com", role = c("aut"),
- comment = c(ORCID = "0000-0002-0569-8984")),
- person(given = "Xavier", family = "Chiappa-Carrara", email = "xcc@ciencias.unam.mx", role = c("aut"),
- comment = c(ORCID = "0000-0002-1708-2095")),
- person(given = "Mariana", family = "Munguía-Carrara", email = "mariana.munguia@conabio.gob.mx", role = c("aut"),
- comment = c(ORCID = "0000-0003-3514-3397")),
-  person(given = "Oliver", family = "López-Corona", email = "lopezoliverx@gmail.com", role = c("aut"),
- comment = c(ORCID = "0000-0002-2926-7791")))
-Description: A package to model time-specific ecological niche. A set of tools (functions) made to generate ecological niche models (ENMs) with a time-specific focus. This is a framework package built to make ecological niche models with high temporal resolution environmental layers, 
-  the main objective of this package is to recover a lot of information that is wasted or at least neglected because of the typical depuration of occurrence points that are redundant in the same pixel. 
-  The novelty in this package is the possibility to generate models from climate information that is in a very defined temporal resolution, for example, year, month, or even day, 
-  although also in a very fine spatial resolution if possible. Contrasting with the traditional models made by average temporal information.
+  person(given = "Luis", family = "Osorio-Olvera", 
+  email = "luismurao@gmail.com", role = c("aut", "cre"),
+  comment = c(ORCID = "0000-0003-0701-5398")), 
+  person (given = "Miguel", family = "Hernández",
+  email = "316282666@iztacala.unam.mx", role = c("aut"),
+  comment = c(ORCID = "0000-0002-6086-3460")),
+  person(given = "Rusby G.", family = "Contreras-Díaz", 
+  email = "rusby.contreras.diaz@gmail.com", role = c("aut"),
+  comment = c(ORCID = "0000-0002-0569-8984")),
+  person(given = "Xavier", family = "Chiappa-Carrara", 
+  email = "xcc@ciencias.unam.mx", role = c("aut"),
+  comment = c(ORCID = "0000-0002-1708-2095")),
+  person(given = "Mariana", family = "Munguía-Carrara", 
+  email = "mariana.munguia@conabio.gob.mx", role = c("aut"),
+  comment = c(ORCID = "0000-0003-3514-3397")),
+  person(given = "Oliver", family = "López-Corona", 
+  email = "lopezoliverx@gmail.com", role = c("aut"),
+  comment = c(ORCID = "0000-0002-2926-7791"))
+  )
+Description: A package to model the ecological niche using a time-specific 
+  approach. A set of tools (functions) made to generate ecological niche models 
+  (ENMs) with a time-calibrated focus. The framework allows users to calibrate 
+  ecological niche models with high temporal resolution environmental layers. 
+  The main objective of this package is to recover a lot of information that is 
+  lost or at least neglected while applying depuration of occurrence points that 
+  are redundant spatially (in the same pixel) but are from different periods. 
+  The novelty in this package is that it might reconstruct the fundamental niche
+  more accurately when using fine temporal resolution layers. The theoretical 
+  background of the package can be found in Peteson et al. (2011) 
+  \doi{10.5860/CHOICE.49-6266}.
 License: GPL-3 + file LICENSE
 Roxygen: list(markdown = TRUE)
 Imports:
