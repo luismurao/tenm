@@ -56,7 +56,7 @@ head(abt$temporal_df)
 This function eliminates all the duplicated longitude and latitude data by year using a threshold distance. The main propose of this function is eliminate data occurrence points spliced in each different year or date in a given distance threshold.
 
 ```{r,eval=TRUE}
-abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+abtc <- tenm::clean_dup_by_date(this_species = abt,threshold = 10/60)
 dim(abtc$temporal_df)
 ```
 
@@ -154,4 +154,3 @@ legend("topright",legend = unique(abtc$temporal_df$year[id_70_20][10:18]),
        cex=0.55, pch=25)
 
 ```
-)
