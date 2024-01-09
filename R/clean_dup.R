@@ -97,53 +97,32 @@ clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
                                    pairs = TRUE)
 
       adj_cellsL <- split(adj_cells[,2], adj_cells[,1])
-      targets <- names(adj_cellsL)
-      keep <- rep(NA,length(targets ))
-      j <- 1
-      for(i in seq_along(targets)){
-        focal <- targets[i]
-        if(focal %in% names(adj_cellsL)){
-          vecinos <- as.character(adj_cellsL [[focal]])
-          id_bas <- which(names(adj_cellsL) %in% vecinos)
-          if(length(id_bas)>0L) adj_cellsL <- adj_cellsL[- id_bas]
-          keep[j] <- as.numeric(focal)
-          j <- j+1
-        }
-
+      ids_dups <- unique(unlist(adj_cellsL))
+      no_dups <- seq_len(nrow(data))
+      if(length(ids_dups)>0L){
+        no_dups <- no_dups[-ids_dups]
       }
-      ids_nodup2 <- which(dat2$cellid %in% keep)
-      dat3 <- dat2[ids_nodup2,-ncol(dat2)]
+
+      dat3 <- dat2[no_dups,-ncol(dat2)]
       return(dat3)
     }
 
   }
   else{
     dat_sp <- sf::st_as_sf(data,coords=c(longitude,latitude))
-    dup_mat <- sf::st_is_within_distance(dat_sp,dist = threshold[1],
-                                         sparse = FALSE)
+    dat_bf <- sf::st_buffer(dat_sp, dist = threshold[1])
+    dup_mat <- sf::st_intersects(dat_sp,dat_bf,sparse = FALSE)
+    #dup_mat <- sf::st_is_within_distance(dat_sp,dist = threshold[1],
+    #                                     sparse = FALSE)
     diag(dup_mat) <- FALSE
     dup_mat[upper.tri(dup_mat)] <- FALSE
     ids_dups <- which(dup_mat,arr.ind=TRUE)
-    ids_dupsL <- split(ids_dups[,1],ids_dups[,2])
-    targets <- names(ids_dupsL)
-    keep <- rep(NA,length(targets ))
-    j <- 1
-    for(i in seq_along(targets)){
-      focal <- targets[i]
-      if(focal %in% names(ids_dupsL)){
-        vecinos <- as.character(ids_dupsL [[focal]])
-        id_bas <- which(names(ids_dupsL) %in% vecinos)
-        if(length(id_bas)>0L) ids_dupsL <- ids_dupsL[- id_bas]
-        keep[j] <- as.numeric(focal)
-        j <- j+1
-      }
+    ids_dupsL <- split(ids_dups[,2],ids_dups[,1],drop = FALSE)
+    ids_dups <- unique(unlist(ids_dupsL))
+    no_dups <- seq_len(nrow(data))
+    if(length(ids_dups)>0L){
+      no_dups <- no_dups[-ids_dups]
     }
-    ndata <- seq_len(nrow(dup_mat))
-    ids_search <- unique(as.vector(ids_dups))
-
-    ids_keep <- stats::na.omit(c(keep,ndata[!ndata %in% ids_search]))
-
-    return(data[ids_keep,])
-
+    return(data[no_dups,])
   }
 }
