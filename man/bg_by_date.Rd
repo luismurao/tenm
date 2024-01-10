@@ -4,7 +4,13 @@
 \alias{bg_by_date}
 \title{Function to obtain environmental background by dates}
 \usage{
-bg_by_date(this_species, buffer_ngbs = 10, n_bg = 50000)
+bg_by_date(
+  this_species,
+  buffer_ngbs = NULL,
+  buffer_distance = 1000,
+  n_bg = 50000,
+  process_ngbs_by = 100
+)
 }
 \arguments{
 \item{this_species}{Species Temporal Environmental Data object
@@ -12,7 +18,13 @@ from \code{\link[tenm]{ex_by_date}}.}
 
 \item{buffer_ngbs}{Number of pixel neighbors used to build the buffer.}
 
+\item{buffer_distance}{Distance used to create a buffer in which background
+data will be taken.}
+
 \item{n_bg}{Number of background points.}
+
+\item{process_ngbs_by}{Numeric. Estimates neighbor cells each x cells. This
+is for memory management.}
 }
 \description{
 Get environmental background for each set of dated environmental

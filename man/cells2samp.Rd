@@ -12,7 +12,9 @@ cells2samp(
   cell_ids = NULL,
   buffer_ngbs = 2,
   raster_mask,
-  n_bg = 50000
+  process_ngbs_by = 10,
+  n_bg = 50000,
+  progress = TRUE
 )
 }
 \arguments{
@@ -32,9 +34,31 @@ to build the buffer.}
 \item{raster_mask}{An object of class RasterLayer that will be used to
 obtain pixel IDs.}
 
+\item{process_ngbs_by}{Numeric. Estimates neighbor cells each x cells. This
+is for memory management.}
+
 \item{n_bg}{Number of background pixels.}
+
+\item{progress}{Logical. Show computation progress}
 }
 \description{
 Returns pixel IDs to be sample for generating
 environmental background form modeling layers.
+}
+\examples{
+# cells to sample
+data(abronia)
+temporal_layer <- system.file("extdata/bio/2016/bio_01.tif",package = "tenm")
+raster_mask <- terra::rast(temporal_layer)
+set.seed(123)
+samp_01 <- tenm::cells2samp(data = abronia,
+                            longitude = "decimalLongitude",
+                            latitude = "decimalLatitude",
+                            cell_ids = NULL,
+                            buffer_ngbs = 4,
+                            raster_mask = raster_mask,
+                            process_ngbs_by = 10,
+                            n_bg = 50000,
+                            progress =TRUE)
+
 }

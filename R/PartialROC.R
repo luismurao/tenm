@@ -2,7 +2,7 @@
 #'
 #' @description pROC applies partial ROC tests to continuous niche models.
 #'
-#' @param continuous_mod a RasterLayer or a numeric vector of the ecological
+#' @param continuous_mod a SpatRaster or a numeric vector of the ecological
 #' niche model to be evaluated. If a numeric vector is provided it should
 #' contain the values of the predicted suitability.
 #' @param test_data A numerical matrix, data.frame, or a numeric vector. If it
@@ -35,7 +35,8 @@
 #' @import future
 #' @examples
 #' data(abronia)
-#' data(suit_1970_2000)
+#' suit_1970_2000 <- terra::rast(system.file("extdata/suit_1970_2000.tif",
+#'                                           package = "tenm"))
 #' print(suit_1970_2000)
 #' proc_test <- tenm::pROC(continuous_mod = suit_1970_2000,
 #'                         test_data = abronia[,c("decimalLongitude",
@@ -51,13 +52,13 @@ pROC <- function(continuous_mod,test_data,
                  boost_percent=50,
                  rseed=FALSE,
                  sub_sample=TRUE,sub_sample_size=1000){
-  if (methods::is(continuous_mod,"RasterLayer")) {
-    if (continuous_mod@data@min == continuous_mod@data@max) {
+  if (methods::is(continuous_mod,"SpatRaster")) {
+    if (continuous_mod@cpp@.xData$range_min == continuous_mod@cpp@.xData$range_max) {
       stop("\nModel with no variability.\n")
     }
     if (is.data.frame(test_data) || is.matrix(test_data)) {
-      test_data <- stats::na.omit(raster::extract(continuous_mod,
-                                                  test_data))
+      test_data <- stats::na.omit(terra::extract(continuous_mod,
+                                                  test_data))[,-1]
 
     }
     vals <- continuous_mod[!is.na(continuous_mod[])]
@@ -88,16 +89,16 @@ pROC <- function(continuous_mod,test_data,
   classpixels$value <- as.numeric(classpixels$value)
   classpixels <- data.frame(stats::na.omit(classpixels))
   value <- count <- totpixperclass <- NULL
-  classpixels <- classpixels %>%
+  classpixels <- classpixels |>
     dplyr::mutate(value  = rev(value),
                   count = rev(count),
                   totpixperclass = cumsum(count),
-                  percentpixels = totpixperclass/sum(count)) %>%
+                  percentpixels = totpixperclass/sum(count)) |>
     dplyr::arrange(value)
 
   #if(nrow(classpixels)>1500){
-  #  classpixels <- classpixels %>%
-  #    dplyr::sample_n(1500) %>% dplyr::arrange(value)
+  #  classpixels <- classpixels |>
+  #    dplyr::sample_n(1500) |> dplyr::arrange(value)
   #}
 
   error_sens <- 1 - (E_percent/100)
@@ -171,7 +172,7 @@ pROC <- function(continuous_mod,test_data,
                             auc_ratio)
     return(auc_table)
   }
-  partial_AUC <- 1:n_iter %>%
+  partial_AUC <- 1:n_iter |>
     purrr::map_df(function(i){
       proc <- calc_aucDF(big_classpixels,
                          fractional_area,

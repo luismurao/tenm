@@ -39,7 +39,7 @@ ex_by_date <- function(this_species,train_prop=0.7){
                              pattern = this_species$layers_ext,
                              full.names = T)[1]
 
-  cell_ids_year <- raster::cellFromXY(raster::raster(layer_mask),
+  cell_ids_year <- terra::cellFromXY(terra::rast(layer_mask),
                                       tdf[,this_species$lon_lat_vars])
 
 
@@ -47,22 +47,26 @@ ex_by_date <- function(this_species,train_prop=0.7){
 
   capasDatePath <- list.files(unique(tdf$layers_path),
                              pattern = this_species$layers_ext,
-                             full.names = T,recursive = T) %>%
-    normalizePath()
+                             full.names = T,recursive = T) |>
+    normalizePath(winslash = "/")
 
-  capasByResDF <- data.frame(layers_path=unique(tdf$layers_path),
+
+  unicos <-  paste0("/",unique(base::basename(capasDatePath)),
+                    collapse = "|")
+  lpaths <- gsub(pattern = unicos,replacement = "",capasDatePath)
+  capasByResDF <- data.frame(layers_path=lpaths,
                              capasDatePath)
 
-  ex_time <- seq_len(nrow(capasByResDF)) %>% furrr::future_map_dfr(function(x){
-    time_obs <- tdf  %>% dplyr::filter(layers_path ==
+  ex_time <- seq_len(nrow(capasByResDF)) |> furrr::future_map_dfr(function(x){
+    time_obs <- tdf  |> dplyr::filter(layers_path ==
                                          capasByResDF$layers_path[!!x])
-    env_layers <- raster::raster(capasByResDF$capasDatePath[x])
+    env_layers <- terra::rast(capasByResDF$capasDatePath[x])
     #layer_val <- env_layers[time_obs$cell_ids_year]
-    layer_val <- raster::extract(env_layers,
-                                 time_obs[,this_species$lon_lat_vars])
+    layer_val <- terra::extract(env_layers,
+                                time_obs[,this_species$lon_lat_vars])
     df1 <- data.frame(time_obs[,c(1:6)],
-                      layer_val,
-                      var_name = metaras(env_layers))
+                      layer_val = layer_val[[2]],
+                      var_name = env_layers@cpp$get_sourcenames())
     return(df1)
   },.progress = TRUE,.options = furrr::furrr_options(seed = NULL))
   gc()
@@ -72,7 +76,7 @@ ex_by_date <- function(this_species,train_prop=0.7){
                                   values_from = "layer_val")
   years_envL <- split(years_env,years_env$layer_dates)
 
-  trian_test <- seq_along(years_envL) %>% purrr::map(function(x){
+  trian_test <- seq_along(years_envL) |> purrr::map(function(x){
     ndata <- nrow(years_envL[[x]])
     if(ndata==1) train_test <- "Train"
     if(ndata==2) train_test <- c("Train","Test")
@@ -85,7 +89,7 @@ ex_by_date <- function(this_species,train_prop=0.7){
 
     }
     return(train_test)
-  }) %>% unlist()
+  }) |> unlist()
   years_env$trian_test <- trian_test
 
   #train_data <- which(years_env$trian_test=="Train")

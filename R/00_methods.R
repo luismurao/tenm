@@ -5,16 +5,16 @@
 #' @docType methods
 #' @param object An object of class sp.temporal.selection
 #' @param model_variables A vector with variable names
-#' @param layers A RasterStack object or a list where each element is a RasterStack.
+#' @param layers A SpatRaster object or a list where each element is a SpatRaster.
 #' @param layers_path Path to layers
 #' @param layers_ext Layers extension
 #' @param mve If the projection will use the minimum volume ellipsoid algorithm
 #' @param level Proportion of data used to fit the minimum volume ellipsoid
 #' @param ... Additional parameters passed to
 #' \code{\link[tenm]{ellipsoid_projection}}
-#' @details Note that the RasterStacks in layers parameter should have the same
+#' @details Note that the SpatRaster in layers parameter should have the same
 #' number of elements (layers) than model_variables. The predict method will
-#' assume that variables in each RasterStack are the same as the ones in
+#' assume that variables in each SpatRaster are the same as the ones in
 #' model_variables.
 #' @rdname predict
 #' @aliases predict
@@ -54,8 +54,8 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                                              level = level,vars = mod_vars)
                      #----------------------------------------------------------
 
-                     if(methods::is(layers,"RasterStack")){
-                       projmods <- tenm::ellipsoid_projection(envlayers = layers,
+                     if(methods::is(layers,"SpatRaster")){
+                       projmods <- tenm::ellipsoid_projection(envlayers = terra::rast(layers),
                                                              centroid = mod$centroid,
                                                              covar = mod$covariance,
                                                              level = 0.9999,
@@ -66,9 +66,9 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
 
                      } else if(methods::is(layers,"list")){
                        pb <- utils::txtProgressBar(min = 0,max = length(layers),style = 3)
-                       checK_if_stack <- seq_along(layers) %>% purrr::map(function(x){
-                         if(class(layers[[x]])[1] == "RasterStack"){
-                           if(raster::nlayers(layers[[x]]) != length(model_vars)){
+                       checK_if_stack <- seq_along(layers) |> purrr::map(function(x){
+                         if(methods::is(layers[[x]][1],"SpatRaster")){
+                           if(terra::nlyr(layers[[x]]) != length(model_vars)){
                              stop(paste0("The number of layers in 'layers[[",
                                          x,"]]' should be the same as 'model_variables' object" ))
                            }
@@ -79,8 +79,8 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                          }
                        })
 
-                       projmods <- seq_along(layers) %>% purrr::map(function(x){
-                         suitmod <- tenm::ellipsoid_projection(envlayers = layers[[x]],
+                       projmods <- seq_along(layers) |> purrr::map(function(x){
+                         suitmod <- tenm::ellipsoid_projection(envlayers = terra::rast(layers[[x]]),
                                                                centroid = mod$centroid,
                                                                covar = mod$covariance,
                                                                level = 0.9999,
@@ -94,14 +94,14 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                        names(projmods) <- paste0("suitability_proj_",1:length(layers))
                      } else{
                        pb <- utils::txtProgressBar(min = 0,max = length(layers_path),style = 3)
-                       projmods <-    seq_along(layers_path) %>% purrr::map(function(x){
+                       projmods <-    seq_along(layers_path) |> purrr::map(function(x){
                          lnames <- list.files(layers_path[x],pattern = layers_ext)
                          lanames <- gsub(layers_ext,"",lnames)
                          var_ids <- which(lanames %in% mod_vars)
                          layer2proj <- list.files(layers_path[x],full.names = T,
                                                   pattern = layers_ext)[var_ids]
 
-                         slayers <- raster::stack(layer2proj)
+                         slayers <- terra::rast(layer2proj)
 
                          suitmod <- tenm::ellipsoid_projection(envlayers = slayers,
                                                                centroid = mod$centroid,
@@ -117,7 +117,7 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                        if(length(projmods) == 1){
                          projmods <- projmods[[1]]
                        } else{
-                         projmods <- raster::stack(projmods)
+                         projmods <- terra::rast(projmods)
                        }
                        names(projmods) <- layers_path
                      }

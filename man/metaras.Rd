@@ -7,7 +7,7 @@
 metaras(r)
 }
 \arguments{
-\item{r}{An object of class RasterLayer}
+\item{r}{An object of class SpatRaster}
 }
 \description{
 Returns a character vector with the name of the raster layer
@@ -16,6 +16,6 @@ Returns a character vector with the name of the raster layer
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
 p1 <- list.files(tempora_layers_dir,full.names=TRUE,
                  pattern=".tif$",recursive=TRUE)[1]
-r1 <- raster::raster(p1)
+r1 <- terra::rast(p1)
 print(tenm::metaras(r1))
 }
