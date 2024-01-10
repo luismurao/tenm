@@ -34,6 +34,8 @@ Description: A package to model the ecological niche using a time-specific
   background of the package can be found in Peteson et al. (2011) 
   \doi{10.5860/CHOICE.49-6266}.
 License: GPL-3 + file LICENSE
+URL: https://luismurao.github.io/tenm/
+BugReports: https://github.com/luismurao/tenm/issues
 Roxygen: list(markdown = TRUE)
 Imports:
     MASS,
