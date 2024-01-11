@@ -77,6 +77,14 @@ A 0.7 train_prop indicates that 70 of the data will be used to train the
 model, and the other 30 to model itself.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>An object of class sp.temporal.env that contains a temporal
+data.frame (temporal_df) with the following columns: latitude, longitude,
+year, layer_dates, layers_path, cell_ids_year, and environmental data.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -93,7 +101,7 @@ model, and the other 30 to model itself.</p></dd>
 <span class="r-in"><span>                              layers_by_date_dir <span class="op">=</span> <span class="va">tempora_layers_dir</span>,</span></span>
 <span class="r-in"><span>                              layers_ext<span class="op">=</span><span class="st">"*.tif$"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">abtc</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="clean_dup_by_date.html">clean_dup_by_date</a></span><span class="op">(</span><span class="va">abt</span>,threshold <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">60</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"multisession"</span>,workers<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"multisession"</span>,workers<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">abex</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu">ex_by_date</span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abtc</span>,</span></span>
 <span class="r-in"><span>                         train_prop<span class="op">=</span><span class="fl">0.7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"sequential"</span><span class="op">)</span></span></span>
