@@ -1,6 +1,6 @@
-  <!-- badges: start -->
-[![R-CMD-check](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml)
+<!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![CRAN status](https://www.r-pkg.org/badges/version/tenm)](https://CRAN.R-project.org/package=tenm)
 <!-- badges: end -->
 
 # tenm <a href="https://luismurao.github.io/tenm/"><img src="man/figures/logo.png" align="right" height="139" /></a>
