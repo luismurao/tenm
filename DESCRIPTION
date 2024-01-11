@@ -1,7 +1,6 @@
 Package: tenm
-Type: Package
-Title: Temporal ecological niche models
-Version: 1.0
+Title: Temporal Ecological Niche Models
+Version: 0.5.0
 Authors@R: c(
   person(given = "Luis", family = "Osorio-Olvera", 
   email = "luismurao@gmail.com", role = c("aut", "cre"),
