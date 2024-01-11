@@ -25,11 +25,12 @@ Description: A package to model the ecological niche using a time-specific
   approach. A set of tools (functions) made to generate ecological niche models 
   (ENMs) with a time-calibrated focus. The framework allows users to calibrate 
   ecological niche models with high temporal resolution environmental layers. 
-  The main objective of this package is to recover a lot of information that is 
-  lost or at least neglected while applying depuration of occurrence points that 
-  are redundant spatially (in the same pixel) but are from different periods. 
+  The main objective of this package is to recover information that is 
+  lost or at least neglected while applying a data curation protocol. 
+  The curation that consits in conservating occurrences that might seen 
+  redundant spatially (occur in the same pixel) but are from different periods. 
   The novelty in this package is that it might reconstruct the fundamental niche
-  more accurately when using fine temporal resolution layers. The theoretical 
+  more accurately by using fine temporal resolution layers. The theoretical 
   background of the package can be found in Peteson et al. (2011) 
   \doi{10.5860/CHOICE.49-6266}.
 License: GPL-3 + file LICENSE

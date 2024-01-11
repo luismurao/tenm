@@ -36,7 +36,7 @@
 #'                         mve = TRUE,
 #'                         level = 0.975,
 #'                         vars = c("bio_05","bio_06","bio_12"))
-#' in_elip <- inEllipsoid(centroid = mod$centroid,
+#' in_elip <- tenm::inEllipsoid(centroid = mod$centroid,
 #'                        eShape = mod$covariance,
 #'                        env_data = abex$env_data[,c("bio_05","bio_06","bio_12")],
 #'                        level = 0.975)

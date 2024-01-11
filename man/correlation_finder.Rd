@@ -14,7 +14,7 @@ correlation_finder(
 \arguments{
 \item{environmental_data}{A matrix or a data.frame of environmental data}
 
-\item{method}{A method to estimate correlation matrix. Posible options are
+\item{method}{A method to estimate correlation matrix. Possible options are
 "spearman", "pearson" or "kendall".}
 
 \item{threshold}{Threshold value from which it is considered that the

@@ -15,6 +15,11 @@ which each record (occurrences points) will be used as training or testing.
 A 0.7 train_prop indicates that 70 of the data will be used to train the
 model, and the other 30 to model itself.}
 }
+\value{
+An object of class sp.temporal.env that contains a temporal
+data.frame (temporal_df) with the following columns: latitude, longitude,
+year, layer_dates, layers_path, cell_ids_year, and environmental data.
+}
 \description{
 Function to extract environmental data by date. This function
 generates training and testing data sets using a random partition with a
@@ -34,7 +39,7 @@ abt <- tenm::sp_temporal_data(occs = abronia,
                               layers_by_date_dir = tempora_layers_dir,
                               layers_ext="*.tif$")
 abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
-future::plan("multisession",workers=10)
+future::plan("multisession",workers=2)
 abex <- tenm::ex_by_date(this_species = abtc,
                          train_prop=0.7)
 future::plan("sequential")

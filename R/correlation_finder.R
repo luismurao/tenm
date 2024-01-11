@@ -4,7 +4,7 @@
 #' returns a list of variables names that can summarize the information
 #' and removes the variables that are redundant.
 #' @param environmental_data A matrix or a data.frame of environmental data
-#' @param method A method to estimate correlation matrix. Posible options are
+#' @param method A method to estimate correlation matrix. Possible options are
 #' "spearman", "pearson" or "kendall".
 #' @param threshold Threshold value from which it is considered that the
 #' correlation is high.

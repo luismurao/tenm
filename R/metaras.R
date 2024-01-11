@@ -1,4 +1,4 @@
-#' Helper function to obtain layer name from a
+#' Helper function to obtain layer name from a raster layer
 #' @description Returns a character vector with the name of the raster layer
 #' @param r An object of class SpatRaster
 #' @examples

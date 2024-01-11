@@ -31,7 +31,7 @@ cellFromXY.}
 \item{buffer_ngbs}{Number of pixel neighbors around occurrences to be used
 to build the buffer.}
 
-\item{raster_mask}{An object of class RasterLayer that will be used to
+\item{raster_mask}{An object of class SpatRaster that will be used to
 obtain pixel IDs.}
 
 \item{process_ngbs_by}{Numeric. Estimates neighbor cells each x cells. This
@@ -40,6 +40,9 @@ is for memory management.}
 \item{n_bg}{Number of background pixels.}
 
 \item{progress}{Logical. Show computation progress}
+}
+\value{
+A numeric vector with the IDs of cells to be sampled.
 }
 \description{
 Returns pixel IDs to be sample for generating

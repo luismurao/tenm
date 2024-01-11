@@ -13,7 +13,7 @@
 #'   ...
 #' }
 #' @source GBIF.org (22 February 2022) GBIF Occurrence
-#' Download \url{https://doi.org/10.15468/dl.teyjm9}
+#' Download \doi{10.15468/dl.teyjm9}
 "abronia"
 
 #' Colors for plotting

@@ -15,7 +15,7 @@ clean_dup(
 )
 }
 \arguments{
-\item{data}{A dataframe with longitude and latitude of occurrence records
+\item{data}{A data.frame with longitude and latitude of occurrence records
 belongings to some specie.}
 
 \item{longitude}{A character vector of the column name "longitude" within
@@ -42,20 +42,20 @@ with one-pixel length of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on
 depending on how much area you want to cover.}
 }
 \value{
-Returns a data.frame with coordinate data from species
+Returns a data.frame with coordinate data from a species
 }
 \description{
-Clean up duplicated or redundant occurrence records whiches
+Clean up duplicated or redundant occurrence records that
 present overlapping longitude and latitude geographical coordinates regarding
 a referent system that the user can choose from fourth possible ways to
 eliminate: distance threshold, per single pixel grain of resolution, by pixel
 neighborhood, or both combined distance and pixel at the same time.This
 function has as its main purpose to eliminate occurrence points
 geographically spliced, using the information of the spatial position to
-determine it, in order to depurate large clouds of occurrence points that
+determine it, in order to debug large clouds of occurrence points that
 could cause an environmental overestimation in the future model, we call this
 process "cleaning of spatial duplicated data". The user has to set a distance
-in "units" that arose an overlapping area from a random choosen record where
+in "units" that arose an overlapping area from a random chosen record where
 any other occurrence within this is consider as a duplicated and then
 eliminated. Also you can use a raster mask with a determinate pixel grain
 resolution as a base sift; see in arguments raster_mask and n_ngbs.

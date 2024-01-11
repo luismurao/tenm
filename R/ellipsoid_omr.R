@@ -1,6 +1,6 @@
 #' ellipsoid_omr
 #'
-#' @description Compute the omission rate of ellipspoid models
+#' @description Compute the omission rate of ellipsoid models
 #' @param env_data A data frame with the environmental data.
 #' @param env_test A data frame with the environmental testing data. The default
 #' is NULL if given the selection process will show the p-value of a binomial

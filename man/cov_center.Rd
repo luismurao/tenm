@@ -32,7 +32,7 @@ and axis coordinates.
 \description{
 Function to compute the covariance matrix, the niche centroid
 and volume of an ellipsoid model. It uses the values of the niche variables
-of the ocurrences points.
+of the occurrences points.
 }
 \examples{
 \donttest{

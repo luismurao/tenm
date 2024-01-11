@@ -19,6 +19,9 @@
 #' duplicates in a 1 pixel-long neighborhood of a 9 pixel area (3x3), "2"
 #' correspond to a neighborhood of 2 adjacent pixels of a 25 pixel area (5x5)
 #' and so on depending on how much area you want to cover.
+#' @return A sp.temporal.modeling object that contains a temporal data.frame.
+#' This table has five columns: longitude, latitude, year, layers_dates and
+#' layers_path
 #'
 #' @details This function is build on the basis of
 #' \code{\link[tenm]{clean_dup}}. See the help of the function for more examples

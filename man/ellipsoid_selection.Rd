@@ -94,7 +94,7 @@ For more details and examples go to \code{\link[tenm]{ellipsoid_omr}} help.
 \references{
 Peterson, A.T. et al. (2008) Rethinking receiver operating
 characteristic analysis applications in ecological niche modeling. Ecol.
-Modell., 213, 63–72.
+Modell. 213, 63–72. \doi{10.1016/j.ecolmodel.2007.11.008}
 }
 \author{
 Luis Osorio-Olvera \href{mailto:luismurao@gmail.com}{luismurao@gmail.com}

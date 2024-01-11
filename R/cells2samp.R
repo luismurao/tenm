@@ -10,12 +10,13 @@
 #' cellFromXY.
 #' @param buffer_ngbs Number of pixel neighbors around occurrences to be used
 #' to build the buffer.
-#' @param raster_mask An object of class RasterLayer that will be used to
+#' @param raster_mask An object of class SpatRaster that will be used to
 #' obtain pixel IDs.
 #' @param process_ngbs_by Numeric. Estimates neighbor cells each x cells. This
 #' is for memory management.
 #' @param n_bg Number of background pixels.
 #' @param progress Logical. Show computation progress
+#' @return A numeric vector with the IDs of cells to be sampled.
 #' @examples
 #' # cells to sample
 #' data(abronia)

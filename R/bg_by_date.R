@@ -11,6 +11,9 @@
 #' @param n_bg Number of background points.
 #' @param process_ngbs_by Numeric. Estimates neighbor cells each x cells. This
 #' is for memory management.
+#' @return Returns an object of class sp.temporal.bg which is a list that
+#' contains a data.frame with longitude, latitude, year, layer_date, layer_path,
+#' cell_ids_year and environmental information.
 #' @details The buffer is built around the occurrences using a neighborhood
 #' distance.
 #' @examples

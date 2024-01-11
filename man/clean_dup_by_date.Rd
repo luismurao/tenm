@@ -33,6 +33,11 @@ duplicates in a 1 pixel-long neighborhood of a 9 pixel area (3x3), "2"
 correspond to a neighborhood of 2 adjacent pixels of a 25 pixel area (5x5)
 and so on depending on how much area you want to cover.}
 }
+\value{
+A sp.temporal.modeling object that contains a temporal data.frame.
+This table has five columns: longitude, latitude, year, layers_dates and
+layers_path
+}
 \description{
 Clean up duplicated longitude and latitude data by year using a
 threshold distance. The main propose of this function is eliminate data

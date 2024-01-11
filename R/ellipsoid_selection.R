@@ -54,7 +54,7 @@
 #' @author Luis Osorio-Olvera <luismurao@gmail.com>
 #' @references Peterson, A.T. et al. (2008) Rethinking receiver operating
 #' characteristic analysis applications in ecological niche modeling. Ecol.
-#' Modell., 213, 63–72.
+#' Modell. 213, 63–72. \doi{10.1016/j.ecolmodel.2007.11.008}
 
 
 ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/metaras.R
 \name{metaras}
 \alias{metaras}
-\title{Helper function to obtain layer name from a}
+\title{Helper function to obtain layer name from a raster layer}
 \usage{
 metaras(r)
 }

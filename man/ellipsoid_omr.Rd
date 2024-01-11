@@ -48,5 +48,5 @@ that were fitted; ii) "om_rate" omission rates of the model; iii)
 "bg_prevalence" approximated prevalence of the model see details section.
 }
 \description{
-Compute the omission rate of ellipspoid models
+Compute the omission rate of ellipsoid models
 }

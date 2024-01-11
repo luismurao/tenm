@@ -16,7 +16,7 @@ sp_temporal_data(
 )
 }
 \arguments{
-\item{occs}{A DataFrame or a SpatialPointsDataFrame with information about
+\item{occs}{A data.frame with information about
 the occurrence records of the specie that is being modeled. It is fundamental
 to count with exact geographical coordinates of longitude and latitude where
 the specie was detected or at least the nearest, also a temporal column

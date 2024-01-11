@@ -9,6 +9,9 @@
 #' A 0.7 train_prop indicates that 70 of the data will be used to train the
 #' model, and the other 30 to model itself.
 #' @importFrom future plan tweak sequential
+#' @return An object of class sp.temporal.env that contains a temporal
+#' data.frame (temporal_df) with the following columns: latitude, longitude,
+#' year, layer_dates, layers_path, cell_ids_year, and environmental data.
 #' @examples
 #' \dontrun{
 #' library(tenm)
@@ -23,7 +26,7 @@
 #'                               layers_by_date_dir = tempora_layers_dir,
 #'                               layers_ext="*.tif$")
 #' abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
-#' future::plan("multisession",workers=10)
+#' future::plan("multisession",workers=2)
 #' abex <- tenm::ex_by_date(this_species = abtc,
 #'                          train_prop=0.7)
 #' future::plan("sequential")

@@ -23,7 +23,7 @@ First we need to call the package
 library(tenm)
 ```
 ## Datasets included
-Inside the package it is contain a .dataFrame with a set of occurrences presence records between 1939 and 2016 of "Abronia graminea", a lizard specie with a limited geographic distribution, endemic of Veracruz and Puebla.
+Inside the package it is contain a data.frame with a set of occurrences presence records between 1939 and 2016 of "Abronia graminea", a lizard specie with a limited geographic distribution, endemic of Veracruz and Puebla.
 
 ```{r echo=TRUE,eval=TRUE}
 data("abronia")
@@ -125,7 +125,7 @@ mod_sel <- tenm::tenm_selection(this_species = abbg,
                                 n_cores=12)
 ```
 
-## Plot the potencial distribution. 
+## Plot the potential distribution. 
 
 ```{r, fig.align='center',fig.width=5, fig.height=5, fig.asp=0.7,eval=TRUE}
 layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
@@ -138,7 +138,7 @@ terra::plot(suit_1970_2000)
 
 ```
 
-## Plot ocurrences presence points in different years along a time series. 
+## Plot ocurrence points in different years along a time series. 
 
 ```{r, fig.align='center',fig.width=4, fig.height=5, fig.asp=0.7,eval=TRUE}
 data("colors")

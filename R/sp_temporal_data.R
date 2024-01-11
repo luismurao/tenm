@@ -14,7 +14,7 @@
 #'  both of the columns with the coordinates of longitude and latitude
 #'  correspondingly, layers_ext\[1\] is the final extension format of the
 #'  environmental information (“.tif$”).
-#' @param occs A DataFrame or a SpatialPointsDataFrame with information about
+#' @param occs A data.frame with information about
 #' the occurrence records of the specie that is being modeled. It is fundamental
 #' to count with exact geographical coordinates of longitude and latitude where
 #' the specie was detected or at least the nearest, also a temporal column
@@ -66,12 +66,8 @@ sp_temporal_data <- function(occs,longitude,
                              occ_date_format="y",
                              layers_date_format= "y",
                              layers_by_date_dir,layers_ext="*.tif$"){
-  classes_sp_data <- c("SpatialPointsDataFrame","data.frame")
+  classes_sp_data <- c("data.frame")
   if(class(occs) %in% classes_sp_data){
-    if(methods::is(occs, "SpatialPointsDataFrame")){
-      lon_lat_vars <- colnames(occs@coords)
-      occs <- data.frame(occs@coords,occs@data)
-    }
 
     if(methods::is(occs, "data.frame")) {
       lon_lat_vars <- c(longitude,latitude)
@@ -152,7 +148,6 @@ sp_temporal_data <- function(occs,longitude,
       stop("\n Please provide species a valid 'date_var'")
   }
   else
-    stop("\n Please provide species occurrence data as a 'data.frame' or as a
-         'SpatialPointsDataFrame'")
+    stop("\n Please provide species occurrence data as a 'data.frame'")
 
 }

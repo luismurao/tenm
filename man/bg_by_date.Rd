@@ -26,6 +26,11 @@ data will be taken.}
 \item{process_ngbs_by}{Numeric. Estimates neighbor cells each x cells. This
 is for memory management.}
 }
+\value{
+Returns an object of class sp.temporal.bg which is a list that
+contains a data.frame with longitude, latitude, year, layer_date, layer_path,
+cell_ids_year and environmental information.
+}
 \description{
 Get environmental background for each set of dated environmental
 layers.

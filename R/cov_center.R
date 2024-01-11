@@ -3,7 +3,7 @@
 #' niche model.
 #' @description Function to compute the covariance matrix, the niche centroid
 #' and volume of an ellipsoid model. It uses the values of the niche variables
-#' of the ocurrences points.
+#' of the occurrences points.
 #' @param data A data.frame or a matrix with the numeric values of the variables
 #' that will be used to model the niche.
 #' @param mve A logical value. If TRUE a minimum volume ellipsoid will be
