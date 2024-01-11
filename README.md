@@ -1,4 +1,4 @@
-# tenm
+# tenm <a href="https://luismurao.github.io/tenm/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 An R package with a set of functions to calibrate time-specific ecological 
 niche models. 
