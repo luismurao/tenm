@@ -111,9 +111,15 @@ bg_by_date <- function(this_species,
   ex_date <- seq_len(nrow(all_layers)) |> furrr::future_map_dfr(function(x){
     cellids <-  cells_to_samp[[all_layers$dir_paths[x]]]
     env_layers <- terra::rast(all_layers$layers_path[x])
+    #xys <- terra::xyFromCell(env_layers,cellids)
+
     layer_val <- stats::na.omit(env_layers[cellids])
+    rm_ids <- stats::na.action(layer_val)
+    cellids <- cellids[-rm_ids]
+    #xys <- xys[-rm_ids,]
     if(nrow(layer_val) ==0L) return()
     df1 <- data.frame(ID_YEAR = all_layers$dir_paths[x],
+                      cellids,
                       layer_val= layer_val[[1]],
                       var_name = env_layers@cpp$get_sourcenames())
     return(df1)
@@ -122,11 +128,14 @@ bg_by_date <- function(this_species,
   bg_env <- tidyr::pivot_wider(ex_date,values_fn = list,
                                names_from = var_name,
                                values_from = layer_val)
+  r1 <- terra::rast(all_layers$layers_path[1])
+  xys <- terra::xyFromCell(r1,bg_env$cellids)
+  colnames(xys) <- this_species$lon_lat_vars
 
-  bg_env <-   seq_along(bg_env$ID_YEAR) |> purrr::map_dfr(function(x){
-    ID_YEAR <- rep(bg_env$ID_YEAR[[x]],length(bg_env[[2]][[x]]))
-    df_year <- seq_along(bg_env[-1]) |> purrr::map_dfc(function(y){
-      data <- bg_env[-1]
+  bg_env <-   seq_along(bg_env$ID_YEAR) |> furrr::future_map_dfr(function(x){
+    ID_YEAR <- rep(bg_env$ID_YEAR[[x]],length(bg_env[[3]][[x]]))
+    df_year <- seq_along(bg_env[-(1:2)]) |> purrr::map_dfc(function(y){
+      data <- bg_env[-(1:2)]
       value <- data[[y]][[x]]
       df1 <- data.frame(value)
       names(df1) <- names(data[y])
@@ -134,7 +143,9 @@ bg_by_date <- function(this_species,
     })
     df_res <- data.frame(ID_YEAR,df_year)
     return(df_res)
-  })
+  },.progress = TRUE,.options = furrr::furrr_options(seed = NULL,
+                                                     globals = c("bg_env")))
+  bg_env <- data.frame(ID_YEAR = bg_env[,1],xys,bg_env[,-1])
 
   sp.temp.data.env <- list(temporal_df = tdf,
                            sp_date_var = this_species$sp_date_var,
