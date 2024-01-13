@@ -70,30 +70,628 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-<div class="section level1">
+  <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
 <img src="logo.png" class="logo" alt=""><h1 id="tenm-">tenm 
 <a class="anchor" aria-label="anchor" href="#tenm-"></a>
 </h1>
 </div>
-<p>An R package with a set of functions to calibrate time-specific ecological niche models.</p>
-</div>
-<div class="section level1">
-<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h1>
+<!-- badges: start -->
+
+<p>An R package with a set of functions to calibrate time-specific ecological niche models. Time-specific niche modeling (TENM) is a novel approach that allows calibrating niche models with high temporal resolution spatial information, which aims to reduce niche estimation biases. Although TENM could improve distribution estimates, few works have used them. The goal of <code>tenm</code> R package is to provide methods and functions to calibrate time-specific niche models, letting users execute a strict calibration and selection process of niche models based on ellipsoids, as well as functions to project the potential distribution in the present and in global change scenarios.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of tenm from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">'devtools'</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'devtools'</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'luismurao/tenm'</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"luismurao/tenm"</span><span class="op">)</span></span>
 <span><span class="co"># If you want to build vignette, install pandoc before and then</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'luismurao/tenm'</span>,build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>We start with a simple example to show the basic functions of the package. We will work with a dataset of <a href="https://es.wikipedia.org/wiki/Abronia_graminea" class="external-link"><em>Abronia graminea</em></a> which is endemic lizard from the Mexican Sierra Madre Oriental.</p>
+<p>First we load the <code>tenm</code> R package.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://luismurao.github.io/tenm/" class="external-link">tenm</a></span><span class="op">)</span></span>
+<span><span class="co">## basic example code</span></span></code></pre></div>
+<p>Now we load the <code>abronia</code> dataset that contains geographical information about presence of <em>Abronia graminea</em> in its area of distribution. This dataset has also information about the year of observation and the <a href="https://www.gbif.org" class="external-link">GBIF</a> doi.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"abronia"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">abronia</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            species decimalLongitude decimalLatitude year</span></span>
+<span><span class="co">#&gt; 1 Abronia graminea        -98.17773        19.96523 2014</span></span>
+<span><span class="co">#&gt; 2 Abronia graminea        -98.13753        19.87006 2014</span></span>
+<span><span class="co">#&gt; 3 Abronia graminea        -98.07042        19.89668 2014</span></span>
+<span><span class="co">#&gt; 4 Abronia graminea        -98.13003        19.86861 2014</span></span>
+<span><span class="co">#&gt; 5 Abronia graminea        -98.14894        19.84450 2014</span></span>
+<span><span class="co">#&gt; 6 Abronia graminea        -98.15909        19.86878 2014</span></span>
+<span><span class="co">#&gt;                             gbif_doi</span></span>
+<span><span class="co">#&gt; 1 https://doi.org/10.15468/dl.teyjm9</span></span>
+<span><span class="co">#&gt; 2 https://doi.org/10.15468/dl.teyjm9</span></span>
+<span><span class="co">#&gt; 3 https://doi.org/10.15468/dl.teyjm9</span></span>
+<span><span class="co">#&gt; 4 https://doi.org/10.15468/dl.teyjm9</span></span>
+<span><span class="co">#&gt; 5 https://doi.org/10.15468/dl.teyjm9</span></span>
+<span><span class="co">#&gt; 6 https://doi.org/10.15468/dl.teyjm9</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">abronia</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 106   5</span></span></code></pre></div>
+<p>Now we plot the geographic information</p>
+<div class="figure">
+<img src="reference/figures/README-pressure-1.png" alt="Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the year of observation." width="100%"><p class="caption">
+Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the year of observation.
+</p>
+</div>
+<p><strong>Note that some occurrences are overlapped but belong to different years</strong>.</p>
+<div class="section level3">
+<h3 id="standard-data-thinning">Standard data thinning<a class="anchor" aria-label="anchor" href="#standard-data-thinning"></a>
+</h3>
+<p>A relevant step when curating occurrence data is to eliminate duplicated geographical information, which depends on several factors including spatial autocorrelation and the spatial resolution of the modeling layers. Lets see what happens when we eliminate duplicated information as defined by spatial the resolution of our modeling layers. To do this we will use the <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> function of the <code>tenm</code> R package.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load a modeling layer </span></span>
+<span><span class="va">tempora_layers_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
+<span><span class="va">tenm_mask</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,<span class="st">"1939/bio_01.tif"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ab_1</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/clean_dup.html">clean_dup</a></span><span class="op">(</span>data <span class="op">=</span><span class="va">abronia</span>,</span>
+<span>                        longitude <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
+<span>                        latitude <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
+<span>                        threshold <span class="op">=</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">res</a></span><span class="op">(</span><span class="va">tenm_mask</span><span class="op">)</span>,</span>
+<span>                        by_mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                        raster_mask <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">ab_1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 10 × 5</span></span>
+<span><span class="co">#&gt;    species          decimalLongitude decimalLatitude  year gbif_doi             </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                       &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;                </span></span>
+<span><span class="co">#&gt;  1 Abronia graminea            -97.5            19.5  1995 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  2 Abronia graminea            -97.0            18.2  1993 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  3 Abronia graminea            -98.0            19.8  1980 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  4 Abronia graminea            -97.7            19.6  2012 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  5 Abronia graminea            -97.9            20.1  2015 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  6 Abronia graminea            -97.4            18.5  1952 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  7 Abronia graminea            -97.1            18.9  1998 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  8 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  9 Abronia graminea            -97.3            18.7  1973 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt; 10 Abronia graminea            -97.0            19.7  1972 https://doi.org/10.1…</span></span></code></pre></div>
+<p>After applying our spatial thinning we obtained only 10 observations from 106 occurrences. We lost a lot of information!!! The function <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> has a method to clean duplicated records according to a rater mask layer. This avoids losing records that might occur in different pixels but occur within the distance used as threshold for cleaning.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ab_by_mask</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/clean_dup.html">clean_dup</a></span><span class="op">(</span>data <span class="op">=</span><span class="va">abronia</span>,</span>
+<span>                              longitude <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
+<span>                              latitude <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
+<span>                              threshold <span class="op">=</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">res</a></span><span class="op">(</span><span class="va">tenm_mask</span><span class="op">)</span>,</span>
+<span>                              by_mask <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                              raster_mask <span class="op">=</span> <span class="va">tenm_mask</span><span class="op">)</span></span>
+<span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">ab_by_mask</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 16 × 5</span></span>
+<span><span class="co">#&gt;    species          decimalLongitude decimalLatitude  year gbif_doi             </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                       &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;                </span></span>
+<span><span class="co">#&gt;  1 Abronia graminea            -98.2            20.0  2014 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  2 Abronia graminea            -98.1            19.9  2014 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  3 Abronia graminea            -98.1            19.8  2014 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  4 Abronia graminea            -97.9            19.9  2014 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  5 Abronia graminea            -97.3            18.7  1963 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  6 Abronia graminea            -97.1            18.3  1996 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  7 Abronia graminea            -97.4            18.8  1941 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  8 Abronia graminea            -97.4            18.7  1988 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt;  9 Abronia graminea            -97.0            19.6  1991 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt; 10 Abronia graminea            -97.4            19.1  2002 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt; 11 Abronia graminea            -97.5            19.5  1995 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt; 12 Abronia graminea            -97.0            18.2  1993 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt; 13 Abronia graminea            -97.7            19.6  2012 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt; 14 Abronia graminea            -97.9            20.1  2015 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt; 15 Abronia graminea            -97.1            18.9  1998 https://doi.org/10.1…</span></span>
+<span><span class="co">#&gt; 16 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…</span></span></code></pre></div>
+<p>We recover 6 records, not bad! On the other hand, we didn’t account the fact that some occurrences come from different years. The <code>tenm</code>package is designed to deal with occurrences that come from different time periods as long as the user has environmental layers that match with the years of occurrence observations.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="time-specific-niche-modeling">Time-specific niche modeling<a class="anchor" aria-label="anchor" href="#time-specific-niche-modeling"></a>
+</h2>
+<p>Lets apply the functions and methods to work with time-specific niche models. First we load our data.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://luismurao.github.io/tenm/" class="external-link">tenm</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"abronia"</span><span class="op">)</span></span></code></pre></div>
+<p>Now we indicate the path where our time-specific modeling layers are located</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tempora_layers_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio"</span></span></code></pre></div>
+<p>Lets see the structure of the directory that contains our modeling layers</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939"</span></span>
+<span><span class="co">#&gt;  [2] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1940"</span></span>
+<span><span class="co">#&gt;  [3] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1941"</span></span>
+<span><span class="co">#&gt;  [4] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1950"</span></span>
+<span><span class="co">#&gt;  [5] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1952"</span></span>
+<span><span class="co">#&gt;  [6] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1963"</span></span>
+<span><span class="co">#&gt;  [7] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1969"</span></span>
+<span><span class="co">#&gt;  [8] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1970"</span></span>
+<span><span class="co">#&gt;  [9] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1971"</span></span>
+<span><span class="co">#&gt; [10] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1972"</span></span>
+<span><span class="co">#&gt; [11] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1973"</span></span>
+<span><span class="co">#&gt; [12] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1974"</span></span>
+<span><span class="co">#&gt; [13] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1976"</span></span>
+<span><span class="co">#&gt; [14] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1977"</span></span>
+<span><span class="co">#&gt; [15] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1980"</span></span>
+<span><span class="co">#&gt; [16] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1981"</span></span>
+<span><span class="co">#&gt; [17] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1982"</span></span>
+<span><span class="co">#&gt; [18] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1983"</span></span>
+<span><span class="co">#&gt; [19] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1988"</span></span>
+<span><span class="co">#&gt; [20] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1991"</span></span>
+<span><span class="co">#&gt; [21] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1993"</span></span>
+<span><span class="co">#&gt; [22] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1994"</span></span>
+<span><span class="co">#&gt; [23] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1995"</span></span>
+<span><span class="co">#&gt; [24] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1996"</span></span>
+<span><span class="co">#&gt; [25] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1998"</span></span>
+<span><span class="co">#&gt; [26] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2002"</span></span>
+<span><span class="co">#&gt; [27] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2008"</span></span>
+<span><span class="co">#&gt; [28] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2011"</span></span>
+<span><span class="co">#&gt; [29] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2012"</span></span>
+<span><span class="co">#&gt; [30] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2014"</span></span>
+<span><span class="co">#&gt; [31] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2015"</span></span>
+<span><span class="co">#&gt; [32] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2016"</span></span></code></pre></div>
+<p>Note that the directory contains other directories named with the dates of the modeling layers. Now we explore some of these dated directories</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Directory for year 1939</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,</span>
+<span>                     recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>           pattern <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "bio_01.tif" "bio_02.tif" "bio_03.tif" "bio_04.tif" "bio_05.tif"</span></span>
+<span><span class="co">#&gt;  [6] "bio_06.tif" "bio_07.tif" "bio_08.tif" "bio_09.tif" "bio_10.tif"</span></span>
+<span><span class="co">#&gt; [11] "bio_11.tif" "bio_12.tif" "bio_13.tif" "bio_14.tif" "bio_15.tif"</span></span>
+<span><span class="co">#&gt; [16] "bio_16.tif" "bio_17.tif" "bio_18.tif" "bio_19.tif"</span></span>
+<span><span class="co"># Directory for year 1972</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,</span>
+<span>                     recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span>,</span>
+<span>           pattern <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "bio_01.tif" "bio_02.tif" "bio_03.tif" "bio_04.tif" "bio_05.tif"</span></span>
+<span><span class="co">#&gt;  [6] "bio_06.tif" "bio_07.tif" "bio_08.tif" "bio_09.tif" "bio_10.tif"</span></span>
+<span><span class="co">#&gt; [11] "bio_11.tif" "bio_12.tif" "bio_13.tif" "bio_14.tif" "bio_15.tif"</span></span>
+<span><span class="co">#&gt; [16] "bio_16.tif" "bio_17.tif" "bio_18.tif" "bio_19.tif"</span></span>
+<span><span class="co"># Directory for year 2014</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,</span>
+<span>                     recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span>,</span>
+<span>           pattern <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "bio_01.tif" "bio_02.tif" "bio_03.tif" "bio_04.tif" "bio_05.tif"</span></span>
+<span><span class="co">#&gt;  [6] "bio_06.tif" "bio_07.tif" "bio_08.tif" "bio_09.tif" "bio_10.tif"</span></span>
+<span><span class="co">#&gt; [11] "bio_11.tif" "bio_12.tif" "bio_13.tif" "bio_14.tif" "bio_15.tif"</span></span>
+<span><span class="co">#&gt; [16] "bio_16.tif" "bio_17.tif" "bio_18.tif" "bio_19.tif"</span></span></code></pre></div>
+<p>Note that all dated directories must have the same environmental information. In this example we used the bioclimatic layers derived from the <a href="https://chelsa-climate.org/chelsacruts/" class="external-link">CHELSAcruts</a> database.</p>
+<div class="section level3">
+<h3 id="the-sptemporalmodeling-object">The <em>sp.temporal.modeling</em> object<a class="anchor" aria-label="anchor" href="#the-sptemporalmodeling-object"></a>
+</h3>
+<p>In the following lines of code we will use a special function of the <code>tenm</code> R package that will allows to work with time-specific data.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"abronia"</span><span class="op">)</span></span>
+<span><span class="va">tempora_layers_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
+<span><span class="va">abt</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/sp_temporal_data.html">sp_temporal_data</a></span><span class="op">(</span>occs <span class="op">=</span> <span class="va">abronia</span>,</span>
+<span>                              longitude <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
+<span>                              latitude <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
+<span>                              sp_date_var <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>                              occ_date_format<span class="op">=</span><span class="st">"y"</span>,</span>
+<span>                              layers_date_format<span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>                              layers_by_date_dir <span class="op">=</span> <span class="va">tempora_layers_dir</span>,</span>
+<span>                              layers_ext<span class="op">=</span><span class="st">"*.tif$"</span><span class="op">)</span></span></code></pre></div>
+<p>The function <code><a href="reference/sp_temporal_data.html">tenm::sp_temporal_data</a></code> is parametrized with the occurrence dated database. To parametrize the function we need to specify the name of the columns that contain the longitude and latitude data, the column that represents the year of observation, the format of dates (here years but see the help of the function for other date formats), the layers date format, the directory that contains the time-specific modeling layers and the rater layer extension. The object <code>abt</code> is a special class called <em>sp.temporal.modeling</em> that deals with time-specific information.</p>
+<p>Lets explore the slots of <code>abt</code> object</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># See the names of the slots</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abt</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "temporal_df"  "sp_date_var"  "lon_lat_vars" "layers_ext"</span></span></code></pre></div>
+<p>The <code>abt</code> object has four slot: a temporal data.frame (“temporal_df”), a character vector indicating the date variable (“sp_date_var”), a character vector showing the names of longitude and latitude data (“lon_lat_vars”) and another character vector with the extension of the modeling layers.</p>
+<p>Now we explore the temporal_df slot which is a data.frame with five columns: longitude, latitude, the time variable (here year), the layer dates and layers path (the path the temporal niche layers are located).</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># See the temporal data.frame</span></span>
+<span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">abt</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   decimalLongitude decimalLatitude  year layer_dates layers_path                </span></span>
+<span><span class="co">#&gt;              &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;date&gt;      &lt;chr&gt;                      </span></span>
+<span><span class="co">#&gt; 1            -98.2            20.0  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 2            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 3            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 4            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 5            -98.1            19.8  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 6            -98.2            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="time-specific-spatial-data-thinning">Time-specific spatial data thinning<a class="anchor" aria-label="anchor" href="#time-specific-spatial-data-thinning"></a>
+</h3>
+<p>As a first step we will curate our time-specific database using the function <code><a href="reference/clean_dup_by_date.html">tenm::clean_dup_by_date</a></code>. This function is parametrized as the <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> function with the difference that it thins the data considering the time variable (some occurrences might be spatially duplicated but belong to other dates, so they do not have the same environmental information).</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Clean duplicates using a raster mask</span></span>
+<span><span class="va">abtc</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/clean_dup_by_date.html">clean_dup_by_date</a></span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abt</span>,</span>
+<span>                                by_mask <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                threshold <span class="op">=</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">res</a></span><span class="op">(</span><span class="va">tenm_mask</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>                                raster_mask <span class="op">=</span> <span class="va">tenm_mask</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>                                n_ngbs <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="co"># Check number of records</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   decimalLongitude decimalLatitude  year layer_dates layers_path                </span></span>
+<span><span class="co">#&gt;              &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;date&gt;      &lt;chr&gt;                      </span></span>
+<span><span class="co">#&gt; 1            -97.3            18.7  1939 1939-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 2            -97.3            18.7  1940 1940-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 3            -97.0            19.6  1941 1941-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 4            -97.3            18.7  1941 1941-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 5            -97.3            18.7  1950 1950-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 6            -97.1            19.7  1950 1950-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 40</span></span></code></pre></div>
+<p>An improvement of this methodology is that we recover a lot of information. From 10 records thinned using the standard data cleaning process, now we have 40 records; 30 more observations!!! which will allows us to fit more informative models. Lets compare occurrences from the standard data cleaning process and the time-specific thinning process.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">colors1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">ab_1</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ab_1</span><span class="op">$</span><span class="va">decimalLongitude</span>, <span class="va">ab_1</span><span class="op">$</span><span class="va">decimalLatitude</span>,</span>
+<span>     col<span class="op">=</span><span class="va">colors1</span>,pch<span class="op">=</span><span class="fl">19</span>, cex<span class="op">=</span><span class="fl">0.75</span>,</span>
+<span>     xlab<span class="op">=</span><span class="st">"Longitude"</span>,ylab<span class="op">=</span><span class="st">"Latitude"</span>,xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">98.35</span>,<span class="op">-</span><span class="fl">96.7</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomleft"</span>,legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">ab_1</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
+<span>       cex<span class="op">=</span><span class="fl">0.85</span>,pt.cex <span class="op">=</span> <span class="fl">1</span>,bty <span class="op">=</span> <span class="st">"n"</span>,</span>
+<span>       pch<span class="op">=</span><span class="fl">19</span>,col <span class="op">=</span><span class="va">colors1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">colors2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">decimalLongitude</span>, <span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">decimalLatitude</span>,</span>
+<span>     col<span class="op">=</span><span class="va">colors2</span>,pch<span class="op">=</span><span class="fl">19</span>, cex<span class="op">=</span><span class="fl">0.75</span>,</span>
+<span>     xlab<span class="op">=</span><span class="st">"Longitude"</span>,ylab<span class="op">=</span><span class="st">"Latitude"</span>,xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">98.35</span>,<span class="op">-</span><span class="fl">96.7</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomleft"</span>,legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">]</span>,</span>
+<span>       cex<span class="op">=</span><span class="fl">0.85</span>,pt.cex <span class="op">=</span> <span class="fl">1</span>,bty <span class="op">=</span> <span class="st">"n"</span>,</span>
+<span>       pch<span class="op">=</span><span class="fl">19</span>,col <span class="op">=</span><span class="va">colors2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>,</span>
+<span>       legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">abronia</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">17</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>       cex<span class="op">=</span><span class="fl">0.85</span>,pt.cex <span class="op">=</span> <span class="fl">1</span>,bty <span class="op">=</span> <span class="st">"n"</span>,</span>
+<span>       pch<span class="op">=</span><span class="fl">19</span>,col <span class="op">=</span><span class="va">colors2</span><span class="op">[</span><span class="fl">17</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-unnamed-chunk-12-1.png" alt="Fig. 2. Comparison of the spatial distribution of occurrence records for the standard thinning processs and the time-specific thinning process. Left panel shows the records after the standard thinning process. Right panel shows the spatial distribution of the records after the time-specific thinning process; note that some records overlap but are from different years." width="100%"><p class="caption">
+Fig. 2. Comparison of the spatial distribution of occurrence records for the standard thinning processs and the time-specific thinning process. Left panel shows the records after the standard thinning process. Right panel shows the spatial distribution of the records after the time-specific thinning process; note that some records overlap but are from different years.
+</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="time-specific-environmental-data-extraction">Time-specific environmental data extraction<a class="anchor" aria-label="anchor" href="#time-specific-environmental-data-extraction"></a>
+</h3>
+<p>After the spatial thinning process we need to extract environmental information from our occurrence points. The <code>tenm</code> package does this using the function <code><a href="reference/ex_by_date.html">tenm::ex_by_date</a></code>. This function can be run in parallel by evoking functions of the <code>future</code> package. To parametrize the function we need to specify the “sp.temporal.modeling” object (obtained using the function <code><a href="reference/sp_temporal_data.html">tenm::sp_temporal_data</a></code> or the one from <code><a href="reference/clean_dup_by_date.html">tenm::clean_dup_by_date</a></code>) and the proportion of occurrences to be used as training dataset. The <code>tenm</code> package uses a random partition to divide the database into train and test datasets.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"multisession"</span>,workers<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">abex</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/ex_by_date.html">ex_by_date</a></span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abtc</span>,</span>
+<span>                         train_prop<span class="op">=</span><span class="fl">0.7</span><span class="op">)</span></span>
+<span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"sequential"</span><span class="op">)</span></span></code></pre></div>
+<p>Now we explore the slot “temporal_df”</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">abex</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 26</span></span>
+<span><span class="co">#&gt;   decimalLongitude decimalLatitude  year layer_dates layers_path   cell_ids_year</span></span>
+<span><span class="co">#&gt;              &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;date&gt;      &lt;chr&gt;                 &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1            -97.3            18.7  1939 1939-01-01  /Library/Fra…           272</span></span>
+<span><span class="co">#&gt; 2            -97.3            18.7  1940 1940-01-01  /Library/Fra…           272</span></span>
+<span><span class="co">#&gt; 3            -97.0            19.6  1941 1941-01-01  /Library/Fra…           173</span></span>
+<span><span class="co">#&gt; 4            -97.3            18.7  1941 1941-01-01  /Library/Fra…           271</span></span>
+<span><span class="co">#&gt; 5            -97.3            18.7  1950 1950-01-01  /Library/Fra…           272</span></span>
+<span><span class="co">#&gt; 6            -97.1            19.7  1950 1950-01-01  /Library/Fra…           173</span></span>
+<span><span class="co">#&gt; # ℹ 20 more variables: bio_01 &lt;int&gt;, bio_02 &lt;int&gt;, bio_03 &lt;int&gt;, bio_04 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_05 &lt;int&gt;, bio_06 &lt;int&gt;, bio_07 &lt;int&gt;, bio_08 &lt;int&gt;, bio_09 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_10 &lt;int&gt;, bio_11 &lt;int&gt;, bio_12 &lt;int&gt;, bio_13 &lt;int&gt;, bio_14 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_15 &lt;int&gt;, bio_16 &lt;int&gt;, bio_17 &lt;int&gt;, bio_18 &lt;int&gt;, bio_19 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   trian_test &lt;chr&gt;</span></span></code></pre></div>
+<p>It has 40 rows and columns with the time-specific environmental values and additional column indicating if the observation will be used as train or test.</p>
+</div>
+<div class="section level3">
+<h3 id="time-specific-background-generation">Time-specific background generation<a class="anchor" aria-label="anchor" href="#time-specific-background-generation"></a>
+</h3>
+<p>The <code>tenm</code> package uses environmental background to compute the ROC and partial ROC test, estimate the prevalence of the species in the environmental space (proportion of environmental points inside the niche model). We will generate 10,000 environmental background points using as calibration area a neighborhood of 10 pixels around each occurrence point (buffer_ngbs parameter).</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"multisession"</span>,workers<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">abbg</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/bg_by_date.html">bg_by_date</a></span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abex</span>,</span>
+<span>                         buffer_ngbs<span class="op">=</span><span class="fl">10</span>,n_bg<span class="op">=</span><span class="fl">10000</span><span class="op">)</span></span>
+<span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"sequential"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">abbg</span><span class="op">$</span><span class="va">env_bg</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                                                                      ID_YEAR</span></span>
+<span><span class="co">#&gt; 1 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 2 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 3 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 4 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 5 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 6 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt;   decimalLongitude decimalLatitude bio_01 bio_02 bio_03 bio_04 bio_05 bio_06</span></span>
+<span><span class="co">#&gt; 1        -97.75000        18.91667    155     92     57   2177    223     62</span></span>
+<span><span class="co">#&gt; 2        -98.25000        18.75000    192    100     60   1990    264     97</span></span>
+<span><span class="co">#&gt; 3        -98.58333        17.75000    210    104     62   1574    286    118</span></span>
+<span><span class="co">#&gt; 4        -98.41667        19.41667    134     99     59   2204    205     38</span></span>
+<span><span class="co">#&gt; 5        -96.58333        17.91667    204     80     53   2221    271    121</span></span>
+<span><span class="co">#&gt; 6        -98.75000        18.41667    234    105     61   1801    311    139</span></span>
+<span><span class="co">#&gt;   bio_07 bio_08 bio_09 bio_10 bio_11 bio_12 bio_13 bio_14 bio_15 bio_16 bio_17</span></span>
+<span><span class="co">#&gt; 1    161    175    136    176    124    550    133      1      1    279      9</span></span>
+<span><span class="co">#&gt; 2    167    210    177    211    163    690    187      0      1    408      7</span></span>
+<span><span class="co">#&gt; 3    168    223    192    224    187    616    177      1      1    375      5</span></span>
+<span><span class="co">#&gt; 4    167    156    103    156    103    613    119      0      1    326      8</span></span>
+<span><span class="co">#&gt; 5    151    224    199    225    173   2520    619      4      1   1167     39</span></span>
+<span><span class="co">#&gt; 6    172    248    214    250    208    611    158      0      1    380      3</span></span>
+<span><span class="co">#&gt;   bio_18 bio_19</span></span>
+<span><span class="co">#&gt; 1    259     14</span></span>
+<span><span class="co">#&gt; 2    338      8</span></span>
+<span><span class="co">#&gt; 3    296      5</span></span>
+<span><span class="co">#&gt; 4    277      8</span></span>
+<span><span class="co">#&gt; 5    972    583</span></span>
+<span><span class="co">#&gt; 6    269      4</span></span></code></pre></div>
+<p><strong>The number of background points for each year is proportional to the number of occurrences for each year of observation.</strong></p>
+</div>
+<div class="section level3">
+<h3 id="exporting-time-specific-information-as-samples-with-data-format">Exporting time-specific information as Samples With Data format<a class="anchor" aria-label="anchor" href="#exporting-time-specific-information-as-samples-with-data-format"></a>
+</h3>
+<p>Although the package uses minimum volume ellipsoids to model the niche, it has a function to export the time-specific data to Samples With Data format which will allow users to fit other algorithms such as MaxEnt. Lest see how it works.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># SWD table for occurrence records</span></span>
+<span><span class="va">occ_swd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tdf2swd.html">tdf2swd</a></span><span class="op">(</span>this_species<span class="op">=</span><span class="va">abex</span>,sp_name<span class="op">=</span><span class="st">"abro_gram"</span><span class="op">)</span></span>
+<span><span class="co"># SWD table for background data</span></span>
+<span><span class="va">bg_swd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tdf2swd.html">tdf2swd</a></span><span class="op">(</span>this_species<span class="op">=</span><span class="va">abbg</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">occ_swd</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 23</span></span>
+<span><span class="co">#&gt;   sp_name   decimalLongitude decimalLatitude  year bio_01 bio_02 bio_03 bio_04</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 abro_gram            -97.3            18.7  1939    149     84     55   2252</span></span>
+<span><span class="co">#&gt; 2 abro_gram            -97.3            18.7  1940    154     87     49   2575</span></span>
+<span><span class="co">#&gt; 3 abro_gram            -97.0            19.6  1941    114     63     44   2693</span></span>
+<span><span class="co">#&gt; 4 abro_gram            -97.3            18.7  1941    139     82     50   2394</span></span>
+<span><span class="co">#&gt; 5 abro_gram            -97.3            18.7  1950    155     94     54   2079</span></span>
+<span><span class="co">#&gt; 6 abro_gram            -97.1            19.7  1950    115     79     51   2278</span></span>
+<span><span class="co">#&gt; # ℹ 15 more variables: bio_05 &lt;int&gt;, bio_06 &lt;int&gt;, bio_07 &lt;int&gt;, bio_08 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_09 &lt;int&gt;, bio_10 &lt;int&gt;, bio_11 &lt;int&gt;, bio_12 &lt;int&gt;, bio_13 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_14 &lt;int&gt;, bio_15 &lt;int&gt;, bio_16 &lt;int&gt;, bio_17 &lt;int&gt;, bio_18 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_19 &lt;int&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">bg_swd</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 23</span></span>
+<span><span class="co">#&gt;   sp_name    decimalLongitude decimalLatitude  year bio_01 bio_02 bio_03 bio_04</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                 &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 background            -97.7            18.9  1939    155     92     57   2177</span></span>
+<span><span class="co">#&gt; 2 background            -98.2            18.8  1939    192    100     60   1990</span></span>
+<span><span class="co">#&gt; 3 background            -98.6            17.8  1939    210    104     62   1574</span></span>
+<span><span class="co">#&gt; 4 background            -98.4            19.4  1939    134     99     59   2204</span></span>
+<span><span class="co">#&gt; 5 background            -96.6            17.9  1939    204     80     53   2221</span></span>
+<span><span class="co">#&gt; 6 background            -98.7            18.4  1939    234    105     61   1801</span></span>
+<span><span class="co">#&gt; # ℹ 15 more variables: bio_05 &lt;int&gt;, bio_06 &lt;int&gt;, bio_07 &lt;int&gt;, bio_08 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_09 &lt;int&gt;, bio_10 &lt;int&gt;, bio_11 &lt;int&gt;, bio_12 &lt;int&gt;, bio_13 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_14 &lt;int&gt;, bio_15 &lt;int&gt;, bio_16 &lt;int&gt;, bio_17 &lt;int&gt;, bio_18 &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   bio_19 &lt;int&gt;</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="time-specific-model-calibration-and-selection">Time-specific model calibration and selection<a class="anchor" aria-label="anchor" href="#time-specific-model-calibration-and-selection"></a>
+</h3>
+<p>As a final step we will calibrate time-specific niche models using minimum volume ellipsoids. To do this we first select the environmental variables using the function <code><a href="reference/correlation_finder.html">tenm::correlation_finder</a></code>. This function filter variables according to a correlation threshold which is important to avoid issues related to collinearity.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">varcorrs</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/correlation_finder.html">correlation_finder</a></span><span class="op">(</span>environmental_data <span class="op">=</span></span>
+<span>                                       <span class="va">abex</span><span class="op">$</span><span class="va">env_data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">abex</span><span class="op">$</span><span class="va">env_data</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                     method <span class="op">=</span> <span class="st">"spearman"</span>,</span>
+<span>                                     threshold <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>                                     verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in stats::cor(environmental_data, method = method): the standard</span></span>
+<span><span class="co">#&gt; deviation is zero</span></span>
+<span><span class="co"># Selected variables</span></span>
+<span><span class="va">vars2fit</span> <span class="op">&lt;-</span> <span class="va">varcorrs</span><span class="op">$</span><span class="va">descriptors</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">vars2fit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "bio_01" "bio_02" "bio_03" "bio_04" "bio_07" "bio_12" "bio_14" "bio_15"</span></span>
+<span><span class="co">#&gt; [9] "bio_17"</span></span></code></pre></div>
+<p>Now we use the function <code><a href="reference/tenm_selection.html">tenm::tenm_selection</a></code> to calibrate the time-specific niche models. This function uses the background object (here the <code>abbg</code> object) as input. To paramtrize the function we need to specify the omission rate criteria to be used to select the models, the proportion of points to be included in the ellipsoid model (<em>ellipsoid_level</em> parameter), the names of the modeling layers (<em>vars2fit</em> parameter), a numeric vector indicating the number of dimensions used to build ellipsoid models (<em>vars2fit</em> parameter) a logical argument that determines whether to use the partial ROC test or not, the random percent of data to be used for the bootstrap of the partial ROC test (<em>RandomPercent</em> parameter), the number of iterations of the partial ROC test (<em>NoOfIteration</em> parameter), a logical argument to specify whether to run the calibration process in parallel and the number of cores used in the parallel process (<em>parallel</em> parameter).</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mod_sel</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/tenm_selection.html">tenm_selection</a></span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abbg</span>,</span>
+<span>                                omr_criteria <span class="op">=</span><span class="fl">0.1</span>,</span>
+<span>                                ellipsoid_level<span class="op">=</span><span class="fl">0.975</span>,</span>
+<span>                                vars2fit <span class="op">=</span> <span class="va">vars2fit</span>,</span>
+<span>                                nvars_to_fit<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span><span class="op">)</span>,</span>
+<span>                                proc <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                                RandomPercent <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>                                NoOfIteration<span class="op">=</span><span class="fl">1000</span>,</span>
+<span>                                parallel<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>                                n_cores<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; -----------------------------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;      **** Starting model selection process ****</span></span>
+<span><span class="co">#&gt; -----------------------------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A total number of 36 models will be created for combinations of 9 variables taken by 2 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A total number of 84 models will be created for combinations of 9 variables taken by 3 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A total number of 126 models will be created for combinations of 9 variables taken by 4 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A total number of 126 models will be created for combinations of 9 variables taken by 5 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A total number of 84 models will be created for combinations of 9 variables taken by 6 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A total number of 36 models will be created for combinations of 9 variables taken by 7 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; -----------------------------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;   **A total number of 492 models will be tested **</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; -----------------------------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; Doing calibration from model  1 to  100 in process  1 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Doing calibration from model  101 to  200 in process  2 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Doing calibration from model  201 to  300 in process  3 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Doing calibration from model  301 to  400 in process  4 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Doing calibration from model  401 to  492 in process  5 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Finishing calibration of models  1 to  100 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Finishing calibration of models  101 to  200 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Finishing calibration of models  201 to  300 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Finishing calibration of models  301 to  400 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Finishing calibration of models  401 to  492 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Finishing...</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; -----------------------------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;   244 models passed omr_criteria for train data</span></span>
+<span><span class="co">#&gt;   27 models passed omr_criteria for test data</span></span>
+<span><span class="co">#&gt;   27 models passed omr_criteria for train and test data</span></span></code></pre></div>
+<p>We fitted 492 models from which 27 passed our selection criteria. Lets explore the <code>mod_sel</code> object</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mod_sel</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "temporal_df"  "sp_date_var"  "lon_lat_vars" "layers_ext"   "env_bg"      </span></span>
+<span><span class="co">#&gt; [6] "mods_table"</span></span></code></pre></div>
+<p>It has five slots. We can obtain the table of results of the selection process by calling the <code>mods_table</code> slot.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mod_sel</span><span class="op">$</span><span class="va">mods_table</span>,<span class="fl">27</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                    fitted_vars nvars om_rate_train non_pred_train_ids</span></span>
+<span><span class="co">#&gt; 1  bio_01,bio_02,bio_04,bio_07     4       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 2  bio_01,bio_02,bio_03,bio_04     4       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 3  bio_01,bio_03,bio_04,bio_07     4       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 4  bio_01,bio_04,bio_07,bio_12     4       0.09375           21,28,31</span></span>
+<span><span class="co">#&gt; 5  bio_01,bio_02,bio_03,bio_07     4       0.03125                 18</span></span>
+<span><span class="co">#&gt; 6         bio_01,bio_04,bio_07     3       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 7  bio_01,bio_03,bio_04,bio_12     4       0.09375           18,21,28</span></span>
+<span><span class="co">#&gt; 8         bio_01,bio_03,bio_04     3       0.06250               3,18</span></span>
+<span><span class="co">#&gt; 9                bio_01,bio_04     2       0.03125                 18</span></span>
+<span><span class="co">#&gt; 10        bio_01,bio_02,bio_04     3       0.09375            3,18,31</span></span>
+<span><span class="co">#&gt; 11               bio_01,bio_02     2       0.09375            3,18,31</span></span>
+<span><span class="co">#&gt; 12               bio_01,bio_07     2       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 13               bio_01,bio_03     2       0.06250               3,18</span></span>
+<span><span class="co">#&gt; 14        bio_01,bio_03,bio_12     3       0.06250               3,18</span></span>
+<span><span class="co">#&gt; 15 bio_02,bio_04,bio_07,bio_12     4       0.06250              21,28</span></span>
+<span><span class="co">#&gt; 16 bio_02,bio_03,bio_07,bio_12     4       0.06250              21,28</span></span>
+<span><span class="co">#&gt; 17 bio_02,bio_03,bio_04,bio_12     4       0.06250              21,28</span></span>
+<span><span class="co">#&gt; 18        bio_01,bio_07,bio_12     3       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 19 bio_02,bio_03,bio_04,bio_07     4       0.03125                  3</span></span>
+<span><span class="co">#&gt; 20        bio_04,bio_07,bio_12     3       0.06250              21,28</span></span>
+<span><span class="co">#&gt; 21               bio_04,bio_07     2       0.03125                  3</span></span>
+<span><span class="co">#&gt; 22               bio_04,bio_12     2       0.06250              10,21</span></span>
+<span><span class="co">#&gt; 23               bio_03,bio_04     2       0.03125                  3</span></span>
+<span><span class="co">#&gt; 24        bio_02,bio_07,bio_12     3       0.09375            3,21,28</span></span>
+<span><span class="co">#&gt; 25        bio_02,bio_03,bio_12     3       0.09375            3,21,28</span></span>
+<span><span class="co">#&gt; 26        bio_03,bio_07,bio_12     3       0.09375            3,21,28</span></span>
+<span><span class="co">#&gt; 27               bio_07,bio_12     2       0.03125                 28</span></span>
+<span><span class="co">#&gt;    om_rate_test non_pred_test_ids bg_prevalence pval_bin pval_proc</span></span>
+<span><span class="co">#&gt; 1             0                       0.4706024        0         0</span></span>
+<span><span class="co">#&gt; 2             0                       0.4554527        0         0</span></span>
+<span><span class="co">#&gt; 3             0                       0.4639894        0         0</span></span>
+<span><span class="co">#&gt; 4             0                       0.4627871        0         0</span></span>
+<span><span class="co">#&gt; 5             0                       0.4088013        0         0</span></span>
+<span><span class="co">#&gt; 6             0                       0.4648311        0         0</span></span>
+<span><span class="co">#&gt; 7             0                       0.4625466        0         0</span></span>
+<span><span class="co">#&gt; 8             0                       0.4655525        0         0</span></span>
+<span><span class="co">#&gt; 9             0                       0.4835878        0         0</span></span>
+<span><span class="co">#&gt; 10            0                       0.4768546        0         0</span></span>
+<span><span class="co">#&gt; 11            0                       0.4823855        0         0</span></span>
+<span><span class="co">#&gt; 12            0                       0.5001804        0         0</span></span>
+<span><span class="co">#&gt; 13            0                       0.4995792        0         0</span></span>
+<span><span class="co">#&gt; 14            0                       0.4844295        0         0</span></span>
+<span><span class="co">#&gt; 15            0                       0.6570879        0         0</span></span>
+<span><span class="co">#&gt; 16            0                       0.5706385        0         0</span></span>
+<span><span class="co">#&gt; 17            0                       0.6412168        0         0</span></span>
+<span><span class="co">#&gt; 18            0                       0.4962126        0         0</span></span>
+<span><span class="co">#&gt; 19            0                       0.6100757        0         0</span></span>
+<span><span class="co">#&gt; 20            0                       0.6847421        0         0</span></span>
+<span><span class="co">#&gt; 21            0                       0.7537574        0         0</span></span>
+<span><span class="co">#&gt; 22            0                       0.7220151        0         0</span></span>
+<span><span class="co">#&gt; 23            0                       0.7382470        0         0</span></span>
+<span><span class="co">#&gt; 24            0                       0.6783696        0         0</span></span>
+<span><span class="co">#&gt; 25            0                       0.6816160        0         0</span></span>
+<span><span class="co">#&gt; 26            0                       0.7000120        0         0</span></span>
+<span><span class="co">#&gt; 27            0                       0.7766021        0         0</span></span>
+<span><span class="co">#&gt;    env_bg_paucratio env_bg_auc mean_omr_train_test rank_by_omr_train_test</span></span>
+<span><span class="co">#&gt; 1          1.520879  0.7985825            0.031250                     11</span></span>
+<span><span class="co">#&gt; 2          1.505433  0.7996963            0.031250                      7</span></span>
+<span><span class="co">#&gt; 3          1.500235  0.7974813            0.031250                      8</span></span>
+<span><span class="co">#&gt; 4          1.467522  0.7828762            0.046875                     22</span></span>
+<span><span class="co">#&gt; 5          1.465208  0.7519787            0.015625                      1</span></span>
+<span><span class="co">#&gt; 6          1.462961  0.7858313            0.031250                      9</span></span>
+<span><span class="co">#&gt; 7          1.448599  0.7549675            0.046875                     21</span></span>
+<span><span class="co">#&gt; 8          1.431383  0.7479400            0.031250                     10</span></span>
+<span><span class="co">#&gt; 9          1.429927  0.7371300            0.015625                      2</span></span>
+<span><span class="co">#&gt; 10         1.424194  0.7454525            0.046875                     23</span></span>
+<span><span class="co">#&gt; 11         1.418651  0.7439425            0.046875                     24</span></span>
+<span><span class="co">#&gt; 12         1.409348  0.7345675            0.031250                     15</span></span>
+<span><span class="co">#&gt; 13         1.409145  0.7019625            0.031250                     14</span></span>
+<span><span class="co">#&gt; 14         1.382147  0.6807450            0.031250                     12</span></span>
+<span><span class="co">#&gt; 15         1.379969  0.7115000            0.031250                     18</span></span>
+<span><span class="co">#&gt; 16         1.374939  0.6537675            0.031250                     16</span></span>
+<span><span class="co">#&gt; 17         1.373252  0.7036712            0.031250                     17</span></span>
+<span><span class="co">#&gt; 18         1.365017  0.7032725            0.031250                     13</span></span>
+<span><span class="co">#&gt; 19         1.329613  0.6943437            0.015625                      3</span></span>
+<span><span class="co">#&gt; 20         1.315690  0.6769800            0.031250                     19</span></span>
+<span><span class="co">#&gt; 21         1.307749  0.6769513            0.015625                      5</span></span>
+<span><span class="co">#&gt; 22         1.288655  0.6388300            0.031250                     20</span></span>
+<span><span class="co">#&gt; 23         1.267623  0.6472100            0.015625                      4</span></span>
+<span><span class="co">#&gt; 24         1.261588  0.6146950            0.046875                     25</span></span>
+<span><span class="co">#&gt; 25         1.253496  0.5970800            0.046875                     26</span></span>
+<span><span class="co">#&gt; 26         1.240056  0.5891425            0.046875                     27</span></span>
+<span><span class="co">#&gt; 27         1.193064  0.5648687            0.015625                      6</span></span>
+<span><span class="co">#&gt;    rank_omr_aucratio</span></span>
+<span><span class="co">#&gt; 1                  1</span></span>
+<span><span class="co">#&gt; 2                  2</span></span>
+<span><span class="co">#&gt; 3                  3</span></span>
+<span><span class="co">#&gt; 4                  4</span></span>
+<span><span class="co">#&gt; 5                  5</span></span>
+<span><span class="co">#&gt; 6                  6</span></span>
+<span><span class="co">#&gt; 7                  7</span></span>
+<span><span class="co">#&gt; 8                  8</span></span>
+<span><span class="co">#&gt; 9                  9</span></span>
+<span><span class="co">#&gt; 10                10</span></span>
+<span><span class="co">#&gt; 11                11</span></span>
+<span><span class="co">#&gt; 12                12</span></span>
+<span><span class="co">#&gt; 13                13</span></span>
+<span><span class="co">#&gt; 14                14</span></span>
+<span><span class="co">#&gt; 15                15</span></span>
+<span><span class="co">#&gt; 16                16</span></span>
+<span><span class="co">#&gt; 17                17</span></span>
+<span><span class="co">#&gt; 18                18</span></span>
+<span><span class="co">#&gt; 19                19</span></span>
+<span><span class="co">#&gt; 20                20</span></span>
+<span><span class="co">#&gt; 21                21</span></span>
+<span><span class="co">#&gt; 22                22</span></span>
+<span><span class="co">#&gt; 23                23</span></span>
+<span><span class="co">#&gt; 24                24</span></span>
+<span><span class="co">#&gt; 25                25</span></span>
+<span><span class="co">#&gt; 26                26</span></span>
+<span><span class="co">#&gt; 27                27</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="projecting-time-specific-niche-models">Projecting time-specific niche models<a class="anchor" aria-label="anchor" href="#projecting-time-specific-niche-models"></a>
+</h3>
+<p>To project the models we use the <code>predict</code> method. Here we will project the a model using environmental layers of 2016 and also from a period that comprehends 1970-2000.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">env_layers_2016</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,</span>
+<span>                     recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">32</span><span class="op">]</span></span>
+<span><span class="va">suit_2016</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_sel</span>,</span>
+<span>                     model_variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio_01"</span>,<span class="st">"bio_03"</span>,<span class="st">"bio_12"</span><span class="op">)</span>,</span>
+<span>                     layers_path <span class="op">=</span><span class="va">env_layers_2016</span> ,</span>
+<span>                     layers_ext <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span></span>
+<span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/rglwidget.html" class="external-link">rglwidget</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in snapshot3d(scene = x, width = width, height = height): webshot =</span></span>
+<span><span class="co">#&gt; TRUE requires the webshot2 package and Chrome browser; using rgl.snapshot()</span></span>
+<span><span class="co">#&gt; instead</span></span></code></pre></div>
+<p><img src="../../../../../private/var/folders/hh/dww2wxkn6f1dkktbx23dq2rw0000gn/T/RtmpppidHG/file107211b1094f.png" width="100%"></p>
+<p>Now for the period that comprehends 1970-2000.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">layers_70_00_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio_1970_2000"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
+<span><span class="va">suit_1970_2000</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_sel</span>,</span>
+<span>                          model_variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio_01"</span>,<span class="st">"bio_03"</span>,<span class="st">"bio_12"</span><span class="op">)</span>,</span>
+<span>                          layers_path <span class="op">=</span> <span class="va">layers_70_00_dir</span>,</span>
+<span>                          layers_ext <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span></span>
+<span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/rglwidget.html" class="external-link">rglwidget</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in snapshot3d(scene = x, width = width, height = height): webshot =</span></span>
+<span><span class="co">#&gt; TRUE requires the webshot2 package and Chrome browser; using rgl.snapshot()</span></span>
+<span><span class="co">#&gt; instead</span></span></code></pre></div>
+<p><img src="../../../../../private/var/folders/hh/dww2wxkn6f1dkktbx23dq2rw0000gn/T/RtmpppidHG/file1072462921f1.png" width="100%"></p>
+<p>Lets see the predictions in geographic space</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">suit_2016</span>, main<span class="op">=</span><span class="st">"Prediction for 2016"</span><span class="op">)</span></span>
+<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">suit_1970_2000</span>, main<span class="op">=</span><span class="st">"Prediction for 1970-2000"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-23-1.png" width="100%"></p>
+</div>
+</div>
 <div class="section level2">
 <h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
 </h2>
 <p>CONACYT Ciencia de Frontera CF-2023-I-1156.</p>
 </div>
 </div>
-
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

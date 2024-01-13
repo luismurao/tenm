@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+rgl::setupKnitr()
 set.seed(123)
 ```
 
@@ -400,25 +401,23 @@ To project the models we use the `predict` method. Here we will project the
 a model using environmental layers of 2016 and also from a period that 
 comprehends 1970-2000.
 
-```{r}
+```{r rgl=TRUE, dev='png'}
 env_layers_2016 <- list.dirs(tempora_layers_dir,
                      recursive = FALSE)[32]
 suit_2016 <- predict(mod_sel,
                      model_variables = c("bio_01","bio_03","bio_12"),
                      layers_path =env_layers_2016 ,
                      layers_ext = ".tif$")
-rgl::rglwidget()
 ```
 
 Now for the period that comprehends 1970-2000.
 
-```{r}
+```{r rgl=TRUE, dev='png'}
 layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
 suit_1970_2000 <- predict(mod_sel,
                           model_variables = c("bio_01","bio_03","bio_12"),
                           layers_path = layers_70_00_dir,
                           layers_ext = ".tif$")
-rgl::rglwidget()
 ```
 
 Lets see the predictions in geographic space
