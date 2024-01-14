@@ -114,12 +114,12 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>We start with a simple example to show the basic functions of the package. We will work with a dataset of <a href="https://es.wikipedia.org/wiki/Abronia_graminea" class="external-link"><em>Abronia graminea</em></a> which is endemic lizard from the Mexican Sierra Madre Oriental.</p>
-<p>First we load the <code>tenm</code> R package.</p>
+<p>We start with a simple example to show the basic functions of the package. We will work with a dataset of <a href="https://es.wikipedia.org/wiki/Abronia_graminea" class="external-link"><em>Abronia graminea</em></a>, an endemic lizard from the Mexican Sierra Madre Oriental.</p>
+<p>First, we load the <code>tenm</code> R package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://luismurao.github.io/tenm/" class="external-link">tenm</a></span><span class="op">)</span></span>
 <span><span class="co">## basic example code</span></span></code></pre></div>
-<p>Now we load the <code>abronia</code> dataset that contains geographical information about presence of <em>Abronia graminea</em> in its area of distribution. This dataset has also information about the year of observation and the <a href="https://www.gbif.org" class="external-link">GBIF</a> doi.</p>
+<p>Now we load the <code>abronia</code> dataset, which contains geographical information about the presence of <em>Abronia graminea</em> in its area of distribution. This dataset has also information about the year of observation and the <a href="https://www.gbif.org" class="external-link">GBIF</a> doi.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"abronia"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">abronia</span><span class="op">)</span></span>
@@ -139,7 +139,7 @@
 <span><span class="co">#&gt; 6 https://doi.org/10.15468/dl.teyjm9</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">abronia</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 106   5</span></span></code></pre></div>
-<p>Now we plot the geographic information</p>
+<p>We plot the geographic information to see how <em>Abronia graminea</em> is distributed.</p>
 <div class="figure">
 <img src="reference/figures/README-pressure-1.png" alt="Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the year of observation." width="100%"><p class="caption">
 Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the year of observation.
@@ -149,7 +149,7 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <div class="section level3">
 <h3 id="standard-data-thinning">Standard data thinning<a class="anchor" aria-label="anchor" href="#standard-data-thinning"></a>
 </h3>
-<p>A relevant step when curating occurrence data is to eliminate duplicated geographical information, which depends on several factors including spatial autocorrelation and the spatial resolution of the modeling layers. Lets see what happens when we eliminate duplicated information as defined by spatial the resolution of our modeling layers. To do this we will use the <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> function of the <code>tenm</code> R package.</p>
+<p>A relevant step when curating occurrence data is to eliminate duplicated geographical information, which depends on several factors, including spatial autocorrelation and the spatial resolution of the modeling layers. Let’s see what happens when we eliminate duplicated information as defined by the spatial resolution of our modeling layers. To do this, we will use the <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> function of the <code>tenm</code> R package.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load a modeling layer </span></span>
 <span><span class="va">tempora_layers_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
@@ -175,7 +175,7 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span><span class="co">#&gt;  8 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…</span></span>
 <span><span class="co">#&gt;  9 Abronia graminea            -97.3            18.7  1973 https://doi.org/10.1…</span></span>
 <span><span class="co">#&gt; 10 Abronia graminea            -97.0            19.7  1972 https://doi.org/10.1…</span></span></code></pre></div>
-<p>After applying our spatial thinning we obtained only 10 observations from 106 occurrences. We lost a lot of information!!! The function <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> has a method to clean duplicated records according to a rater mask layer. This avoids losing records that might occur in different pixels but occur within the distance used as threshold for cleaning.</p>
+<p>After applying our spatial thinning, we obtained only ten observations from 106 occurrences. We lost a lot of information!!! The function <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> has a method to clean duplicated records according to a rater mask layer. The above avoids losing records that might occur in different pixels but fall within the distance used as threshold for cleaning.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ab_by_mask</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/clean_dup.html">clean_dup</a></span><span class="op">(</span>data <span class="op">=</span><span class="va">abronia</span>,</span>
 <span>                              longitude <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
@@ -203,22 +203,22 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span><span class="co">#&gt; 14 Abronia graminea            -97.9            20.1  2015 https://doi.org/10.1…</span></span>
 <span><span class="co">#&gt; 15 Abronia graminea            -97.1            18.9  1998 https://doi.org/10.1…</span></span>
 <span><span class="co">#&gt; 16 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…</span></span></code></pre></div>
-<p>We recover 6 records, not bad! On the other hand, we didn’t account the fact that some occurrences come from different years. The <code>tenm</code>package is designed to deal with occurrences that come from different time periods as long as the user has environmental layers that match with the years of occurrence observations.</p>
+<p>We recover 6 records, not bad! On the other hand, we didn not account for the fact that some occurrences come from different years. The <code>tenm</code> package is designed to deal with occurrences coming from different periods as long as the user has environmental layers matching the years of occurrence observations.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="time-specific-niche-modeling">Time-specific niche modeling<a class="anchor" aria-label="anchor" href="#time-specific-niche-modeling"></a>
 </h2>
-<p>Lets apply the functions and methods to work with time-specific niche models. First we load our data.</p>
+<p>Let’s apply the functions and methods to work with time-specific niche models. First, we load our data.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://luismurao.github.io/tenm/" class="external-link">tenm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"abronia"</span><span class="op">)</span></span></code></pre></div>
-<p>Now we indicate the path where our time-specific modeling layers are located</p>
+<p>Now, we indicate the path where our time-specific modeling layers are located.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tempora_layers_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio"</span></span></code></pre></div>
-<p>Lets see the structure of the directory that contains our modeling layers</p>
+<p>We explore the structure of the directory that contains our modeling layers.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939"</span></span>
@@ -253,7 +253,7 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span><span class="co">#&gt; [30] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2014"</span></span>
 <span><span class="co">#&gt; [31] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2015"</span></span>
 <span><span class="co">#&gt; [32] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2016"</span></span></code></pre></div>
-<p>Note that the directory contains other directories named with the dates of the modeling layers. Now we explore some of these dated directories</p>
+<p><strong>Note that the directory contains other directories named with the dates of the modeling layers</strong>. Now, we explore some of these dated directories.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Directory for year 1939</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,</span>
@@ -279,11 +279,11 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span><span class="co">#&gt;  [6] "bio_06.tif" "bio_07.tif" "bio_08.tif" "bio_09.tif" "bio_10.tif"</span></span>
 <span><span class="co">#&gt; [11] "bio_11.tif" "bio_12.tif" "bio_13.tif" "bio_14.tif" "bio_15.tif"</span></span>
 <span><span class="co">#&gt; [16] "bio_16.tif" "bio_17.tif" "bio_18.tif" "bio_19.tif"</span></span></code></pre></div>
-<p>Note that all dated directories must have the same environmental information. In this example we used the bioclimatic layers derived from the <a href="https://chelsa-climate.org/chelsacruts/" class="external-link">CHELSAcruts</a> database.</p>
+<p><strong>Note that all dated directories must have the same environmental</strong> <strong>information.</strong> In this example, we used the bioclimatic layers derived from the <a href="https://chelsa-climate.org/chelsacruts/" class="external-link">CHELSAcruts</a> database.</p>
 <div class="section level3">
 <h3 id="the-sptemporalmodeling-object">The <em>sp.temporal.modeling</em> object<a class="anchor" aria-label="anchor" href="#the-sptemporalmodeling-object"></a>
 </h3>
-<p>In the following lines of code we will use a special function of the <code>tenm</code> R package that will allows to work with time-specific data.</p>
+<p>In the following lines of code, we will use a special function of the <code>tenm</code> R package that will allow us to work with time-specific data.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"abronia"</span><span class="op">)</span></span>
 <span><span class="va">tempora_layers_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
@@ -295,14 +295,15 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span>                              layers_date_format<span class="op">=</span> <span class="st">"y"</span>,</span>
 <span>                              layers_by_date_dir <span class="op">=</span> <span class="va">tempora_layers_dir</span>,</span>
 <span>                              layers_ext<span class="op">=</span><span class="st">"*.tif$"</span><span class="op">)</span></span></code></pre></div>
-<p>The function <code><a href="reference/sp_temporal_data.html">tenm::sp_temporal_data</a></code> is parametrized with the occurrence dated database. To parametrize the function we need to specify the name of the columns that contain the longitude and latitude data, the column that represents the year of observation, the format of dates (here years but see the help of the function for other date formats), the layers date format, the directory that contains the time-specific modeling layers and the rater layer extension. The object <code>abt</code> is a special class called <em>sp.temporal.modeling</em> that deals with time-specific information.</p>
-<p>Lets explore the slots of <code>abt</code> object</p>
+<p>The function <code><a href="reference/sp_temporal_data.html">tenm::sp_temporal_data</a></code> is parametrized with the occurrence dated database. To parametrize the function, we need to specify the name of the columns that contain the longitude and latitude data, the column that represents the year of observation, the format of dates (here years, but see the help of the function for other date formats), the layers date format, the directory that contains the time-specific modeling layers and the raster layer extension.</p>
+<p>The object <code>abt</code> is a special class called <em>sp.temporal.modeling</em> that deals with time-specific information.</p>
+<p>In the following line of code, we explore the slots of <code>abt</code> object.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># See the names of the slots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">abt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "temporal_df"  "sp_date_var"  "lon_lat_vars" "layers_ext"</span></span></code></pre></div>
-<p>The <code>abt</code> object has four slot: a temporal data.frame (“temporal_df”), a character vector indicating the date variable (“sp_date_var”), a character vector showing the names of longitude and latitude data (“lon_lat_vars”) and another character vector with the extension of the modeling layers.</p>
-<p>Now we explore the temporal_df slot which is a data.frame with five columns: longitude, latitude, the time variable (here year), the layer dates and layers path (the path the temporal niche layers are located).</p>
+<p>The <code>abt</code> object has four slots: temporal data.frame (“temporal_df”), a character vector indicating the date variable (“sp_date_var”), a character vector showing the names of longitude and latitude data (“lon_lat_vars”) and another character vector with the extension of the modeling layers.</p>
+<p>Now, we explore the temporal_df slot, which is a data.frame with five columns: longitude, latitude, the time variable (here year), the layer dates, and layers path (the path the temporal niche layers are located).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># See the temporal data.frame</span></span>
 <span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">abt</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">)</span><span class="op">)</span></span>
@@ -319,7 +320,7 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <div class="section level3">
 <h3 id="time-specific-spatial-data-thinning">Time-specific spatial data thinning<a class="anchor" aria-label="anchor" href="#time-specific-spatial-data-thinning"></a>
 </h3>
-<p>As a first step we will curate our time-specific database using the function <code><a href="reference/clean_dup_by_date.html">tenm::clean_dup_by_date</a></code>. This function is parametrized as the <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> function with the difference that it thins the data considering the time variable (some occurrences might be spatially duplicated but belong to other dates, so they do not have the same environmental information).</p>
+<p>As a first step, we will curate our time-specific database using the function <code><a href="reference/clean_dup_by_date.html">tenm::clean_dup_by_date</a></code>. This function is parametrized as the <code><a href="reference/clean_dup.html">tenm::clean_dup</a></code> function with the difference that it thins the data considering the time variable (some occurrences might be spatially duplicated but belong to other dates, so in a time-specific context, they are not duplicates).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Clean duplicates using a raster mask</span></span>
 <span><span class="va">abtc</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/clean_dup_by_date.html">clean_dup_by_date</a></span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abt</span>,</span>
@@ -340,7 +341,7 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span><span class="co">#&gt; 6            -97.1            19.7  1950 1950-01-01  /Library/Frameworks/R.fram…</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 40</span></span></code></pre></div>
-<p>An improvement of this methodology is that we recover a lot of information. From 10 records thinned using the standard data cleaning process, now we have 40 records; 30 more observations!!! which will allows us to fit more informative models. Lets compare occurrences from the standard data cleaning process and the time-specific thinning process.</p>
+<p>An improvement of this methodology is that we recover a lot of information. From 10 records thinned using the standard data cleaning process, now we have 40 records; 30 more observations!!! which will allow us to fit more informative models. Let’s compare occurrences from the standard data cleaning process and the time-specific thinning process.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">colors1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">ab_1</span><span class="op">$</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -371,13 +372,13 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <div class="section level3">
 <h3 id="time-specific-environmental-data-extraction">Time-specific environmental data extraction<a class="anchor" aria-label="anchor" href="#time-specific-environmental-data-extraction"></a>
 </h3>
-<p>After the spatial thinning process we need to extract environmental information from our occurrence points. The <code>tenm</code> package does this using the function <code><a href="reference/ex_by_date.html">tenm::ex_by_date</a></code>. This function can be run in parallel by evoking functions of the <code>future</code> package. To parametrize the function we need to specify the “sp.temporal.modeling” object (obtained using the function <code><a href="reference/sp_temporal_data.html">tenm::sp_temporal_data</a></code> or the one from <code><a href="reference/clean_dup_by_date.html">tenm::clean_dup_by_date</a></code>) and the proportion of occurrences to be used as training dataset. The <code>tenm</code> package uses a random partition to divide the database into train and test datasets.</p>
+<p>After the spatial thinning process, we need to extract environmental information from our occurrence points. The <code>tenm</code> package does this using the function <code><a href="reference/ex_by_date.html">tenm::ex_by_date</a></code>. This function can be run in parallel by evoking functions of the <code>future</code> package. To parametrize the function, we need to specify the “sp.temporal.modeling” object (obtained using the function <code><a href="reference/sp_temporal_data.html">tenm::sp_temporal_data</a></code> or the one from <code><a href="reference/clean_dup_by_date.html">tenm::clean_dup_by_date</a></code>) and the proportion of occurrences to be used as the training dataset. The <code>tenm</code> package uses a random partition to divide the database into train and test datasets.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"multisession"</span>,workers<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">abex</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/ex_by_date.html">ex_by_date</a></span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abtc</span>,</span>
 <span>                         train_prop<span class="op">=</span><span class="fl">0.7</span><span class="op">)</span></span>
 <span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"sequential"</span><span class="op">)</span></span></code></pre></div>
-<p>Now we explore the slot “temporal_df”</p>
+<p>Now, we explore the slot “temporal_df”.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">abex</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 26</span></span>
@@ -394,12 +395,12 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; #   bio_10 &lt;int&gt;, bio_11 &lt;int&gt;, bio_12 &lt;int&gt;, bio_13 &lt;int&gt;, bio_14 &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   bio_15 &lt;int&gt;, bio_16 &lt;int&gt;, bio_17 &lt;int&gt;, bio_18 &lt;int&gt;, bio_19 &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   trian_test &lt;chr&gt;</span></span></code></pre></div>
-<p>It has 40 rows and columns with the time-specific environmental values and additional column indicating if the observation will be used as train or test.</p>
+<p>It has 40 rows and columns with the time-specific environmental values and an additional column indicating if the observation will be used as train or test.</p>
 </div>
 <div class="section level3">
 <h3 id="time-specific-background-generation">Time-specific background generation<a class="anchor" aria-label="anchor" href="#time-specific-background-generation"></a>
 </h3>
-<p>The <code>tenm</code> package uses environmental background to compute the ROC and partial ROC test, estimate the prevalence of the species in the environmental space (proportion of environmental points inside the niche model). We will generate 10,000 environmental background points using as calibration area a neighborhood of 10 pixels around each occurrence point (buffer_ngbs parameter).</p>
+<p>The <code>tenm</code> package uses environmental background to compute the ROC and partial ROC test and estimate the prevalence of the species in the environmental space (proportion of environmental points inside the niche model). We will generate 10,000 environmental background points using as calibration area and a neighborhood of 10 pixels around each occurrence point (buffer_ngbs parameter).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"multisession"</span>,workers<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">abbg</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/bg_by_date.html">bg_by_date</a></span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abex</span>,</span>
@@ -439,7 +440,7 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <div class="section level3">
 <h3 id="exporting-time-specific-information-as-samples-with-data-format">Exporting time-specific information as Samples With Data format<a class="anchor" aria-label="anchor" href="#exporting-time-specific-information-as-samples-with-data-format"></a>
 </h3>
-<p>Although the package uses minimum volume ellipsoids to model the niche, it has a function to export the time-specific data to Samples With Data format which will allow users to fit other algorithms such as MaxEnt. Lest see how it works.</p>
+<p>Although the package uses minimum volume ellipsoids to model the niche, it has a function to export the time-specific data to Samples With Data format table that allows users to fit other algorithms such as MaxEnt. Let’s see how it works.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SWD table for occurrence records</span></span>
 <span><span class="va">occ_swd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tdf2swd.html">tdf2swd</a></span><span class="op">(</span>this_species<span class="op">=</span><span class="va">abex</span>,sp_name<span class="op">=</span><span class="st">"abro_gram"</span><span class="op">)</span></span>
@@ -477,7 +478,7 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <div class="section level3">
 <h3 id="time-specific-model-calibration-and-selection">Time-specific model calibration and selection<a class="anchor" aria-label="anchor" href="#time-specific-model-calibration-and-selection"></a>
 </h3>
-<p>As a final step we will calibrate time-specific niche models using minimum volume ellipsoids. To do this we first select the environmental variables using the function <code><a href="reference/correlation_finder.html">tenm::correlation_finder</a></code>. This function filter variables according to a correlation threshold which is important to avoid issues related to collinearity.</p>
+<p>As a final step, we will calibrate time-specific niche models using minimum volume ellipsoids. To archive this, we first select the environmental variables using the function <code><a href="reference/correlation_finder.html">tenm::correlation_finder</a></code>. This function filters variables according to a correlation threshold, which is important to avoid issues related to collinearity.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">varcorrs</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/correlation_finder.html">correlation_finder</a></span><span class="op">(</span>environmental_data <span class="op">=</span></span>
 <span>                                       <span class="va">abex</span><span class="op">$</span><span class="va">env_data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">abex</span><span class="op">$</span><span class="va">env_data</span><span class="op">)</span><span class="op">]</span>,</span>
@@ -491,7 +492,7 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">vars2fit</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "bio_01" "bio_02" "bio_03" "bio_04" "bio_07" "bio_12" "bio_14" "bio_15"</span></span>
 <span><span class="co">#&gt; [9] "bio_17"</span></span></code></pre></div>
-<p>Now we use the function <code><a href="reference/tenm_selection.html">tenm::tenm_selection</a></code> to calibrate the time-specific niche models. This function uses the background object (here the <code>abbg</code> object) as input. To paramtrize the function we need to specify the omission rate criteria to be used to select the models, the proportion of points to be included in the ellipsoid model (<em>ellipsoid_level</em> parameter), the names of the modeling layers (<em>vars2fit</em> parameter), a numeric vector indicating the number of dimensions used to build ellipsoid models (<em>vars2fit</em> parameter) a logical argument that determines whether to use the partial ROC test or not, the random percent of data to be used for the bootstrap of the partial ROC test (<em>RandomPercent</em> parameter), the number of iterations of the partial ROC test (<em>NoOfIteration</em> parameter), a logical argument to specify whether to run the calibration process in parallel and the number of cores used in the parallel process (<em>parallel</em> parameter).</p>
+<p>Now, we use the function <code><a href="reference/tenm_selection.html">tenm::tenm_selection</a></code> to calibrate the time-specific niche models. This function uses the background object (here, the <code>abbg</code> object) as input. To parametrize the function, we need to specify the omission rate criteria to be used to select the models, the proportion of points to be included in the ellipsoid model (<em>ellipsoid_level</em> parameter), the names of the modeling layers (<em>vars2fit</em> parameter), a numeric vector indicating the number of dimensions used to build ellipsoid models (<em>vars2fit</em> parameter) a logical argument that determines whether to use the partial ROC test or not, the random percent of data to be used for the bootstrap of the partial ROC test (<em>RandomPercent</em> parameter), the number of iterations of the partial ROC test (<em>NoOfIteration</em> parameter), a logical argument to specify whether to run the calibration process in parallel and the number of cores used in the parallel process (<em>parallel</em> parameter).</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_sel</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/tenm_selection.html">tenm_selection</a></span><span class="op">(</span>this_species <span class="op">=</span> <span class="va">abbg</span>,</span>
 <span>                                omr_criteria <span class="op">=</span><span class="fl">0.1</span>,</span>
@@ -549,7 +550,7 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt;   244 models passed omr_criteria for train data</span></span>
 <span><span class="co">#&gt;   27 models passed omr_criteria for test data</span></span>
 <span><span class="co">#&gt;   27 models passed omr_criteria for train and test data</span></span></code></pre></div>
-<p>We fitted 492 models from which 27 passed our selection criteria. Lets explore the <code>mod_sel</code> object</p>
+<p>We fitted 492 models, from which 27 passed our selection criteria. Let’s explore the <code>mod_sel</code> object.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mod_sel</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "temporal_df"  "sp_date_var"  "lon_lat_vars" "layers_ext"   "env_bg"      </span></span>
@@ -568,16 +569,16 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 8         bio_01,bio_03,bio_04     3       0.06250               3,18</span></span>
 <span><span class="co">#&gt; 9                bio_01,bio_04     2       0.03125                 18</span></span>
 <span><span class="co">#&gt; 10        bio_01,bio_02,bio_04     3       0.09375            3,18,31</span></span>
-<span><span class="co">#&gt; 11               bio_01,bio_07     2       0.06250              18,31</span></span>
-<span><span class="co">#&gt; 12               bio_01,bio_03     2       0.06250               3,18</span></span>
-<span><span class="co">#&gt; 13               bio_01,bio_02     2       0.09375            3,18,31</span></span>
+<span><span class="co">#&gt; 11               bio_01,bio_02     2       0.09375            3,18,31</span></span>
+<span><span class="co">#&gt; 12               bio_01,bio_07     2       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 13               bio_01,bio_03     2       0.06250               3,18</span></span>
 <span><span class="co">#&gt; 14        bio_01,bio_03,bio_12     3       0.06250               3,18</span></span>
 <span><span class="co">#&gt; 15 bio_02,bio_04,bio_07,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 16 bio_02,bio_03,bio_07,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 17 bio_02,bio_03,bio_04,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 18        bio_01,bio_07,bio_12     3       0.06250              18,31</span></span>
 <span><span class="co">#&gt; 19 bio_02,bio_03,bio_04,bio_07     4       0.03125                  3</span></span>
-<span><span class="co">#&gt; 20        bio_04,bio_07,bio_12     3       0.09375           10,21,28</span></span>
+<span><span class="co">#&gt; 20        bio_04,bio_07,bio_12     3       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 21               bio_04,bio_07     2       0.03125                  3</span></span>
 <span><span class="co">#&gt; 22               bio_04,bio_12     2       0.06250              10,21</span></span>
 <span><span class="co">#&gt; 23               bio_03,bio_04     2       0.03125                  3</span></span>
@@ -596,16 +597,16 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 8             0                       0.4655525        0         0</span></span>
 <span><span class="co">#&gt; 9             0                       0.4835878        0         0</span></span>
 <span><span class="co">#&gt; 10            0                       0.4768546        0         0</span></span>
-<span><span class="co">#&gt; 11            0                       0.5001804        0         0</span></span>
-<span><span class="co">#&gt; 12            0                       0.4995792        0         0</span></span>
-<span><span class="co">#&gt; 13            0                       0.4823855        0         0</span></span>
+<span><span class="co">#&gt; 11            0                       0.4823855        0         0</span></span>
+<span><span class="co">#&gt; 12            0                       0.5001804        0         0</span></span>
+<span><span class="co">#&gt; 13            0                       0.4995792        0         0</span></span>
 <span><span class="co">#&gt; 14            0                       0.4844295        0         0</span></span>
 <span><span class="co">#&gt; 15            0                       0.6570879        0         0</span></span>
 <span><span class="co">#&gt; 16            0                       0.5706385        0         0</span></span>
 <span><span class="co">#&gt; 17            0                       0.6412168        0         0</span></span>
 <span><span class="co">#&gt; 18            0                       0.4962126        0         0</span></span>
 <span><span class="co">#&gt; 19            0                       0.6100757        0         0</span></span>
-<span><span class="co">#&gt; 20            0                       0.6759649        0         0</span></span>
+<span><span class="co">#&gt; 20            0                       0.6847421        0         0</span></span>
 <span><span class="co">#&gt; 21            0                       0.7537574        0         0</span></span>
 <span><span class="co">#&gt; 22            0                       0.7220151        0         0</span></span>
 <span><span class="co">#&gt; 23            0                       0.7382470        0         0</span></span>
@@ -617,25 +618,25 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 1          1.520879  0.7985825            0.031250                     11</span></span>
 <span><span class="co">#&gt; 2          1.505433  0.7996963            0.031250                      7</span></span>
 <span><span class="co">#&gt; 3          1.500235  0.7974813            0.031250                      8</span></span>
-<span><span class="co">#&gt; 4          1.467522  0.7828762            0.046875                     21</span></span>
+<span><span class="co">#&gt; 4          1.467522  0.7828762            0.046875                     22</span></span>
 <span><span class="co">#&gt; 5          1.465208  0.7519787            0.015625                      1</span></span>
 <span><span class="co">#&gt; 6          1.462961  0.7858313            0.031250                      9</span></span>
-<span><span class="co">#&gt; 7          1.448599  0.7549675            0.046875                     20</span></span>
+<span><span class="co">#&gt; 7          1.448599  0.7549675            0.046875                     21</span></span>
 <span><span class="co">#&gt; 8          1.431383  0.7479400            0.031250                     10</span></span>
 <span><span class="co">#&gt; 9          1.429927  0.7371300            0.015625                      2</span></span>
-<span><span class="co">#&gt; 10         1.424194  0.7454525            0.046875                     22</span></span>
-<span><span class="co">#&gt; 11         1.409348  0.7345675            0.031250                     15</span></span>
-<span><span class="co">#&gt; 12         1.409145  0.7019625            0.031250                     14</span></span>
-<span><span class="co">#&gt; 13         1.395835  0.7309063            0.046875                     23</span></span>
+<span><span class="co">#&gt; 10         1.424194  0.7454525            0.046875                     23</span></span>
+<span><span class="co">#&gt; 11         1.421552  0.7490962            0.046875                     24</span></span>
+<span><span class="co">#&gt; 12         1.409348  0.7345675            0.031250                     15</span></span>
+<span><span class="co">#&gt; 13         1.409145  0.7019625            0.031250                     14</span></span>
 <span><span class="co">#&gt; 14         1.382147  0.6807450            0.031250                     12</span></span>
 <span><span class="co">#&gt; 15         1.379969  0.7115000            0.031250                     18</span></span>
 <span><span class="co">#&gt; 16         1.374939  0.6537675            0.031250                     16</span></span>
 <span><span class="co">#&gt; 17         1.373252  0.7036712            0.031250                     17</span></span>
 <span><span class="co">#&gt; 18         1.365017  0.7032725            0.031250                     13</span></span>
 <span><span class="co">#&gt; 19         1.329613  0.6943437            0.015625                      3</span></span>
-<span><span class="co">#&gt; 20         1.309756  0.6832713            0.046875                     24</span></span>
+<span><span class="co">#&gt; 20         1.318842  0.6801412            0.031250                     19</span></span>
 <span><span class="co">#&gt; 21         1.307749  0.6769513            0.015625                      5</span></span>
-<span><span class="co">#&gt; 22         1.288655  0.6388300            0.031250                     19</span></span>
+<span><span class="co">#&gt; 22         1.288655  0.6388300            0.031250                     20</span></span>
 <span><span class="co">#&gt; 23         1.267623  0.6472100            0.015625                      4</span></span>
 <span><span class="co">#&gt; 24         1.261588  0.6146950            0.046875                     25</span></span>
 <span><span class="co">#&gt; 25         1.253496  0.5970800            0.046875                     26</span></span>
@@ -673,7 +674,7 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <div class="section level3">
 <h3 id="projecting-time-specific-niche-models">Projecting time-specific niche models<a class="anchor" aria-label="anchor" href="#projecting-time-specific-niche-models"></a>
 </h3>
-<p>To project the models we use the <code>predict</code> method. Here we will project the a model using environmental layers of 2016 and also from a period that comprehends 1970-2000.</p>
+<p>To project the models, we use the <code>predict</code> method. Here, we will project one of the selected models using the environmental layers of 2016. Also, we project it using layers from a period that comprehends 1970-2000.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">env_layers_2016</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,</span>
 <span>                     recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">32</span><span class="op">]</span></span>
@@ -682,7 +683,11 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span>                     layers_path <span class="op">=</span><span class="va">env_layers_2016</span> ,</span>
 <span>                     layers_ext <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-21-1.png" width="100%"></p>
+<div class="figure">
+<img src="reference/figures/README-unnamed-chunk-21-1.png" alt="Fig. 3. A selected niche model projected using environmental layers from 2016." width="100%"><p class="caption">
+Fig. 3. A selected niche model projected using environmental layers from 2016.
+</p>
+</div>
 <p>Now for the period that comprehends 1970-2000.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">layers_70_00_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio_1970_2000"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
@@ -691,13 +696,21 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span>                          layers_path <span class="op">=</span> <span class="va">layers_70_00_dir</span>,</span>
 <span>                          layers_ext <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-22-1.png" width="100%"></p>
+<div class="figure">
+<img src="reference/figures/README-unnamed-chunk-22-1.png" alt="Fig. 4. A selected niche model projected using environmental layers from 1970-2000." width="100%"><p class="caption">
+Fig. 4. A selected niche model projected using environmental layers from 1970-2000.
+</p>
+</div>
 <p>Lets see the predictions in geographic space</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">suit_2016</span>, main<span class="op">=</span><span class="st">"Prediction for 2016"</span><span class="op">)</span></span>
 <span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">suit_1970_2000</span>, main<span class="op">=</span><span class="st">"Prediction for 1970-2000"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-23-1.png" width="100%"></p>
+<div class="figure">
+<img src="reference/figures/README-unnamed-chunk-23-1.png" alt="Fig. 5. Geographic projection of a selected model. Left panel, the projection using environmental layers from 2016. Right panel, the projection using environmental layers from 1970-2000" width="100%"><p class="caption">
+Fig. 5. Geographic projection of a selected model. Left panel, the projection using environmental layers from 2016. Right panel, the projection using environmental layers from 1970-2000
+</p>
+</div>
 </div>
 </div>
 <div class="section level2">
