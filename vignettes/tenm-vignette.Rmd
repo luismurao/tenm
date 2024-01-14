@@ -80,7 +80,7 @@ dim(abtc2$temporal_df)
 Function to extract environmental data by date. This function generates training and testing data sets of environmental information for each year, using a random partition with a define proportion.  
 
 ```{r,eval=TRUE}
-future::plan("multisession",workers=10)
+future::plan("multisession",workers=2)
 abex <- tenm::ex_by_date(this_species = abtc,train_prop=0.7)
 future::plan("sequential")
 print(abex)
@@ -122,7 +122,7 @@ mod_sel <- tenm::tenm_selection(this_species = abbg,
                                 RandomPercent = 50,
                                 NoOfIteration=1000,
                                 parallel=TRUE,
-                                n_cores=12)
+                                n_cores=2)
 ```
 
 ## Plot the potential distribution. 
