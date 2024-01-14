@@ -41,20 +41,20 @@ devtools::install_github('luismurao/tenm',build_vignettes=TRUE)
 
 We start with a simple example to show the basic functions of the
 package. We will work with a dataset of [*Abronia
-graminea*](https://es.wikipedia.org/wiki/Abronia_graminea) which is
-endemic lizard from the Mexican Sierra Madre Oriental.
+graminea*](https://es.wikipedia.org/wiki/Abronia_graminea), an endemic
+lizard from the Mexican Sierra Madre Oriental.
 
-First we load the `tenm` R package.
+First, we load the `tenm` R package.
 
 ``` r
 library(tenm)
 ## basic example code
 ```
 
-Now we load the `abronia` dataset that contains geographical information
-about presence of *Abronia graminea* in its area of distribution. This
-dataset has also information about the year of observation and the
-[GBIF](https://www.gbif.org) doi.
+Now we load the `abronia` dataset, which contains geographical
+information about the presence of *Abronia graminea* in its area of
+distribution. This dataset has also information about the year of
+observation and the [GBIF](https://www.gbif.org) doi.
 
 ``` r
 data("abronia")
@@ -77,7 +77,8 @@ dim(abronia)
 #> [1] 106   5
 ```
 
-Now we plot the geographic information
+We plot the geographic information to see how *Abronia graminea* is
+distributed.
 
 <div class="figure">
 
@@ -95,10 +96,10 @@ years**.
 ### Standard data thinning
 
 A relevant step when curating occurrence data is to eliminate duplicated
-geographical information, which depends on several factors including
+geographical information, which depends on several factors, including
 spatial autocorrelation and the spatial resolution of the modeling
-layers. Lets see what happens when we eliminate duplicated information
-as defined by spatial the resolution of our modeling layers. To do this
+layers. Let’s see what happens when we eliminate duplicated information
+as defined by the spatial resolution of our modeling layers. To do this,
 we will use the `tenm::clean_dup` function of the `tenm` R package.
 
 ``` r
@@ -128,11 +129,11 @@ tidyr::as_tibble(ab_1)
 #> 10 Abronia graminea            -97.0            19.7  1972 https://doi.org/10.1…
 ```
 
-After applying our spatial thinning we obtained only 10 observations
+After applying our spatial thinning, we obtained only ten observations
 from 106 occurrences. We lost a lot of information!!! The function
 `tenm::clean_dup` has a method to clean duplicated records according to
-a rater mask layer. This avoids losing records that might occur in
-different pixels but occur within the distance used as threshold for
+a rater mask layer. The above avoids losing records that might occur in
+different pixels but fall within the distance used as threshold for
 cleaning.
 
 ``` r
@@ -164,24 +165,24 @@ tidyr::as_tibble(ab_by_mask)
 #> 16 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…
 ```
 
-We recover 6 records, not bad! On the other hand, we didn’t account the
-fact that some occurrences come from different years. The `tenm`package
-is designed to deal with occurrences that come from different time
-periods as long as the user has environmental layers that match with the
-years of occurrence observations.
+We recover 6 records, not bad! On the other hand, we didn not account
+for the fact that some occurrences come from different years. The `tenm`
+package is designed to deal with occurrences coming from different
+periods as long as the user has environmental layers matching the years
+of occurrence observations.
 
 ## Time-specific niche modeling
 
-Lets apply the functions and methods to work with time-specific niche
-models. First we load our data.
+Let’s apply the functions and methods to work with time-specific niche
+models. First, we load our data.
 
 ``` r
 library(tenm)
 data("abronia")
 ```
 
-Now we indicate the path where our time-specific modeling layers are
-located
+Now, we indicate the path where our time-specific modeling layers are
+located.
 
 ``` r
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
@@ -189,8 +190,8 @@ print(tempora_layers_dir)
 #> [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio"
 ```
 
-Lets see the structure of the directory that contains our modeling
-layers
+We explore the structure of the directory that contains our modeling
+layers.
 
 ``` r
 list.dirs(tempora_layers_dir,recursive = FALSE)
@@ -228,8 +229,9 @@ list.dirs(tempora_layers_dir,recursive = FALSE)
 #> [32] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2016"
 ```
 
-Note that the directory contains other directories named with the dates
-of the modeling layers. Now we explore some of these dated directories
+**Note that the directory contains other directories named with the
+dates of the modeling layers**. Now, we explore some of these dated
+directories.
 
 ``` r
 # Directory for year 1939
@@ -258,14 +260,15 @@ list.files(list.dirs(tempora_layers_dir,
 #> [16] "bio_16.tif" "bio_17.tif" "bio_18.tif" "bio_19.tif"
 ```
 
-Note that all dated directories must have the same environmental
-information. In this example we used the bioclimatic layers derived from
-the [CHELSAcruts](https://chelsa-climate.org/chelsacruts/) database.
+**Note that all dated directories must have the same environmental**
+**information.** In this example, we used the bioclimatic layers derived
+from the [CHELSAcruts](https://chelsa-climate.org/chelsacruts/)
+database.
 
 ### The *sp.temporal.modeling* object
 
-In the following lines of code we will use a special function of the
-`tenm` R package that will allows to work with time-specific data.
+In the following lines of code, we will use a special function of the
+`tenm` R package that will allow us to work with time-specific data.
 
 ``` r
 data("abronia")
@@ -281,16 +284,17 @@ abt <- tenm::sp_temporal_data(occs = abronia,
 ```
 
 The function `tenm::sp_temporal_data` is parametrized with the
-occurrence dated database. To parametrize the function we need to
+occurrence dated database. To parametrize the function, we need to
 specify the name of the columns that contain the longitude and latitude
 data, the column that represents the year of observation, the format of
-dates (here years but see the help of the function for other date
+dates (here years, but see the help of the function for other date
 formats), the layers date format, the directory that contains the
-time-specific modeling layers and the rater layer extension. The object
-`abt` is a special class called *sp.temporal.modeling* that deals with
-time-specific information.
+time-specific modeling layers and the raster layer extension.
 
-Lets explore the slots of `abt` object
+The object `abt` is a special class called *sp.temporal.modeling* that
+deals with time-specific information.
+
+In the following line of code, we explore the slots of `abt` object.
 
 ``` r
 # See the names of the slots
@@ -298,15 +302,15 @@ names(abt)
 #> [1] "temporal_df"  "sp_date_var"  "lon_lat_vars" "layers_ext"
 ```
 
-The `abt` object has four slot: a temporal data.frame (“temporal_df”), a
+The `abt` object has four slots: temporal data.frame (“temporal_df”), a
 character vector indicating the date variable (“sp_date_var”), a
 character vector showing the names of longitude and latitude data
 (“lon_lat_vars”) and another character vector with the extension of the
 modeling layers.
 
-Now we explore the temporal_df slot which is a data.frame with five
+Now, we explore the temporal_df slot, which is a data.frame with five
 columns: longitude, latitude, the time variable (here year), the layer
-dates and layers path (the path the temporal niche layers are located).
+dates, and layers path (the path the temporal niche layers are located).
 
 ``` r
 # See the temporal data.frame
@@ -324,12 +328,12 @@ tidyr::as_tibble(head(abt$temporal_df))
 
 ### Time-specific spatial data thinning
 
-As a first step we will curate our time-specific database using the
+As a first step, we will curate our time-specific database using the
 function `tenm::clean_dup_by_date`. This function is parametrized as the
 `tenm::clean_dup` function with the difference that it thins the data
 considering the time variable (some occurrences might be spatially
-duplicated but belong to other dates, so they do not have the same
-environmental information).
+duplicated but belong to other dates, so in a time-specific context,
+they are not duplicates).
 
 ``` r
 # Clean duplicates using a raster mask
@@ -356,7 +360,7 @@ nrow(abtc$temporal_df)
 An improvement of this methodology is that we recover a lot of
 information. From 10 records thinned using the standard data cleaning
 process, now we have 40 records; 30 more observations!!! which will
-allows us to fit more informative models. Lets compare occurrences from
+allow us to fit more informative models. Let’s compare occurrences from
 the standard data cleaning process and the time-specific thinning
 process.
 
@@ -399,14 +403,14 @@ from different years.
 
 ### Time-specific environmental data extraction
 
-After the spatial thinning process we need to extract environmental
+After the spatial thinning process, we need to extract environmental
 information from our occurrence points. The `tenm` package does this
 using the function `tenm::ex_by_date`. This function can be run in
 parallel by evoking functions of the `future` package. To parametrize
-the function we need to specify the “sp.temporal.modeling” object
+the function, we need to specify the “sp.temporal.modeling” object
 (obtained using the function `tenm::sp_temporal_data` or the one from
 `tenm::clean_dup_by_date`) and the proportion of occurrences to be used
-as training dataset. The `tenm` package uses a random partition to
+as the training dataset. The `tenm` package uses a random partition to
 divide the database into train and test datasets.
 
 ``` r
@@ -416,7 +420,7 @@ abex <- tenm::ex_by_date(this_species = abtc,
 future::plan("sequential")
 ```
 
-Now we explore the slot “temporal_df”
+Now, we explore the slot “temporal_df”.
 
 ``` r
 head(abex$temporal_df)
@@ -437,16 +441,16 @@ head(abex$temporal_df)
 ```
 
 It has 40 rows and columns with the time-specific environmental values
-and additional column indicating if the observation will be used as
+and an additional column indicating if the observation will be used as
 train or test.
 
 ### Time-specific background generation
 
 The `tenm` package uses environmental background to compute the ROC and
-partial ROC test, estimate the prevalence of the species in the
+partial ROC test and estimate the prevalence of the species in the
 environmental space (proportion of environmental points inside the niche
 model). We will generate 10,000 environmental background points using as
-calibration area a neighborhood of 10 pixels around each occurrence
+calibration area and a neighborhood of 10 pixels around each occurrence
 point (buffer_ngbs parameter).
 
 ``` r
@@ -492,8 +496,8 @@ number of occurrences for each year of observation.**
 
 Although the package uses minimum volume ellipsoids to model the niche,
 it has a function to export the time-specific data to Samples With Data
-format which will allow users to fit other algorithms such as MaxEnt.
-Lest see how it works.
+format table that allows users to fit other algorithms such as MaxEnt.
+Let’s see how it works.
 
 ``` r
 # SWD table for occurrence records
@@ -532,11 +536,11 @@ head(tidyr::as_tibble(bg_swd))
 
 ### Time-specific model calibration and selection
 
-As a final step we will calibrate time-specific niche models using
-minimum volume ellipsoids. To do this we first select the environmental
-variables using the function `tenm::correlation_finder`. This function
-filter variables according to a correlation threshold which is important
-to avoid issues related to collinearity.
+As a final step, we will calibrate time-specific niche models using
+minimum volume ellipsoids. To archive this, we first select the
+environmental variables using the function `tenm::correlation_finder`.
+This function filters variables according to a correlation threshold,
+which is important to avoid issues related to collinearity.
 
 ``` r
 varcorrs <- tenm::correlation_finder(environmental_data =
@@ -553,11 +557,11 @@ print(vars2fit)
 #> [9] "bio_17"
 ```
 
-Now we use the function `tenm::tenm_selection` to calibrate the
+Now, we use the function `tenm::tenm_selection` to calibrate the
 time-specific niche models. This function uses the background object
-(here the `abbg` object) as input. To paramtrize the function we need to
-specify the omission rate criteria to be used to select the models, the
-proportion of points to be included in the ellipsoid model
+(here, the `abbg` object) as input. To parametrize the function, we need
+to specify the omission rate criteria to be used to select the models,
+the proportion of points to be included in the ellipsoid model
 (*ellipsoid_level* parameter), the names of the modeling layers
 (*vars2fit* parameter), a numeric vector indicating the number of
 dimensions used to build ellipsoid models (*vars2fit* parameter) a
@@ -627,8 +631,8 @@ mod_sel <- tenm::tenm_selection(this_species = abbg,
 #>   27 models passed omr_criteria for train and test data
 ```
 
-We fitted 492 models from which 27 passed our selection criteria. Lets
-explore the `mod_sel` object
+We fitted 492 models, from which 27 passed our selection criteria. Let’s
+explore the `mod_sel` object.
 
 ``` r
 names(mod_sel)
@@ -652,16 +656,16 @@ head(mod_sel$mods_table,27)
 #> 8         bio_01,bio_03,bio_04     3       0.06250               3,18
 #> 9                bio_01,bio_04     2       0.03125                 18
 #> 10        bio_01,bio_02,bio_04     3       0.09375            3,18,31
-#> 11               bio_01,bio_07     2       0.06250              18,31
-#> 12               bio_01,bio_03     2       0.06250               3,18
-#> 13               bio_01,bio_02     2       0.09375            3,18,31
+#> 11               bio_01,bio_02     2       0.09375            3,18,31
+#> 12               bio_01,bio_07     2       0.06250              18,31
+#> 13               bio_01,bio_03     2       0.06250               3,18
 #> 14        bio_01,bio_03,bio_12     3       0.06250               3,18
 #> 15 bio_02,bio_04,bio_07,bio_12     4       0.06250              21,28
 #> 16 bio_02,bio_03,bio_07,bio_12     4       0.06250              21,28
 #> 17 bio_02,bio_03,bio_04,bio_12     4       0.06250              21,28
 #> 18        bio_01,bio_07,bio_12     3       0.06250              18,31
 #> 19 bio_02,bio_03,bio_04,bio_07     4       0.03125                  3
-#> 20        bio_04,bio_07,bio_12     3       0.09375           10,21,28
+#> 20        bio_04,bio_07,bio_12     3       0.06250              21,28
 #> 21               bio_04,bio_07     2       0.03125                  3
 #> 22               bio_04,bio_12     2       0.06250              10,21
 #> 23               bio_03,bio_04     2       0.03125                  3
@@ -680,16 +684,16 @@ head(mod_sel$mods_table,27)
 #> 8             0                       0.4655525        0         0
 #> 9             0                       0.4835878        0         0
 #> 10            0                       0.4768546        0         0
-#> 11            0                       0.5001804        0         0
-#> 12            0                       0.4995792        0         0
-#> 13            0                       0.4823855        0         0
+#> 11            0                       0.4823855        0         0
+#> 12            0                       0.5001804        0         0
+#> 13            0                       0.4995792        0         0
 #> 14            0                       0.4844295        0         0
 #> 15            0                       0.6570879        0         0
 #> 16            0                       0.5706385        0         0
 #> 17            0                       0.6412168        0         0
 #> 18            0                       0.4962126        0         0
 #> 19            0                       0.6100757        0         0
-#> 20            0                       0.6759649        0         0
+#> 20            0                       0.6847421        0         0
 #> 21            0                       0.7537574        0         0
 #> 22            0                       0.7220151        0         0
 #> 23            0                       0.7382470        0         0
@@ -701,25 +705,25 @@ head(mod_sel$mods_table,27)
 #> 1          1.520879  0.7985825            0.031250                     11
 #> 2          1.505433  0.7996963            0.031250                      7
 #> 3          1.500235  0.7974813            0.031250                      8
-#> 4          1.467522  0.7828762            0.046875                     21
+#> 4          1.467522  0.7828762            0.046875                     22
 #> 5          1.465208  0.7519787            0.015625                      1
 #> 6          1.462961  0.7858313            0.031250                      9
-#> 7          1.448599  0.7549675            0.046875                     20
+#> 7          1.448599  0.7549675            0.046875                     21
 #> 8          1.431383  0.7479400            0.031250                     10
 #> 9          1.429927  0.7371300            0.015625                      2
-#> 10         1.424194  0.7454525            0.046875                     22
-#> 11         1.409348  0.7345675            0.031250                     15
-#> 12         1.409145  0.7019625            0.031250                     14
-#> 13         1.395835  0.7309063            0.046875                     23
+#> 10         1.424194  0.7454525            0.046875                     23
+#> 11         1.421552  0.7490962            0.046875                     24
+#> 12         1.409348  0.7345675            0.031250                     15
+#> 13         1.409145  0.7019625            0.031250                     14
 #> 14         1.382147  0.6807450            0.031250                     12
 #> 15         1.379969  0.7115000            0.031250                     18
 #> 16         1.374939  0.6537675            0.031250                     16
 #> 17         1.373252  0.7036712            0.031250                     17
 #> 18         1.365017  0.7032725            0.031250                     13
 #> 19         1.329613  0.6943437            0.015625                      3
-#> 20         1.309756  0.6832713            0.046875                     24
+#> 20         1.318842  0.6801412            0.031250                     19
 #> 21         1.307749  0.6769513            0.015625                      5
-#> 22         1.288655  0.6388300            0.031250                     19
+#> 22         1.288655  0.6388300            0.031250                     20
 #> 23         1.267623  0.6472100            0.015625                      4
 #> 24         1.261588  0.6146950            0.046875                     25
 #> 25         1.253496  0.5970800            0.046875                     26
@@ -757,9 +761,10 @@ head(mod_sel$mods_table,27)
 
 ### Projecting time-specific niche models
 
-To project the models we use the `predict` method. Here we will project
-the a model using environmental layers of 2016 and also from a period
-that comprehends 1970-2000.
+To project the models, we use the `predict` method. Here, we will
+project one of the selected models using the environmental layers of
+2016. Also, we project it using layers from a period that comprehends
+1970-2000.
 
 ``` r
 env_layers_2016 <- list.dirs(tempora_layers_dir,
@@ -771,7 +776,15 @@ suit_2016 <- predict(mod_sel,
 #>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
 ```
 
-<img src="man/figures/README-unnamed-chunk-21-1.png" width="100%" />
+<div class="figure">
+
+<img src="man/figures/README-unnamed-chunk-21-1.png" alt="Fig. 3. A selected niche model projected using environmental layers from 2016." width="100%" />
+<p class="caption">
+Fig. 3. A selected niche model projected using environmental layers from
+2016.
+</p>
+
+</div>
 
 Now for the period that comprehends 1970-2000.
 
@@ -784,7 +797,15 @@ suit_1970_2000 <- predict(mod_sel,
 #>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
 ```
 
-<img src="man/figures/README-unnamed-chunk-22-1.png" width="100%" />
+<div class="figure">
+
+<img src="man/figures/README-unnamed-chunk-22-1.png" alt="Fig. 4. A selected niche model projected using environmental layers from 1970-2000." width="100%" />
+<p class="caption">
+Fig. 4. A selected niche model projected using environmental layers from
+1970-2000.
+</p>
+
+</div>
 
 Lets see the predictions in geographic space
 
@@ -794,7 +815,16 @@ terra::plot(suit_2016, main="Prediction for 2016")
 terra::plot(suit_1970_2000, main="Prediction for 1970-2000")
 ```
 
-<img src="man/figures/README-unnamed-chunk-23-1.png" width="100%" />
+<div class="figure">
+
+<img src="man/figures/README-unnamed-chunk-23-1.png" alt="Fig. 5. Geographic projection of a selected model. Left panel, the projection using environmental layers from 2016. Right panel, the projection using environmental layers from 1970-2000" width="100%" />
+<p class="caption">
+Fig. 5. Geographic projection of a selected model. Left panel, the
+projection using environmental layers from 2016. Right panel, the
+projection using environmental layers from 1970-2000
+</p>
+
+</div>
 
 ## Acknowledgments
 
