@@ -61,7 +61,7 @@ distributed.
 
 <div class="figure">
 
-<img src="man/figures/README-pressure-1.png" alt="Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the year of observation." width="100%" />
+<img src="../man/figures/README-pressure-1.png" alt="Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the year of observation." width="100%" />
 <p class="caption">
 Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the
 year of observation.
@@ -368,7 +368,7 @@ legend("bottomright",
 
 <div class="figure">
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" alt="Fig. 2. Comparison of the spatial distribution of occurrence records for the standard thinning processs and the time-specific thinning process. Left panel shows the records after the standard thinning process. Right panel shows the spatial distribution of the records after the time-specific thinning process; note that some records overlap but are from different years." width="100%" />
+<img src="../man/figures/README-unnamed-chunk-12-1.png" alt="Fig. 2. Comparison of the spatial distribution of occurrence records for the standard thinning processs and the time-specific thinning process. Left panel shows the records after the standard thinning process. Right panel shows the spatial distribution of the records after the time-specific thinning process; note that some records overlap but are from different years." width="100%" />
 <p class="caption">
 Fig. 2. Comparison of the spatial distribution of occurrence records for
 the standard thinning processs and the time-specific thinning process.
@@ -757,7 +757,7 @@ suit_2016 <- predict(mod_sel,
 
 <div class="figure">
 
-<img src="man/figures/README-unnamed-chunk-21-1.png" alt="Fig. 3. A selected niche model projected using environmental layers from 2016." width="100%" />
+<img src="../man/figures/README-unnamed-chunk-21-1.png" alt="Fig. 3. A selected niche model projected using environmental layers from 2016." width="100%" />
 <p class="caption">
 Fig. 3. A selected niche model projected using environmental layers from
 2016.
@@ -778,7 +778,7 @@ suit_1970_2000 <- predict(mod_sel,
 
 <div class="figure">
 
-<img src="man/figures/README-unnamed-chunk-22-1.png" alt="Fig. 4. A selected niche model projected using environmental layers from 1970-2000." width="100%" />
+<img src="../man/figures/README-unnamed-chunk-22-1.png" alt="Fig. 4. A selected niche model projected using environmental layers from 1970-2000." width="100%" />
 <p class="caption">
 Fig. 4. A selected niche model projected using environmental layers from
 1970-2000.
@@ -796,7 +796,7 @@ terra::plot(suit_1970_2000, main="Prediction for 1970-2000")
 
 <div class="figure">
 
-<img src="man/figures/README-unnamed-chunk-23-1.png" alt="Fig. 5. Geographic projection of a selected model. Left panel, the projection using environmental layers from 2016. Right panel, the projection using environmental layers from 1970-2000" width="100%" />
+<img src="../man/figures/README-unnamed-chunk-23-1.png" alt="Fig. 5. Geographic projection of a selected model. Left panel, the projection using environmental layers from 2016. Right panel, the projection using environmental layers from 1970-2000" width="100%" />
 <p class="caption">
 Fig. 5. Geographic projection of a selected model. Left panel, the
 projection using environmental layers from 2016. Right panel, the
