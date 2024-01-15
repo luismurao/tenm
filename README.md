@@ -693,7 +693,7 @@ head(mod_sel$mods_table,27)
 #> 17            0                       0.6412168        0         0
 #> 18            0                       0.4962126        0         0
 #> 19            0                       0.6100757        0         0
-#> 20            0                       0.6847421        0         0
+#> 20            0                       0.7240592        0         0
 #> 21            0                       0.7537574        0         0
 #> 22            0                       0.7220151        0         0
 #> 23            0                       0.7382470        0         0
@@ -712,7 +712,7 @@ head(mod_sel$mods_table,27)
 #> 8          1.431383  0.7479400            0.031250                     10
 #> 9          1.429927  0.7371300            0.015625                      2
 #> 10         1.424194  0.7454525            0.046875                     23
-#> 11         1.421552  0.7490962            0.046875                     24
+#> 11         1.413149  0.7417237            0.046875                     24
 #> 12         1.409348  0.7345675            0.031250                     15
 #> 13         1.409145  0.7019625            0.031250                     14
 #> 14         1.382147  0.6807450            0.031250                     12
@@ -721,9 +721,9 @@ head(mod_sel$mods_table,27)
 #> 17         1.373252  0.7036712            0.031250                     17
 #> 18         1.365017  0.7032725            0.031250                     13
 #> 19         1.329613  0.6943437            0.015625                      3
-#> 20         1.318842  0.6801412            0.031250                     19
+#> 20         1.315504  0.6871300            0.031250                     20
 #> 21         1.307749  0.6769513            0.015625                      5
-#> 22         1.288655  0.6388300            0.031250                     20
+#> 22         1.288655  0.6388300            0.031250                     19
 #> 23         1.267623  0.6472100            0.015625                      4
 #> 24         1.261588  0.6146950            0.046875                     25
 #> 25         1.253496  0.5970800            0.046875                     26
@@ -825,6 +825,47 @@ projection using environmental layers from 1970-2000
 </p>
 
 </div>
+
+### Comparing time-specific niche model vs. standard niche model
+
+The following lines of code show the differences of a time-specific
+niche model and a standard niche model.
+
+``` r
+layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
+layers_70_00_path <- list.files(layers_70_00_dir,
+                                pattern = ".tif$",full.names = TRUE)
+# Extract environmental information 
+elayers_70_00 <- terra::rast(layers_70_00_path)
+e_trad <- terra::extract(elayers_70_00,
+                         ab_1[,c("decimalLongitude","decimalLatitude")])
+rgl::view3d(theta = 0, phi = -60,fov=120, zoom = 0.7) 
+tenm::plot_ellipsoid(x = e_trad$bio_01,y=e_trad$bio_03,z=e_trad$bio_12,
+                     col = "#1B9E77",
+                     xlab = "Bio 1",
+                     ylab = "Bio 3",
+                     zlab = "Bio 12",)
+tenm::plot_ellipsoid(x = abbg$temporal_df$bio_01,
+                     y = abbg$temporal_df$bio_03,
+                     z = abbg$temporal_df$bio_12,
+                     col = "#E7298A",
+                     add = TRUE)
+```
+
+<div class="figure">
+
+<img src="man/figures/README-unnamed-chunk-24-1.png" alt="Fig. 6. Time-specific niche model vs. standard niche model. Pink ellipsoid represents the time-specific niche model. Green ellipsoid represents a ellipsoid model fitted using the standard approach." width="100%" />
+<p class="caption">
+Fig. 6. Time-specific niche model vs. standard niche model. Pink
+ellipsoid represents the time-specific niche model. Green ellipsoid
+represents a ellipsoid model fitted using the standard approach.
+</p>
+
+</div>
+
+Note that but ellipsoids differ in size and shape. In standard approach
+(green ellipsoid), we can see an sub-estimation of the environmental
+values where the intrinsic growth rate might be positive.
 
 ## Acknowledgments
 

@@ -432,7 +432,37 @@ terra::plot(suit_2016, main="Prediction for 2016")
 terra::plot(suit_1970_2000, main="Prediction for 1970-2000")
 ```
 
+### Comparing time-specific niche model vs. standard niche model
 
+The following lines of code show the differences of a time-specific niche model
+and a standard niche model. 
+
+```{r rgl=TRUE, dev='png', fig.cap= "Fig. 6. Time-specific niche model vs. standard niche model. Pink ellipsoid represents the time-specific niche model. Green ellipsoid represents a ellipsoid model fitted using the standard approach."}
+layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
+layers_70_00_path <- list.files(layers_70_00_dir,
+                                pattern = ".tif$",full.names = TRUE)
+# Extract environmental information 
+elayers_70_00 <- terra::rast(layers_70_00_path)
+e_trad <- terra::extract(elayers_70_00,
+                         ab_1[,c("decimalLongitude","decimalLatitude")])
+rgl::view3d(theta = 0, phi = -60,fov=120, zoom = 0.7) 
+tenm::plot_ellipsoid(x = e_trad$bio_01,y=e_trad$bio_03,z=e_trad$bio_12,
+                     col = "#1B9E77",
+                     xlab = "Bio 1",
+                     ylab = "Bio 3",
+                     zlab = "Bio 12",)
+tenm::plot_ellipsoid(x = abbg$temporal_df$bio_01,
+                     y = abbg$temporal_df$bio_03,
+                     z = abbg$temporal_df$bio_12,
+                     col = "#E7298A",
+                     add = TRUE)
+
+
+```
+
+Note that but ellipsoids differ in size and shape. In standard approach 
+(green ellipsoid), we can see an sub-estimation of the environmental values
+where the intrinsic growth rate might be positive.
 
 ## Acknowledgments
 
