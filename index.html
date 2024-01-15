@@ -606,7 +606,7 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 17            0                       0.6412168        0         0</span></span>
 <span><span class="co">#&gt; 18            0                       0.4962126        0         0</span></span>
 <span><span class="co">#&gt; 19            0                       0.6100757        0         0</span></span>
-<span><span class="co">#&gt; 20            0                       0.6847421        0         0</span></span>
+<span><span class="co">#&gt; 20            0                       0.7240592        0         0</span></span>
 <span><span class="co">#&gt; 21            0                       0.7537574        0         0</span></span>
 <span><span class="co">#&gt; 22            0                       0.7220151        0         0</span></span>
 <span><span class="co">#&gt; 23            0                       0.7382470        0         0</span></span>
@@ -625,7 +625,7 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 8          1.431383  0.7479400            0.031250                     10</span></span>
 <span><span class="co">#&gt; 9          1.429927  0.7371300            0.015625                      2</span></span>
 <span><span class="co">#&gt; 10         1.424194  0.7454525            0.046875                     23</span></span>
-<span><span class="co">#&gt; 11         1.421552  0.7490962            0.046875                     24</span></span>
+<span><span class="co">#&gt; 11         1.413149  0.7417237            0.046875                     24</span></span>
 <span><span class="co">#&gt; 12         1.409348  0.7345675            0.031250                     15</span></span>
 <span><span class="co">#&gt; 13         1.409145  0.7019625            0.031250                     14</span></span>
 <span><span class="co">#&gt; 14         1.382147  0.6807450            0.031250                     12</span></span>
@@ -634,9 +634,9 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 17         1.373252  0.7036712            0.031250                     17</span></span>
 <span><span class="co">#&gt; 18         1.365017  0.7032725            0.031250                     13</span></span>
 <span><span class="co">#&gt; 19         1.329613  0.6943437            0.015625                      3</span></span>
-<span><span class="co">#&gt; 20         1.318842  0.6801412            0.031250                     19</span></span>
+<span><span class="co">#&gt; 20         1.315504  0.6871300            0.031250                     20</span></span>
 <span><span class="co">#&gt; 21         1.307749  0.6769513            0.015625                      5</span></span>
-<span><span class="co">#&gt; 22         1.288655  0.6388300            0.031250                     20</span></span>
+<span><span class="co">#&gt; 22         1.288655  0.6388300            0.031250                     19</span></span>
 <span><span class="co">#&gt; 23         1.267623  0.6472100            0.015625                      4</span></span>
 <span><span class="co">#&gt; 24         1.261588  0.6146950            0.046875                     25</span></span>
 <span><span class="co">#&gt; 25         1.253496  0.5970800            0.046875                     26</span></span>
@@ -711,6 +711,36 @@ Fig. 4. A selected niche model projected using environmental layers from 1970-20
 Fig. 5. Geographic projection of a selected model. Left panel, the projection using environmental layers from 2016. Right panel, the projection using environmental layers from 1970-2000
 </p>
 </div>
+</div>
+<div class="section level3">
+<h3 id="comparing-time-specific-niche-model-vs-standard-niche-model">Comparing time-specific niche model vs. standard niche model<a class="anchor" aria-label="anchor" href="#comparing-time-specific-niche-model-vs-standard-niche-model"></a>
+</h3>
+<p>The following lines of code show the differences of a time-specific niche model and a standard niche model.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">layers_70_00_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio_1970_2000"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
+<span><span class="va">layers_70_00_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">layers_70_00_dir</span>,</span>
+<span>                                pattern <span class="op">=</span> <span class="st">".tif$"</span>,full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Extract environmental information </span></span>
+<span><span class="va">elayers_70_00</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">layers_70_00_path</span><span class="op">)</span></span>
+<span><span class="va">e_trad</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html" class="external-link">extract</a></span><span class="op">(</span><span class="va">elayers_70_00</span>,</span>
+<span>                         <span class="va">ab_1</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"decimalLongitude"</span>,<span class="st">"decimalLatitude"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/viewpoint.html" class="external-link">view3d</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">0</span>, phi <span class="op">=</span> <span class="op">-</span><span class="fl">60</span>,fov<span class="op">=</span><span class="fl">120</span>, zoom <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> </span>
+<span><span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/plot_ellipsoid.html">plot_ellipsoid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">e_trad</span><span class="op">$</span><span class="va">bio_01</span>,y<span class="op">=</span><span class="va">e_trad</span><span class="op">$</span><span class="va">bio_03</span>,z<span class="op">=</span><span class="va">e_trad</span><span class="op">$</span><span class="va">bio_12</span>,</span>
+<span>                     col <span class="op">=</span> <span class="st">"#1B9E77"</span>,</span>
+<span>                     xlab <span class="op">=</span> <span class="st">"Bio 1"</span>,</span>
+<span>                     ylab <span class="op">=</span> <span class="st">"Bio 3"</span>,</span>
+<span>                     zlab <span class="op">=</span> <span class="st">"Bio 12"</span>,<span class="op">)</span></span>
+<span><span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="reference/plot_ellipsoid.html">plot_ellipsoid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">abbg</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">bio_01</span>,</span>
+<span>                     y <span class="op">=</span> <span class="va">abbg</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">bio_03</span>,</span>
+<span>                     z <span class="op">=</span> <span class="va">abbg</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">$</span><span class="va">bio_12</span>,</span>
+<span>                     col <span class="op">=</span> <span class="st">"#E7298A"</span>,</span>
+<span>                     add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-unnamed-chunk-24-1.png" alt="Fig. 6. Time-specific niche model vs. standard niche model. Pink ellipsoid represents the time-specific niche model. Green ellipsoid represents a ellipsoid model fitted using the standard approach." width="100%"><p class="caption">
+Fig. 6. Time-specific niche model vs. standard niche model. Pink ellipsoid represents the time-specific niche model. Green ellipsoid represents a ellipsoid model fitted using the standard approach.
+</p>
+</div>
+<p>Note that but ellipsoids differ in size and shape. In standard approach (green ellipsoid), we can see an sub-estimation of the environmental values where the intrinsic growth rate might be positive.</p>
 </div>
 </div>
 <div class="section level2">
