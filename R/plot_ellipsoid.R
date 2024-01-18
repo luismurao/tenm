@@ -84,7 +84,7 @@ plot_ellipsoid <- function(x,y,z=NULL,xlab="x",ylab="y",zlab="x",mve=TRUE,
       graphics::lines(xx,yy,lwd=3,col=col,...)
     }
     else{
-      plot(xx,yy,type="l",xlab=xlab,ylab=ylab,lwd=3,col=col,add=add,...)
+      plot(xx,yy,type="l",xlab=xlab,ylab=ylab,lwd=3,col=col,...)
     }
 
 
