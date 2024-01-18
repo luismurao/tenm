@@ -83,7 +83,7 @@ ab_2 <- tenm::clean_dup(data =abronia,
                         threshold = terra::res(tenm_mask)[1],
                         by_mask = TRUE,
                         raster_mask = tenm_mask,
-                        n_ngbs = 0)
+                        n_ngbs = 1)
 # Check number of records
 print(nrow(ab_2))
 }
