@@ -56,7 +56,7 @@
 #'                         threshold = terra::res(tenm_mask)[1],
 #'                         by_mask = TRUE,
 #'                         raster_mask = tenm_mask,
-#'                         n_ngbs = 0)
+#'                         n_ngbs = 1)
 #' # Check number of records
 #' print(nrow(ab_2))
 #' @export
@@ -95,15 +95,28 @@ clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
       adj_cells <- terra::adjacent(x = raster_mask,cells=cellids2,
                                    directions = ngMat,
                                    pairs = TRUE)
-
-      adj_cellsL <- split(adj_cells[,2], adj_cells[,1])
-      ids_dups <- unique(unlist(adj_cellsL))
-      no_dups <- seq_len(nrow(data))
-      if(length(ids_dups)>0L){
-        no_dups <- no_dups[-ids_dups]
+      occ_adj_id <- which(adj_cells[,2] %in% cellids2)
+      if(length(occ_adj_id)>0L){
+        adj_cells <- adj_cells[occ_adj_id,]
       }
 
-      dat3 <- dat2[no_dups,-ncol(dat2)]
+      adj_cellsL <- split(adj_cells[,2], adj_cells[,1])
+      targets <- names(adj_cellsL)
+      keep <- rep(NA,length(targets ))
+      j <- 1
+      for(i in seq_along(targets)){
+        focal <- targets[i]
+        if(focal %in% names(adj_cellsL)){
+          vecinos <- as.character(adj_cellsL [[focal]])
+          id_bas <- which(names(adj_cellsL) %in% vecinos)
+          if(length(id_bas)>0L) adj_cellsL <- adj_cellsL[- id_bas]
+          keep[j] <- as.numeric(focal)
+          j <- j+1
+        }
+
+      }
+      ids_nodup2 <- which(dat2$cellid %in% keep)
+      dat3 <- dat2[ids_nodup2,-ncol(dat2)]
       return(dat3)
     }
 
