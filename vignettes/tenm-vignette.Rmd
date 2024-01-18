@@ -842,7 +842,7 @@ represents a ellipsoid model fitted using the standard approach.
 
 </div>
 
-Note that but ellipsoids differ in size and shape. In standard approach
+Note that both ellipsoids differ in size and shape. In standard approach
 (green ellipsoid), we can see an sub-estimation of the environmental
 values where the intrinsic growth rate might be positive.
 
