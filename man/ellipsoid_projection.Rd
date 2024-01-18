@@ -22,10 +22,10 @@ ellipsoid_projection(
 \item{envlayers}{A SpatRaster object of the niche variables.}
 
 \item{centroid}{A vector with the values of the centers of the ellipsoid
-(see \code{\link[ntbox]{cov_center}}).}
+(see \code{\link[tenm]{cov_center}}).}
 
 \item{covar}{The shape matrix (covariance) of the ellipsoid
-(see \code{\link[ntbox]{cov_center}}).}
+(see \code{\link[tenm]{cov_center}}).}
 
 \item{level}{The proportion of points  to be included inside the ellipsoid}
 
@@ -51,6 +51,6 @@ a data.frame with the mahalanobis and euclidean distances to the centroid.
 \description{
 Function to fit an ellipsoid model using the shape matrix
 (covariance matrix) of the niche variables. This is an optimized version of
-the \code{\link[ntbox]{ellipsoidfit}} function; the difference is that it
+the ellipsoidfit function of ntbox; the difference is that it
 does not give the table of distances to niche centroid.
 }

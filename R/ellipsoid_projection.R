@@ -1,13 +1,13 @@
 #' ellipsoid_projection: function to fit an ellipsoid model
 #' @description Function to fit an ellipsoid model using the shape matrix
 #' (covariance matrix) of the niche variables. This is an optimized version of
-#' the \code{\link[ntbox]{ellipsoidfit}} function; the difference is that it
+#' the ellipsoidfit function of ntbox; the difference is that it
 #' does not give the table of distances to niche centroid.
 #' @param envlayers A SpatRaster object of the niche variables.
 #' @param centroid A vector with the values of the centers of the ellipsoid
-#' (see \code{\link[ntbox]{cov_center}}).
+#' (see \code{\link[tenm]{cov_center}}).
 #' @param covar The shape matrix (covariance) of the ellipsoid
-#' (see \code{\link[ntbox]{cov_center}}).
+#' (see \code{\link[tenm]{cov_center}}).
 #' @param level The proportion of points  to be included inside the ellipsoid
 #' @param plot Logical If True a plot of the niche will be shown.
 #' @param size The size of the points of the niche plot.
