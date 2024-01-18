@@ -65,7 +65,7 @@ We plot the geographic information to see how *Abronia graminea* is
 distributed.
 
 
-```{r pressure, echo = FALSE,fig.cap="Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the year of observation.",results='asis'}
+```{r pressure, echo = TRUE,fig.cap="Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the year of observation.",results='asis'}
 colorss <- hcl.colors(length(unique(abronia$year)))
 par(mar=c(4,4,2,2))
 plot(abronia$decimalLongitude, abronia$decimalLatitude,
@@ -460,7 +460,7 @@ tenm::plot_ellipsoid(x = abbg$temporal_df$bio_01,
 
 ```
 
-Note that but ellipsoids differ in size and shape. In standard approach 
+Note that both ellipsoids differ in size and shape. In standard approach 
 (green ellipsoid), we can see an sub-estimation of the environmental values
 where the intrinsic growth rate might be positive.
 
