@@ -44,7 +44,7 @@ Imports:
     purrr,
     dplyr,
     stringr,
-    rgl,
+    rgl (> 1.2),
     future,
     tidyr,
     furrr,
