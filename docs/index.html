@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="A package to model the ecological niche using a time-specific approach. A set of tools (functions) made to generate ecological niche models (ENMs) with a time-calibrated focus. The framework allows users to calibrate ecological niche models with high temporal resolution environmental layers. The main objective of this package is to recover information that is lost or at least neglected while applying a data curation protocol. The curation that consits in conservating occurrences that might seen redundant spatially (occur in the same pixel) but are from different periods. The novelty in this package is that it might reconstruct the fundamental niche more accurately by using fine temporal resolution layers. The theoretical background of the package can be found in Peteson et al. (2011) \doi{10.5860/CHOICE.49-6266}.">
+<meta name="description" content="A package to model the ecological niche using a time-specific approach. A set of tools (functions) made to generate ecological niche models (ENMs) with a time-calibrated focus. The framework allows users to calibrate ecological niche models with high temporal resolution environmental layers. The main objective of this package is to recover information that is lost or at least neglected while applying a data curation protocol. The curation that consists in conservating occurrences that might seen redundant spatially (occur in the same pixel) but are from different periods. The novelty in this package is that it might reconstruct the fundamental niche more accurately by using fine temporal resolution layers. The theoretical background of the package can be found in Peteson et al. (2011) \doi{10.5860/CHOICE.49-6266}.">
 <title>Temporal Ecological Niche Models • tenm</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -18,7 +18,7 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Temporal Ecological Niche Models">
-<meta property="og:description" content="A package to model the ecological niche using a time-specific approach. A set of tools (functions) made to generate ecological niche models (ENMs) with a time-calibrated focus. The framework allows users to calibrate ecological niche models with high temporal resolution environmental layers. The main objective of this package is to recover information that is lost or at least neglected while applying a data curation protocol. The curation that consits in conservating occurrences that might seen redundant spatially (occur in the same pixel) but are from different periods. The novelty in this package is that it might reconstruct the fundamental niche more accurately by using fine temporal resolution layers. The theoretical background of the package can be found in Peteson et al. (2011) \doi{10.5860/CHOICE.49-6266}.">
+<meta property="og:description" content="A package to model the ecological niche using a time-specific approach. A set of tools (functions) made to generate ecological niche models (ENMs) with a time-calibrated focus. The framework allows users to calibrate ecological niche models with high temporal resolution environmental layers. The main objective of this package is to recover information that is lost or at least neglected while applying a data curation protocol. The curation that consists in conservating occurrences that might seen redundant spatially (occur in the same pixel) but are from different periods. The novelty in this package is that it might reconstruct the fundamental niche more accurately by using fine temporal resolution layers. The theoretical background of the package can be found in Peteson et al. (2011) \doi{10.5860/CHOICE.49-6266}.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -194,7 +194,7 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span><span class="co">#&gt; 14 Abronia graminea            -97.9            20.1  2015 https://doi.org/10.1…</span></span>
 <span><span class="co">#&gt; 15 Abronia graminea            -97.1            18.9  1998 https://doi.org/10.1…</span></span>
 <span><span class="co">#&gt; 16 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…</span></span></code></pre></div>
-<p>We recover 6 records, not bad! On the other hand, we didn not account for the fact that some occurrences come from different years. The <code>tenm</code> package is designed to deal with occurrences coming from different periods as long as the user has environmental layers matching the years of occurrence observations.</p>
+<p>We recover 6 records, not bad! On the other hand, we did not account for the fact that some occurrences come from different years. The <code>tenm</code> package is designed to deal with occurrences coming from different periods as long as the user has environmental layers matching the years of occurrence observations.</p>
 </div>
 </div>
 <div class="section level2">
@@ -208,42 +208,42 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tempora_layers_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio"</span></span></code></pre></div>
 <p>We explore the structure of the directory that contains our modeling layers.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span><span class="va">tempora_layers_dir</span>,recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1939"</span></span>
-<span><span class="co">#&gt;  [2] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1940"</span></span>
-<span><span class="co">#&gt;  [3] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1941"</span></span>
-<span><span class="co">#&gt;  [4] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1950"</span></span>
-<span><span class="co">#&gt;  [5] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1952"</span></span>
-<span><span class="co">#&gt;  [6] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1963"</span></span>
-<span><span class="co">#&gt;  [7] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1969"</span></span>
-<span><span class="co">#&gt;  [8] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1970"</span></span>
-<span><span class="co">#&gt;  [9] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1971"</span></span>
-<span><span class="co">#&gt; [10] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1972"</span></span>
-<span><span class="co">#&gt; [11] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1973"</span></span>
-<span><span class="co">#&gt; [12] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1974"</span></span>
-<span><span class="co">#&gt; [13] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1976"</span></span>
-<span><span class="co">#&gt; [14] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1977"</span></span>
-<span><span class="co">#&gt; [15] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1980"</span></span>
-<span><span class="co">#&gt; [16] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1981"</span></span>
-<span><span class="co">#&gt; [17] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1982"</span></span>
-<span><span class="co">#&gt; [18] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1983"</span></span>
-<span><span class="co">#&gt; [19] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1988"</span></span>
-<span><span class="co">#&gt; [20] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1991"</span></span>
-<span><span class="co">#&gt; [21] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1993"</span></span>
-<span><span class="co">#&gt; [22] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1994"</span></span>
-<span><span class="co">#&gt; [23] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1995"</span></span>
-<span><span class="co">#&gt; [24] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1996"</span></span>
-<span><span class="co">#&gt; [25] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1998"</span></span>
-<span><span class="co">#&gt; [26] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/2002"</span></span>
-<span><span class="co">#&gt; [27] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/2008"</span></span>
-<span><span class="co">#&gt; [28] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/2011"</span></span>
-<span><span class="co">#&gt; [29] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/2012"</span></span>
-<span><span class="co">#&gt; [30] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/2014"</span></span>
-<span><span class="co">#&gt; [31] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/2015"</span></span>
-<span><span class="co">#&gt; [32] "/home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/2016"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939"</span></span>
+<span><span class="co">#&gt;  [2] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1940"</span></span>
+<span><span class="co">#&gt;  [3] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1941"</span></span>
+<span><span class="co">#&gt;  [4] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1950"</span></span>
+<span><span class="co">#&gt;  [5] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1952"</span></span>
+<span><span class="co">#&gt;  [6] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1963"</span></span>
+<span><span class="co">#&gt;  [7] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1969"</span></span>
+<span><span class="co">#&gt;  [8] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1970"</span></span>
+<span><span class="co">#&gt;  [9] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1971"</span></span>
+<span><span class="co">#&gt; [10] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1972"</span></span>
+<span><span class="co">#&gt; [11] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1973"</span></span>
+<span><span class="co">#&gt; [12] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1974"</span></span>
+<span><span class="co">#&gt; [13] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1976"</span></span>
+<span><span class="co">#&gt; [14] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1977"</span></span>
+<span><span class="co">#&gt; [15] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1980"</span></span>
+<span><span class="co">#&gt; [16] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1981"</span></span>
+<span><span class="co">#&gt; [17] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1982"</span></span>
+<span><span class="co">#&gt; [18] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1983"</span></span>
+<span><span class="co">#&gt; [19] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1988"</span></span>
+<span><span class="co">#&gt; [20] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1991"</span></span>
+<span><span class="co">#&gt; [21] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1993"</span></span>
+<span><span class="co">#&gt; [22] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1994"</span></span>
+<span><span class="co">#&gt; [23] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1995"</span></span>
+<span><span class="co">#&gt; [24] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1996"</span></span>
+<span><span class="co">#&gt; [25] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1998"</span></span>
+<span><span class="co">#&gt; [26] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2002"</span></span>
+<span><span class="co">#&gt; [27] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2008"</span></span>
+<span><span class="co">#&gt; [28] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2011"</span></span>
+<span><span class="co">#&gt; [29] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2012"</span></span>
+<span><span class="co">#&gt; [30] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2014"</span></span>
+<span><span class="co">#&gt; [31] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2015"</span></span>
+<span><span class="co">#&gt; [32] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2016"</span></span></code></pre></div>
 <p><strong>Note that the directory contains other directories named with the dates of the modeling layers</strong>. Now, we explore some of these dated directories.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Directory for year 1939</span></span>
@@ -301,12 +301,12 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   decimalLongitude decimalLatitude  year layer_dates layers_path                </span></span>
 <span><span class="co">#&gt;              &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;date&gt;      &lt;chr&gt;                      </span></span>
-<span><span class="co">#&gt; 1            -98.2            20.0  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 2            -98.1            19.9  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 3            -98.1            19.9  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 4            -98.1            19.9  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 5            -98.1            19.8  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 6            -98.2            19.9  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…</span></span></code></pre></div>
+<span><span class="co">#&gt; 1            -98.2            20.0  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 2            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 3            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 4            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 5            -98.1            19.8  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 6            -98.2            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="time-specific-spatial-data-thinning">Time-specific spatial data thinning<a class="anchor" aria-label="anchor" href="#time-specific-spatial-data-thinning"></a>
@@ -324,12 +324,12 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   decimalLongitude decimalLatitude  year layer_dates layers_path                </span></span>
 <span><span class="co">#&gt;              &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;date&gt;      &lt;chr&gt;                      </span></span>
-<span><span class="co">#&gt; 1            -97.3            18.7  1939 1939-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 2            -97.3            18.7  1940 1940-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 3            -97.0            19.6  1941 1941-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 4            -97.3            18.7  1941 1941-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 5            -97.3            18.7  1950 1950-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
-<span><span class="co">#&gt; 6            -97.1            19.7  1950 1950-01-01  /home/luis/R/x86_64-pc-lin…</span></span>
+<span><span class="co">#&gt; 1            -97.3            18.7  1939 1939-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 2            -97.3            18.7  1940 1940-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 3            -97.0            19.6  1941 1941-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 4            -97.3            18.7  1941 1941-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 5            -97.3            18.7  1950 1950-01-01  /Library/Frameworks/R.fram…</span></span>
+<span><span class="co">#&gt; 6            -97.1            19.7  1950 1950-01-01  /Library/Frameworks/R.fram…</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">abtc</span><span class="op">$</span><span class="va">temporal_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 40</span></span></code></pre></div>
 <p>An improvement of this methodology is that we recover a lot of information. From 10 records thinned using the standard data cleaning process, now we have 40 records; 30 more observations!!! which will allow us to fit more informative models. Let’s compare occurrences from the standard data cleaning process and the time-specific thinning process.</p>
@@ -375,12 +375,12 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; # A tibble: 6 × 26</span></span>
 <span><span class="co">#&gt;   decimalLongitude decimalLatitude  year layer_dates layers_path   cell_ids_year</span></span>
 <span><span class="co">#&gt;              &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;date&gt;      &lt;chr&gt;                 &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1            -97.3            18.7  1939 1939-01-01  /home/luis/R…           272</span></span>
-<span><span class="co">#&gt; 2            -97.3            18.7  1940 1940-01-01  /home/luis/R…           272</span></span>
-<span><span class="co">#&gt; 3            -97.0            19.6  1941 1941-01-01  /home/luis/R…           173</span></span>
-<span><span class="co">#&gt; 4            -97.3            18.7  1941 1941-01-01  /home/luis/R…           271</span></span>
-<span><span class="co">#&gt; 5            -97.3            18.7  1950 1950-01-01  /home/luis/R…           272</span></span>
-<span><span class="co">#&gt; 6            -97.1            19.7  1950 1950-01-01  /home/luis/R…           173</span></span>
+<span><span class="co">#&gt; 1            -97.3            18.7  1939 1939-01-01  /Library/Fra…           272</span></span>
+<span><span class="co">#&gt; 2            -97.3            18.7  1940 1940-01-01  /Library/Fra…           272</span></span>
+<span><span class="co">#&gt; 3            -97.0            19.6  1941 1941-01-01  /Library/Fra…           173</span></span>
+<span><span class="co">#&gt; 4            -97.3            18.7  1941 1941-01-01  /Library/Fra…           271</span></span>
+<span><span class="co">#&gt; 5            -97.3            18.7  1950 1950-01-01  /Library/Fra…           272</span></span>
+<span><span class="co">#&gt; 6            -97.1            19.7  1950 1950-01-01  /Library/Fra…           173</span></span>
 <span><span class="co">#&gt; # ℹ 20 more variables: bio_01 &lt;int&gt;, bio_02 &lt;int&gt;, bio_03 &lt;int&gt;, bio_04 &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   bio_05 &lt;int&gt;, bio_06 &lt;int&gt;, bio_07 &lt;int&gt;, bio_08 &lt;int&gt;, bio_09 &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   bio_10 &lt;int&gt;, bio_11 &lt;int&gt;, bio_12 &lt;int&gt;, bio_13 &lt;int&gt;, bio_14 &lt;int&gt;,</span></span>
@@ -398,13 +398,13 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span>                         buffer_ngbs<span class="op">=</span><span class="fl">10</span>,n_bg<span class="op">=</span><span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"sequential"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">abbg</span><span class="op">$</span><span class="va">env_bg</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                                              ID_YEAR</span></span>
-<span><span class="co">#&gt; 1 /home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1939</span></span>
-<span><span class="co">#&gt; 2 /home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1939</span></span>
-<span><span class="co">#&gt; 3 /home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1939</span></span>
-<span><span class="co">#&gt; 4 /home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1939</span></span>
-<span><span class="co">#&gt; 5 /home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1939</span></span>
-<span><span class="co">#&gt; 6 /home/luis/R/x86_64-pc-linux-gnu-library/4.3/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt;                                                                                      ID_YEAR</span></span>
+<span><span class="co">#&gt; 1 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 2 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 3 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 4 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 5 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
+<span><span class="co">#&gt; 6 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939</span></span>
 <span><span class="co">#&gt;   decimalLongitude decimalLatitude bio_01 bio_02 bio_03 bio_04 bio_05 bio_06</span></span>
 <span><span class="co">#&gt; 1        -97.75000        18.91667    155     92     57   2177    223     62</span></span>
 <span><span class="co">#&gt; 2        -98.25000        18.75000    192    100     60   1990    264     97</span></span>
@@ -560,16 +560,16 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 8         bio_01,bio_03,bio_04     3       0.06250               3,18</span></span>
 <span><span class="co">#&gt; 9                bio_01,bio_04     2       0.03125                 18</span></span>
 <span><span class="co">#&gt; 10        bio_01,bio_02,bio_04     3       0.09375            3,18,31</span></span>
-<span><span class="co">#&gt; 11               bio_01,bio_02     2       0.09375            3,18,31</span></span>
-<span><span class="co">#&gt; 12               bio_01,bio_07     2       0.06250              18,31</span></span>
-<span><span class="co">#&gt; 13               bio_01,bio_03     2       0.06250               3,18</span></span>
+<span><span class="co">#&gt; 11               bio_01,bio_07     2       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 12               bio_01,bio_03     2       0.06250               3,18</span></span>
+<span><span class="co">#&gt; 13               bio_01,bio_02     2       0.09375            3,18,31</span></span>
 <span><span class="co">#&gt; 14        bio_01,bio_03,bio_12     3       0.06250               3,18</span></span>
 <span><span class="co">#&gt; 15 bio_02,bio_04,bio_07,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 16 bio_02,bio_03,bio_07,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 17 bio_02,bio_03,bio_04,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 18        bio_01,bio_07,bio_12     3       0.06250              18,31</span></span>
-<span><span class="co">#&gt; 19 bio_02,bio_03,bio_04,bio_07     4       0.03125                  3</span></span>
-<span><span class="co">#&gt; 20        bio_04,bio_07,bio_12     3       0.06250              21,28</span></span>
+<span><span class="co">#&gt; 19        bio_04,bio_07,bio_12     3       0.06250              21,28</span></span>
+<span><span class="co">#&gt; 20 bio_02,bio_03,bio_04,bio_07     4       0.03125                  3</span></span>
 <span><span class="co">#&gt; 21               bio_04,bio_07     2       0.03125                  3</span></span>
 <span><span class="co">#&gt; 22               bio_04,bio_12     2       0.06250              10,21</span></span>
 <span><span class="co">#&gt; 23               bio_03,bio_04     2       0.03125                  3</span></span>
@@ -588,16 +588,16 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 8             0                       0.4655525        0         0</span></span>
 <span><span class="co">#&gt; 9             0                       0.4835878        0         0</span></span>
 <span><span class="co">#&gt; 10            0                       0.4768546        0         0</span></span>
-<span><span class="co">#&gt; 11            0                       0.4823855        0         0</span></span>
-<span><span class="co">#&gt; 12            0                       0.5001804        0         0</span></span>
-<span><span class="co">#&gt; 13            0                       0.4995792        0         0</span></span>
+<span><span class="co">#&gt; 11            0                       0.5001804        0         0</span></span>
+<span><span class="co">#&gt; 12            0                       0.4995792        0         0</span></span>
+<span><span class="co">#&gt; 13            0                       0.4823855        0         0</span></span>
 <span><span class="co">#&gt; 14            0                       0.4844295        0         0</span></span>
 <span><span class="co">#&gt; 15            0                       0.6570879        0         0</span></span>
 <span><span class="co">#&gt; 16            0                       0.5706385        0         0</span></span>
 <span><span class="co">#&gt; 17            0                       0.6412168        0         0</span></span>
 <span><span class="co">#&gt; 18            0                       0.4962126        0         0</span></span>
-<span><span class="co">#&gt; 19            0                       0.6100757        0         0</span></span>
-<span><span class="co">#&gt; 20            0                       0.7240592        0         0</span></span>
+<span><span class="co">#&gt; 19            0                       0.7240592        0         0</span></span>
+<span><span class="co">#&gt; 20            0                       0.6100757        0         0</span></span>
 <span><span class="co">#&gt; 21            0                       0.7537574        0         0</span></span>
 <span><span class="co">#&gt; 22            0                       0.7220151        0         0</span></span>
 <span><span class="co">#&gt; 23            0                       0.7382470        0         0</span></span>
@@ -608,31 +608,31 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt;    env_bg_paucratio env_bg_auc mean_omr_train_test rank_by_omr_train_test</span></span>
 <span><span class="co">#&gt; 1          1.520879  0.7985825            0.031250                     11</span></span>
 <span><span class="co">#&gt; 2          1.505433  0.7996963            0.031250                      7</span></span>
-<span><span class="co">#&gt; 3          1.500235  0.7974812            0.031250                      8</span></span>
+<span><span class="co">#&gt; 3          1.500235  0.7974813            0.031250                      8</span></span>
 <span><span class="co">#&gt; 4          1.467522  0.7828762            0.046875                     22</span></span>
-<span><span class="co">#&gt; 5          1.465208  0.7519788            0.015625                      1</span></span>
-<span><span class="co">#&gt; 6          1.462961  0.7858312            0.031250                      9</span></span>
+<span><span class="co">#&gt; 5          1.465208  0.7519787            0.015625                      1</span></span>
+<span><span class="co">#&gt; 6          1.462961  0.7858313            0.031250                      9</span></span>
 <span><span class="co">#&gt; 7          1.448599  0.7549675            0.046875                     21</span></span>
 <span><span class="co">#&gt; 8          1.431383  0.7479400            0.031250                     10</span></span>
 <span><span class="co">#&gt; 9          1.429927  0.7371300            0.015625                      2</span></span>
 <span><span class="co">#&gt; 10         1.424194  0.7454525            0.046875                     23</span></span>
-<span><span class="co">#&gt; 11         1.412051  0.7369812            0.046875                     24</span></span>
-<span><span class="co">#&gt; 12         1.409348  0.7345675            0.031250                     15</span></span>
-<span><span class="co">#&gt; 13         1.409145  0.7019625            0.031250                     14</span></span>
+<span><span class="co">#&gt; 11         1.409348  0.7345675            0.031250                     15</span></span>
+<span><span class="co">#&gt; 12         1.409145  0.7019625            0.031250                     14</span></span>
+<span><span class="co">#&gt; 13         1.403910  0.7357775            0.046875                     24</span></span>
 <span><span class="co">#&gt; 14         1.382147  0.6807450            0.031250                     12</span></span>
 <span><span class="co">#&gt; 15         1.379969  0.7115000            0.031250                     18</span></span>
 <span><span class="co">#&gt; 16         1.374939  0.6537675            0.031250                     16</span></span>
-<span><span class="co">#&gt; 17         1.373252  0.7036713            0.031250                     17</span></span>
+<span><span class="co">#&gt; 17         1.373252  0.7036712            0.031250                     17</span></span>
 <span><span class="co">#&gt; 18         1.365017  0.7032725            0.031250                     13</span></span>
-<span><span class="co">#&gt; 19         1.329613  0.6943437            0.015625                      3</span></span>
-<span><span class="co">#&gt; 20         1.314119  0.6895575            0.031250                     20</span></span>
+<span><span class="co">#&gt; 19         1.344319  0.7077450            0.031250                     20</span></span>
+<span><span class="co">#&gt; 20         1.329613  0.6943437            0.015625                      3</span></span>
 <span><span class="co">#&gt; 21         1.307749  0.6769513            0.015625                      5</span></span>
 <span><span class="co">#&gt; 22         1.288655  0.6388300            0.031250                     19</span></span>
 <span><span class="co">#&gt; 23         1.267623  0.6472100            0.015625                      4</span></span>
 <span><span class="co">#&gt; 24         1.261588  0.6146950            0.046875                     25</span></span>
 <span><span class="co">#&gt; 25         1.253496  0.5970800            0.046875                     26</span></span>
 <span><span class="co">#&gt; 26         1.240056  0.5891425            0.046875                     27</span></span>
-<span><span class="co">#&gt; 27         1.193064  0.5648688            0.015625                      6</span></span>
+<span><span class="co">#&gt; 27         1.193064  0.5648687            0.015625                      6</span></span>
 <span><span class="co">#&gt;    rank_omr_aucratio</span></span>
 <span><span class="co">#&gt; 1                  1</span></span>
 <span><span class="co">#&gt; 2                  2</span></span>
