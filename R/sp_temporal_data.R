@@ -138,7 +138,9 @@ sp_temporal_data <- function(occs,longitude,
                            sp_date_var = sp_date_var,
                            lon_lat_vars =lon_lat_vars ,
                            #layers_path = layers_all[dates_ids],
-                           layers_ext= layers_ext)
+                           layers_ext = layers_ext
+                           #multiband = multiband
+                           )
 
       class(sp_temp_data) <- c("sp.temporal.modeling")
 
