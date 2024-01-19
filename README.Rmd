@@ -122,7 +122,7 @@ tidyr::as_tibble(ab_by_mask)
 ```
 
 We recover `r nrow(ab_by_mask) - nrow(ab_1)` records, not bad! On the other
-hand, we didn not account for the fact that some occurrences come from 
+hand, we did not account for the fact that some occurrences come from 
 different years. The `tenm` package is designed to deal with occurrences
 coming from different periods as long as the user has environmental
 layers matching the years of occurrence observations.
