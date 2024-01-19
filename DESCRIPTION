@@ -1,6 +1,6 @@
 Package: tenm
-Title: Temporal Ecological Niche Models
 Version: 0.5.0
+Title: Temporal Ecological Niche Models
 Authors@R: c(
   person(given = "Luis", family = "Osorio-Olvera", 
   email = "luismurao@gmail.com", role = c("aut", "cre"),
@@ -27,7 +27,7 @@ Description: A package to model the ecological niche using a time-specific
   ecological niche models with high temporal resolution environmental layers. 
   The main objective of this package is to recover information that is 
   lost or at least neglected while applying a data curation protocol. 
-  The curation that consits in conservating occurrences that might seen 
+  The curation that consists in conservating occurrences that might seen 
   redundant spatially (occur in the same pixel) but are from different periods. 
   The novelty in this package is that it might reconstruct the fundamental niche
   more accurately by using fine temporal resolution layers. The theoretical 
