@@ -95,10 +95,10 @@ clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
       adj_cells <- terra::adjacent(x = raster_mask,cells=cellids2,
                                    directions = ngMat,
                                    pairs = TRUE)
-      occ_adj_id <- which(adj_cells[,2] %in% cellids2)
-      if(length(occ_adj_id)>0L){
-        adj_cells <- adj_cells[occ_adj_id,]
-      }
+      #occ_adj_id <- which(adj_cells[,2] %in% cellids2)
+      #if(length(occ_adj_id)>0L){
+      #  adj_cells <- adj_cells[occ_adj_id,]
+      #}
 
       adj_cellsL <- split(adj_cells[,2], adj_cells[,1])
       targets <- names(adj_cellsL)
