@@ -40,7 +40,7 @@
 #'                               layers_by_date_dir = tempora_layers_dir,
 #'                               layers_ext="*.tif$")
 #' abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
-#' future::plan("multisession",workers=10)
+#' future::plan("multisession",workers=2)
 #' abex <- tenm::ex_by_date(this_species = abtc,
 #'                          train_prop=0.7)
 #' abbg <- tenm::bg_by_date(abex,
