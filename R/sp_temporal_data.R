@@ -128,8 +128,9 @@ sp_temporal_data <- function(occs,longitude,
       dates_ids <- nearest_date_id(occ_dates = date_sps,
                                    layers_dates = layers_dates)
 
-      layers_all <- list.dirs(path = layers_by_date_dir,recursive = F,
-                              full.names = T)
+      layers_all <- list.dirs(path = layers_by_date_dir,recursive = FALSE,
+                              full.names = TRUE)
+      layers_all <- base::normalizePath(layers_all)
       temporal_df <- data.frame(occs[date_in_occs_index,c(lon_lat_vars,sp_date_var)],
                                 layer_dates = layers_dates[dates_ids],
                                 layers_path=layers_all[dates_ids])
