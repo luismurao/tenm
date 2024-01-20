@@ -50,3 +50,32 @@ that were fitted; ii) "om_rate" omission rates of the model; iii)
 \description{
 Compute the omission rate of ellipsoid models
 }
+\examples{
+\donttest{
+library(tenm)
+data("abronia")
+tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+abt <- tenm::sp_temporal_data(occs = abronia,
+                              longitude = "decimalLongitude",
+                              latitude = "decimalLatitude",
+                              sp_date_var = "year",
+                              occ_date_format="y",
+                              layers_date_format= "y",
+                              layers_by_date_dir = tempora_layers_dir,
+                              layers_ext="*.tif$")
+abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+#This code is for running in parallel
+future::plan("multisession",workers=2)
+abex <- tenm::ex_by_date(this_species = abtc,train_prop=0.7)
+abbg <- tenm::bg_by_date(this_species = abex,
+                         buffer_ngbs=10,n_bg=50000)
+future::plan("sequential")
+edata <- abex$env_data
+etrain <- edata[edata$trian_test=="Train",c("bio_05","bio_06","bio_12")]
+etest <- edata[edata$trian_test=="Test",c("bio_05","bio_06","bio_12")]
+bg <- abbg$env_bg[,c("bio_05","bio_06","bio_12")]
+eor <- ellipsoid_omr(env_data=etrain,env_test=etest,env_bg=bg,
+                     cf_level=0.975,proc=TRUE)
+eor
+}
+}
