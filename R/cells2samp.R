@@ -18,6 +18,7 @@
 #' @param progress Logical. Show computation progress
 #' @return A numeric vector with the IDs of cells to be sampled.
 #' @examples
+#' \donttest{
 #' # cells to sample
 #' data(abronia)
 #' temporal_layer <- system.file("extdata/bio/2016/bio_01.tif",package = "tenm")
@@ -32,6 +33,7 @@
 #'                             process_ngbs_by = 10,
 #'                             n_bg = 50000,
 #'                             progress =TRUE)
+#' }
 #'
 #' @export
 cells2samp <- function(data,longitude,latitude,cell_ids = NULL,buffer_ngbs = 2,

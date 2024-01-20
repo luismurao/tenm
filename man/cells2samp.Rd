@@ -49,6 +49,7 @@ Returns pixel IDs to be sample for generating
 environmental background form modeling layers.
 }
 \examples{
+\donttest{
 # cells to sample
 data(abronia)
 temporal_layer <- system.file("extdata/bio/2016/bio_01.tif",package = "tenm")
@@ -63,5 +64,6 @@ samp_01 <- tenm::cells2samp(data = abronia,
                             process_ngbs_by = 10,
                             n_bg = 50000,
                             progress =TRUE)
+}
 
 }
