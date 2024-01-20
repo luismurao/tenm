@@ -9,6 +9,9 @@ on:
 name: R-CMD-check
 
 jobs:
+  - name: Install XQuartz on macOS
+      if: runner.os == 'macOS'
+      run: brew cask install xquartz
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
