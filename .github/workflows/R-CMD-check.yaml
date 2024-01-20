@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Install XQuartz on macOS
         if: runner.os == 'macOS'
-        run: brew cask install xquartz
+        run: brew install xquartz --cask
       - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
