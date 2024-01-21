@@ -20,7 +20,7 @@
 #' covariance matrix based on the input data, ellipsoid volume, semi-axis length
 #'  and axis coordinates.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
