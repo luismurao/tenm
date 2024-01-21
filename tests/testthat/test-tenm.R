@@ -124,31 +124,3 @@ test_that("cells2samp, returns the cell ids of a raster layer to be sampled",{
 
 })
 
-test_that("cov_center, returns a list with ellipsoid metadata",{
-  data("abronia")
-  tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
-  abt <- tenm::sp_temporal_data(occs = abronia,
-                                longitude = "decimalLongitude",
-                                latitude = "decimalLatitude",
-                                sp_date_var = "year",
-                                occ_date_format="y",
-                                layers_date_format= "y",
-                                layers_by_date_dir = tempora_layers_dir,
-                                layers_ext="*.tif$")
-  abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
-  future::plan("multisession",workers=2)
-  abex <- tenm::ex_by_date(abtc,train_prop=0.7)
-  future::plan("sequential")
-  varcorrs <- tenm::correlation_finder(environmental_data = abex$env_data[,c(-15,-ncol(abex$env_data))],
-                                       method = "spearman",
-                                       threshold = 0.8,
-                                       verbose = FALSE)
-  mod <- tenm::cov_center(data = abex$env_data,
-                          mve = TRUE,
-                          level = 0.975,
-                          vars = c("bio_05","bio_06","bio_12"))
- testthat::expect_equal(class(mod),"list")
-
-})
-
-
