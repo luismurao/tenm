@@ -466,4 +466,5 @@ where the intrinsic growth rate might be positive.
 
 ## Acknowledgments
 
-CONACYT Ciencia de Frontera CF-2023-I-1156.
+CONACYT Ciencia de Frontera CF-2023-I-1156. Laboratorio Nacional Conahcyt de 
+Biología del Cambio Climático, México. PAPIIT IA202824 
