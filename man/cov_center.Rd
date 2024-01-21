@@ -35,7 +35,7 @@ and volume of an ellipsoid model. It uses the values of the niche variables
 of the occurrences points.
 }
 \examples{
-\donttest{
+\dontrun{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
