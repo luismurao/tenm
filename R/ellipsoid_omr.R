@@ -23,7 +23,7 @@
 #' that were fitted; ii) "om_rate" omission rates of the model; iii)
 #' "bg_prevalence" approximated prevalence of the model see details section.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
