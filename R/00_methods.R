@@ -75,7 +75,7 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                            return(TRUE)
                          } else{
                            stop(paste0("Objet 'layers[[",
-                                       x,"]]' should be a 'RasterStack'" ))
+                                       x,"]]' should be a 'SpatRaster'" ))
                          }
                        })
 
