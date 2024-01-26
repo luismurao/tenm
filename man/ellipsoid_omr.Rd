@@ -51,7 +51,7 @@ that were fitted; ii) "om_rate" omission rates of the model; iii)
 Compute the omission rate of ellipsoid models
 }
 \examples{
-\donttest{
+\dontrun{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
