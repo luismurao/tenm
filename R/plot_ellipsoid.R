@@ -21,7 +21,7 @@
 #' rgl::segments3d
 #' @export
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
