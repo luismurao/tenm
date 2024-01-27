@@ -12,7 +12,7 @@
 #' with values 1 (inside the ellipsoid) and zeros (outside the ellipsoid); the
 #' second "mh_dist" Mahalanobis distance to centroid.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
