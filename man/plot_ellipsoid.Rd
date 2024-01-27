@@ -61,7 +61,7 @@ The function plots 2D and 3D ellipsoids using environmental
 information as coordinates.
 }
 \examples{
-\donttest{
+\dontrun{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
