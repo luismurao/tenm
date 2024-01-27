@@ -26,7 +26,7 @@ second "mh_dist" Mahalanobis distance to centroid.
 Determine if a point is inside or outside an ellipsoid.
 }
 \examples{
-\donttest{
+\dontrun{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
