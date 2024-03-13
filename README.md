@@ -708,7 +708,7 @@ head(mod_sel$mods_table,27)
 #> 17            0                       0.6412168        0         0
 #> 18            0                       0.4962126        0         0
 #> 19            0                       0.6100757        0         0
-#> 20            0                       0.7240592        0         0
+#> 20            0                       0.6847421        0         0
 #> 21            0                       0.7537574        0         0
 #> 22            0                       0.7220151        0         0
 #> 23            0                       0.7382470        0         0
@@ -727,7 +727,7 @@ head(mod_sel$mods_table,27)
 #> 8          1.431383  0.7479400            0.031250                     10
 #> 9          1.429927  0.7371300            0.015625                      2
 #> 10         1.424194  0.7454525            0.046875                     23
-#> 11         1.422501  0.7475287            0.046875                     24
+#> 11         1.416699  0.7450637            0.046875                     24
 #> 12         1.409348  0.7345675            0.031250                     15
 #> 13         1.409145  0.7019625            0.031250                     14
 #> 14         1.382147  0.6807450            0.031250                     12
@@ -736,9 +736,9 @@ head(mod_sel$mods_table,27)
 #> 17         1.373252  0.7036712            0.031250                     17
 #> 18         1.365017  0.7032725            0.031250                     13
 #> 19         1.329613  0.6943437            0.015625                      3
-#> 20         1.310287  0.6815938            0.031250                     20
+#> 20         1.309575  0.6681387            0.031250                     19
 #> 21         1.307749  0.6769513            0.015625                      5
-#> 22         1.288655  0.6388300            0.031250                     19
+#> 22         1.288655  0.6388300            0.031250                     20
 #> 23         1.267623  0.6472100            0.015625                      4
 #> 24         1.261588  0.6146950            0.046875                     25
 #> 25         1.253496  0.5970800            0.046875                     26
@@ -886,6 +886,6 @@ values where the intrinsic growth rate might be positive.
 
 CONACYT Ciencia de Frontera CF-2023-I-1156. Laboratorio Nacional
 Conahcyt de Biología del Cambio Climático, México. To PAPIIT-UNAM
-IA202824. RGCD thanks the Universidad Nacional Autónoma de México
-(Dirección General de Asuntos del Personal Académico, DGAPA-UNAM,
-México) for her postdoctoral scholarship.
+IA202824 and PAPIIT-UNAM IA203922. RGCD thanks the Universidad Nacional
+Autónoma de México (Dirección General de Asuntos del Personal Académico,
+DGAPA-UNAM, México) for her postdoctoral scholarship.
