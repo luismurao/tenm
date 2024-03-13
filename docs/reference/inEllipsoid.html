@@ -88,7 +88,7 @@ second "mh_dist" Mahalanobis distance to centroid.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://luismurao.github.io/tenm/" class="external-link">tenm</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"abronia"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tempora_layers_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span></span>
@@ -107,7 +107,6 @@ second "mh_dist" Mahalanobis distance to centroid.</p>
 <span class="r-in"><span>                                     method <span class="op">=</span> <span class="st">"spearman"</span>,</span></span>
 <span class="r-in"><span>                                     threshold <span class="op">=</span> <span class="fl">0.8</span>,</span></span>
 <span class="r-in"><span>                                     verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>the standard deviation is zero</span>
 <span class="r-in"><span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="st">"sequential"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="cov_center.html">cov_center</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">abex</span><span class="op">$</span><span class="va">env_data</span>,</span></span>
 <span class="r-in"><span>                        mve <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
@@ -119,48 +118,7 @@ second "mh_dist" Mahalanobis distance to centroid.</p>
 <span class="r-in"><span>                       level <span class="op">=</span> <span class="fl">0.975</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># 1 = Inside the ellipsoid; 0 = Outside the ellipsoid</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">in_elip</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    in_Ellipsoid    mh_dist</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             1  1.5208724</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2             1  1.1441787</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             1  4.5220005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             1  0.6103583</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             1  0.8606538</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6             1  2.2926090</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7             1  2.7047455</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8             1  0.7001683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             1  1.4891237</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10            1  0.6497573</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11            1  0.9349719</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12            1  5.7577780</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13            1  0.6612829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14            1  2.8157858</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15            1  5.0221566</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16            1  0.4349905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17            1  0.9724952</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18            1  1.0877318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19            1  0.1253176</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20            1  4.8374752</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21            1  1.9092557</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22            1  7.8798423</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23            1  1.8857259</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24            1  3.2271328</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25            1  6.6748831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26            1  2.1050325</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27            1  3.4891962</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28            1  3.0973598</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29            1  0.8824323</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30            0  9.8155714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31            1  1.7366118</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32            1  2.0110087</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33            0 13.4444583</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34            1  0.6095582</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35            1  4.3824177</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36            1  6.4840384</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37            1  5.6598968</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38            1  7.5065473</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39            1  3.8067799</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40            1  1.6922563</span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
