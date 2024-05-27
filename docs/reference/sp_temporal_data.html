@@ -13,7 +13,7 @@ are character class objects: sp_date_var[1] is the name of the date
 variable column available in the occurrences records, lon_lat_vars[2] are
 both of the columns with the coordinates of longitude and latitude
 correspondingly, layers_ext[1] is the final extension format of the
-environmental information (“.tif$”)."><title>Function to create a Species Temporal Data object (STD object). — sp_temporal_data • tenm</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Function to create a Species Temporal Data object (STD object). — sp_temporal_data"><meta property="og:description" content="This function creates an object of class sp.temporal.modeling
+environmental information (“.tif$”)."><title>Function to create a Species Temporal Data object (STD object). — sp_temporal_data • tenm</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Function to create a Species Temporal Data object (STD object). — sp_temporal_data"><meta property="og:description" content="This function creates an object of class sp.temporal.modeling
 that contains a list with four attributes. Inside the list, there is a data
 frame called temporal_df containing five columns: the first two columns are
 coordinates of longitude and latitude that came from the occurrences
@@ -34,7 +34,7 @@ environmental information (“.tif$”)."><meta property="og:image" content="/lo
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">tenm</a>
 
@@ -55,10 +55,9 @@ environmental information (“.tif$”)."><meta property="og:image" content="/lo
     <a class="dropdown-item" href="../articles/tenm-vignette.html">Introduction to tenm package</a>
   </div>
 </li>
-      </ul><form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
-
-      <ul class="navbar-nav"><li class="nav-item">
+      </ul><ul class="navbar-nav"><li><form class="form-inline" role="search">
+<input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json"></form></li>
+<li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/luismurao/tenm/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
@@ -110,7 +109,7 @@ environmental information (“.tif$”).</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>occs</dt>
+    <dl><dt id="arg-occs">occs<a class="anchor" aria-label="anchor" href="#arg-occs"></a></dt>
 <dd><p>A data.frame with information about
 the occurrence records of the specie that is being modeled. It is fundamental
 to count with exact geographical coordinates of longitude and latitude where
@@ -118,22 +117,22 @@ the specie was detected or at least the nearest, also a temporal column
 indicating the time at which was the record.</p></dd>
 
 
-<dt>longitude</dt>
+<dt id="arg-longitude">longitude<a class="anchor" aria-label="anchor" href="#arg-longitude"></a></dt>
 <dd><p>If occs is a data.frame the user must indicate the variable
 name of longitude data.</p></dd>
 
 
-<dt>latitude</dt>
+<dt id="arg-latitude">latitude<a class="anchor" aria-label="anchor" href="#arg-latitude"></a></dt>
 <dd><p>If occs is a data.frame the user must indicate the variable
 name of latitude data.</p></dd>
 
 
-<dt>sp_date_var</dt>
+<dt id="arg-sp-date-var">sp_date_var<a class="anchor" aria-label="anchor" href="#arg-sp-date-var"></a></dt>
 <dd><p>A date variable indicating the date of each observation.
 The name of the variable where is stored the date of each observation.</p></dd>
 
 
-<dt>occ_date_format</dt>
+<dt id="arg-occ-date-format">occ_date_format<a class="anchor" aria-label="anchor" href="#arg-occ-date-format"></a></dt>
 <dd><p>Occurrences date format. It is the format with which
 the dates of the occurrence points are organized. The possible options are
 "y" for years; "ym" for years and months; "ymd" for year, month and day;
@@ -141,19 +140,19 @@ the dates of the occurrence points are organized. The possible options are
 and year.</p></dd>
 
 
-<dt>layers_date_format</dt>
+<dt id="arg-layers-date-format">layers_date_format<a class="anchor" aria-label="anchor" href="#arg-layers-date-format"></a></dt>
 <dd><p>Raster layers of environmental information data
 format. The possible options are "y" for years; "ym" for years and months;
 "ymd" for year, month and day; "mdy" for month, day and year; "my" for month
 and year; "dmy" for day, month and year.</p></dd>
 
 
-<dt>layers_by_date_dir</dt>
+<dt id="arg-layers-by-date-dir">layers_by_date_dir<a class="anchor" aria-label="anchor" href="#arg-layers-by-date-dir"></a></dt>
 <dd><p>A directory which has contain inside other folders
 organized by date with the raster layers of environmental information.</p></dd>
 
 
-<dt>layers_ext</dt>
+<dt id="arg-layers-ext">layers_ext<a class="anchor" aria-label="anchor" href="#arg-layers-ext"></a></dt>
 <dd><p>This is the extension or path of each raster layer archive.
 In other words, this is the object where is stored each one of the paths
 that leads to the location of the environmental raster layers into the inner
@@ -191,11 +190,11 @@ temporal layers.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Luis Osorio-Olvera, Miguel Hernández, Rusby G. Contreras-Díaz, Xavier Chiappa-Carrara, Fernanda Rosales-Ramos, Mariana Munguía-Carrara, Oliver López-Corona.</p>
+  <p>Developed by Luis Osorio-Olvera, Miguel Hernández, Rusby G. Contreras-Díaz, Xavier Chiappa-Carrara, Fernanda Rosales-Ramos, Mariana Munguía-Carrara, Oliver López-Corona.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
 
     </footer></div>
