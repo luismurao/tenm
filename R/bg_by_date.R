@@ -115,7 +115,9 @@ bg_by_date <- function(this_species,
 
     layer_val <- stats::na.omit(env_layers[cellids])
     rm_ids <- stats::na.action(layer_val)
-    cellids <- cellids[-rm_ids]
+    if(length(rm_ids)>0){
+      cellids <- cellids[-rm_ids]
+    }
     #xys <- xys[-rm_ids,]
     if(nrow(layer_val) ==0L) return()
     df1 <- data.frame(ID_YEAR = all_layers$dir_paths[x],
