@@ -9,6 +9,7 @@ ellipsoid_projection(
   centroid,
   covar,
   level = 0.95,
+  output = "suitability",
   plot = T,
   size,
   xlab1 = "niche var 1",
@@ -28,6 +29,9 @@ ellipsoid_projection(
 (see \code{\link[tenm]{cov_center}}).}
 
 \item{level}{The proportion of points  to be included inside the ellipsoid}
+
+\item{output}{The output distance: two possible values "suitability" or
+"mahalanobis". By default the function uses "suitability".}
 
 \item{plot}{Logical If True a plot of the niche will be shown.}
 

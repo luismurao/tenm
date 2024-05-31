@@ -15,6 +15,7 @@ period of environmental conditions or averages.}
   layers_ext = NULL,
   mve = TRUE,
   level = 0.975,
+  output = "suitability",
   ...
 )
 }

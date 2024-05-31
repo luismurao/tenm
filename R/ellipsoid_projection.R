@@ -9,6 +9,8 @@
 #' @param covar The shape matrix (covariance) of the ellipsoid
 #' (see \code{\link[tenm]{cov_center}}).
 #' @param level The proportion of points  to be included inside the ellipsoid
+#' @param output The output distance: two possible values "suitability" or
+#' "mahalanobis". By default the function uses "suitability".
 #' @param plot Logical If True a plot of the niche will be shown.
 #' @param size The size of the points of the niche plot.
 #' @param xlab1 For x label for 2-dimensional histogram
@@ -21,7 +23,7 @@
 #' a data.frame with the mahalanobis and euclidean distances to the centroid.
 #' @export
 
-ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
+ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,output="suitability",
                           plot=T,size,
                           xlab1="niche var 1",ylab1= "niche var 2",zlab1="S",
                           alpha=0.1,...){
@@ -51,7 +53,12 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
     return(expo)
   }
   # Computing the suitabilities
-  suits <- suit( mahalanobisD)
+  if(outout =="suitability"){
+    suits <- suit( mahalanobisD)
+  } else if(outout == "mahalanobis"){
+    suits <- mahalanobisD
+  }
+
   rm(list = c("mahalanobisD"))
   suitVals <- rep(NA,terra::ncell(envlayers[[1]]))
   suitVals[nonaids] <- suits

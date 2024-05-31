@@ -23,7 +23,7 @@
 methods::setMethod('predict', signature(object="sp.temporal.selection"),
                    function(object, model_variables=NULL,layers = NULL,
                             layers_path=NULL,layers_ext=NULL,
-                            mve = TRUE, level=0.975,...){
+                            mve = TRUE, level=0.975,output = "suitability",...){
 
 
                      mod_table <- object$mods_table
@@ -60,6 +60,7 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                                                              covar = mod$covariance,
                                                              level = 0.9999,
                                                              plot = TRUE,size = 2,
+                                                             output = output,
                                                              ...)
                        names(projmods) <- paste0("suitability_proj")
 
@@ -84,7 +85,9 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                                                                centroid = mod$centroid,
                                                                covar = mod$covariance,
                                                                level = 0.9999,
-                                                               plot = TRUE,size = 2,
+                                                               plot = TRUE,
+                                                               size = 2,
+                                                               output = output,
                                                                ...)
                          utils::setTxtProgressBar(pb, x, title = NULL, label = NULL)
 
@@ -107,7 +110,9 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                                                                centroid = mod$centroid,
                                                                covar = mod$covariance,
                                                                level = 0.9999,
-                                                               plot = TRUE,size = 2,
+                                                               plot = TRUE,
+                                                               size = 2,
+                                                               output = output,
                                                                ...)
 
                          utils::setTxtProgressBar(pb, x, title = NULL, label = NULL)
