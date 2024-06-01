@@ -121,7 +121,7 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,output="sui
     dfn <- dim(data1)[2] - 1
     # Ellipsoid radius
     #ell.radius_E <- sqrt(dfn * qf(level, dfn, dfd))
-    suits2 <- suits
+
 
     ellips_E  <- rgl::ellipse3d(covar,centre = centroid,level = 0.99)
 
@@ -133,8 +133,13 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,output="sui
 
     toSam <- sample(1:length(data1[,1]),np)
     data1 <- data1[toSam,]
+    if(output == "suitability"){
+      suits2 <- suits[toSam]
+    } else if(output == "mahalanobis"){
+      suits2 <- suit(data1)
+    }
 
-    rgl::plot3d(data1,size = size,col=grDevices::hsv(suits2[toSam]*.71,.95,.9),
+    rgl::plot3d(data1,size = size,col=grDevices::hsv(suits2*.71,.95,.9),
                 xlab = xlab1, ylab = ylab1, zlab = zlab1,...)
     rgl::wire3d(ellips_E, col=4, lit=FALSE,alpha=alpha,...)
   }
