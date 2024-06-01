@@ -53,9 +53,9 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,output="sui
     return(expo)
   }
   # Computing the suitabilities
-  if(outout =="suitability"){
+  if(output =="suitability"){
     suits <- suit( mahalanobisD)
-  } else if(outout == "mahalanobis"){
+  } else if(output == "mahalanobis"){
     suits <- mahalanobisD
   }
 
