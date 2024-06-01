@@ -136,7 +136,8 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,output="sui
     if(output == "suitability"){
       suits2 <- suits[toSam]
     } else if(output == "mahalanobis"){
-      suits2 <- suit(data1)
+
+      suits2 <- suit(suits[toSam])
     }
 
     rgl::plot3d(data1,size = size,col=grDevices::hsv(suits2*.71,.95,.9),
