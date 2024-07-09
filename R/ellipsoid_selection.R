@@ -66,19 +66,20 @@ ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,
   n_vars <- length(env_vars)
   ntest <- sapply(nvarstest, function(x) choose(n_vars,x))
   nmodels <- sum(ntest)
-  cat("-----------------------------------------------------------------------------------------\n")
+  cat("-------------------------------------------------------------------\n")
 
   cat("\t\t**** Starting model selection process ****\n")
-  cat("-----------------------------------------------------------------------------------------\n\n")
+  cat("-------------------------------------------------------------------\n\n")
   for(i in 1:length(ntest)){
     cat("A total number of",ntest[i] ,"models will be created for combinations",
         "of",n_vars, "variables taken by",nvarstest[i],"\n\n")
   }
-  cat("-----------------------------------------------------------------------------------------\n")
+  cat("-------------------------------------------------------------------\n")
   cat("\t **A total number of",nmodels ,"models will be tested **\n\n")
-  cat("-----------------------------------------------------------------------------------------\n")
-  options(future.rng.onMisuse="ignore")
+  cat("-------------------------------------------------------------------\n")
+
   if(nmodels >100 && parallel){
+    options(future.rng.onMisuse="ignore")
     max_var <- max(nvarstest)
     cvars <- lapply(nvarstest, function(x) {
 
@@ -116,14 +117,16 @@ ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,
     globs <- c("env_train",
                "env_test",
                "env_bg")
-    furrr::furrr_options(globals = c("env_train",
-                                     "env_test",
-                                     "env_bg",
-                                     "rseed","level"),
-                         packages = c("tenm"))
-    plan(multisession,workers=n_cores)
+    #furrr::furrr_options(globals = c("env_train",
+    #                                 "env_test",
+    #                                 "env_bg",
+    #                                 "rseed","level"),
+    #                     packages = c("tenm"))
+    oplan <- plan(tweak(multisession, workers = n_cores))
+    #plan(multisession,workers=n_cores)
     options(future.globals.maxSize= 8500*1024^2)
     model_select <- new.env()
+    on.exit(plan(oplan), add = TRUE)
     for (paso in pasosChar) {
       x <- as.numeric(paso)
       #fname <- file.path(dir1,paste0("eselection_",x,".txt"))
@@ -162,7 +165,7 @@ ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,
     mres <- as.list(model_select)
 
     cat("Finishing...\n\n")
-    cat("-----------------------------------------------------------------------------------------\n")
+    cat("-------------------------------------------------------------------\n")
 
 
     rfinal <- do.call("rbind.data.frame", mres )
