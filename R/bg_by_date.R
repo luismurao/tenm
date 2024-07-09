@@ -120,10 +120,12 @@ bg_by_date <- function(this_species,
     }
     #xys <- xys[-rm_ids,]
     if(nrow(layer_val) ==0L) return()
+    snam <- paste0("env_layers@",names(attributes(env_layers))[1])
+    snam <- eval(parse(text = paste0(snam,"$get_sourcenames()")))
     df1 <- data.frame(ID_YEAR = all_layers$dir_paths[x],
                       cellids,
                       layer_val= layer_val[[1]],
-                      var_name = env_layers@cpp$get_sourcenames())
+                      var_name = snam)
     return(df1)
   },.progress = TRUE,.options = furrr::furrr_options(seed = NULL))
   gc()

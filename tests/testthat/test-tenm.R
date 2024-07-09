@@ -1,6 +1,6 @@
 library(testthat)
 library(tenm)
-testthat::context_start_file("check-output")
+#testthat::context_start_file("check-output")
 # Test
 test_that("sp_temporal_data, returns an object of class sp.temporal.modeling", {
   data("abronia")
