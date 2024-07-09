@@ -54,7 +54,7 @@ pROC <- function(continuous_mod,test_data,
                  sub_sample=TRUE,sub_sample_size=1000){
   if (methods::is(continuous_mod,"SpatRaster")) {
     ck1 <- paste0("continuous_mod@",names(attributes(continuous_mod))[1])
-    ck2 <- paste0(f1,"@.xData$")
+    ck2 <- paste0(ck1,"@.xData$")
     ck_min <- eval(parse(text=paste0(ck2,"range_min")))
     ck_max <- eval(parse(text=paste0(ck2,"range_max")))
     if (ck_min == ck_max) {
