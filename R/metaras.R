@@ -9,13 +9,16 @@
 #' print(tenm::metaras(r1))
 #' @export
 metaras <- function(r){
-  return(r@cpp@.xData$names)
-  np <- normalizePath()
-  sysinf <- Sys.info()
-  os <- sysinf['sysname']
-  if(os == "Windows") patt <- "\\\\" else patt <- "/"
-  vs <- unlist(strsplit(np,split = patt))
-  vs <- unlist(strsplit(vs[length(vs)],split="[.]"))
-  lname <- vs[1]
-  return(lname)
+  f1 <- paste0("r@",names(attributes(r))[1])
+  f2 <- paste0(f1,"@.xData$names")
+  f3 <- eval(parse(text = f2))
+  return(f3)
+  #np <- normalizePath()
+  #sysinf <- Sys.info()
+  #os <- sysinf['sysname']
+  #if(os == "Windows") patt <- "\\\\" else patt <- "/"
+  #vs <- unlist(strsplit(np,split = patt))
+  #vs <- unlist(strsplit(vs[length(vs)],split="[.]"))
+  #lname <- vs[1]
+  #return(lname)
 }
