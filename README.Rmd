@@ -18,7 +18,6 @@ set.seed(123)
 # tenm <a href="https://luismurao.github.io/tenm/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 <!-- badges: start -->
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN status](https://www.r-pkg.org/badges/version/tenm)](https://CRAN.R-project.org/package=tenm)
 [![R-CMD-check](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/luismurao/tenm/branch/main/graph/badge.svg)](https://app.codecov.io/gh/luismurao/tenm?branch=main)
@@ -107,7 +106,7 @@ tidyr::as_tibble(ab_1)
 
 After applying our spatial thinning, we obtained only ten observations from 
 `r nrow(abronia)` occurrences. We lost a lot of information!!! The function
-`tenm::clean_dup` has a method to clean duplicated records according to a rater
+`tenm::clean_dup` has a method to clean duplicated records according to a raster
 mask layer. The above avoids losing records that might occur in different pixels
 but fall within the distance used as threshold for cleaning.
 
@@ -121,7 +120,7 @@ ab_by_mask <- tenm::clean_dup(data =abronia,
 tidyr::as_tibble(ab_by_mask)
 ```
 
-We recover `r nrow(ab_by_mask) - nrow(ab_1)` records, not bad! On the other
+We recovered `r nrow(ab_by_mask) - nrow(ab_1)` records, not bad! On the other
 hand, we did not account for the fact that some occurrences come from 
 different years. The `tenm` package is designed to deal with occurrences
 coming from different periods as long as the user has environmental
@@ -342,7 +341,7 @@ head(tidyr::as_tibble(bg_swd))
 ### Time-specific model calibration and selection
 
 As a final step, we will calibrate time-specific niche models using minimum
-volume ellipsoids. To archive this, we first select the environmental variables
+volume ellipsoids. To achieve this, we first select the environmental variables
 using the function `tenm::correlation_finder`. This function filters variables
 according to a correlation threshold, which is important to avoid issues 
 related to collinearity.

@@ -10,6 +10,8 @@
 #' @param layers_ext Layers extension
 #' @param mve If the projection will use the minimum volume ellipsoid algorithm
 #' @param level Proportion of data used to fit the minimum volume ellipsoid
+#' @param output A character to indicate if model uses suitability values
+#' or Mahalanobis distances. Possible values are "suitability" and "mahalanobis"
 #' @param ... Additional parameters passed to
 #' \code{\link[tenm]{ellipsoid_projection}}
 #' @details Note that the SpatRaster in layers parameter should have the same
@@ -25,14 +27,14 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                             layers_path=NULL,layers_ext=NULL,
                             mve = TRUE, level=0.975,output = "suitability",...){
 
+                     out_check <- match.arg(output,
+                                            choices = c("suitability",
+                                                        "mahalanobis"))
+
 
                      mod_table <- object$mods_table
                      model_vars <- stringr::str_split(mod_table$fitted_vars,",")
-                     #layers_in <- which(!layers_path %in% unique(object$temporal_df$layers_path))
-                     #if(length(layers_in)>0){
-                      # stop(paste("Not a valid path:",layers_path[layers_in],
-                      #             "please provide a valid path"))
-                     #}
+
                      if(is.null(model_variables)){
                        message(paste0("No selected variables. Using the first model in mods_table"))
                        mod_vars <- model_vars[[1]]

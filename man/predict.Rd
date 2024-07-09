@@ -34,6 +34,9 @@ period of environmental conditions or averages.}
 
 \item{level}{Proportion of data used to fit the minimum volume ellipsoid}
 
+\item{output}{A character to indicate if model uses suitability values
+or Mahalanobis distances. Possible values are "suitability" and "mahalanobis"}
+
 \item{...}{Additional parameters passed to
 \code{\link[tenm]{ellipsoid_projection}}}
 }

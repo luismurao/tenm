@@ -111,7 +111,7 @@ tidyr::as_tibble(ab_1)
 After applying our spatial thinning, we obtained only ten observations
 from 106 occurrences. We lost a lot of information!!! The function
 `tenm::clean_dup` has a method to clean duplicated records according to
-a rater mask layer. The above avoids losing records that might occur in
+a raster mask layer. The above avoids losing records that might occur in
 different pixels but fall within the distance used as threshold for
 cleaning.
 
@@ -144,7 +144,7 @@ tidyr::as_tibble(ab_by_mask)
 #> 16 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…
 ```
 
-We recover 6 records, not bad! On the other hand, we didn not account
+We recovered 6 records, not bad! On the other hand, we didn not account
 for the fact that some occurrences come from different years. The `tenm`
 package is designed to deal with occurrences coming from different
 periods as long as the user has environmental layers matching the years
@@ -516,7 +516,7 @@ head(tidyr::as_tibble(bg_swd))
 ### Time-specific model calibration and selection
 
 As a final step, we will calibrate time-specific niche models using
-minimum volume ellipsoids. To archive this, we first select the
+minimum volume ellipsoids. To achieve this, we first select the
 environmental variables using the function `tenm::correlation_finder`.
 This function filters variables according to a correlation threshold,
 which is important to avoid issues related to collinearity.
