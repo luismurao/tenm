@@ -55,7 +55,48 @@
 #' @references Peterson, A.T. et al. (2008) Rethinking receiver operating
 #' characteristic analysis applications in ecological niche modeling. Ecol.
 #' Modell. 213, 63–72. \doi{10.1016/j.ecolmodel.2007.11.008}
+#'
+#' @examples
+#' \dontrun{
+#' library(tenm)
+#' data("abronia")
+#' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+#' abt <- tenm::sp_temporal_data(occs = abronia,
+#'                               longitude = "decimalLongitude",
+#'                               latitude = "decimalLatitude",
+#'                               sp_date_var = "year",
+#'                               occ_date_format="y",
+#'                               layers_date_format= "y",
+#'                               layers_by_date_dir = tempora_layers_dir,
+#'                               layers_ext="*.tif$")
+#' abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+#' future::plan("multisession",workers=2)
+#' abex <- tenm::ex_by_date(this_species = abtc,train_prop=0.7)
+#' abbg <- tenm::bg_by_date(this_species = abex,
+#'                          buffer_ngbs=10,n_bg=50000)
+#' future::plan("sequential")
+#' varcorrs <- tenm::correlation_finder(environmental_data =
+#'                                      abex$env_data[,-ncol(abex$env_data)],
+#'                                      method = "spearman",
+#'                                      threshold = 0.8,
+#'                                      verbose = FALSE)
+#' edata <- abex$env_data
+#' etrain <- edata[edata$trian_test=="Train",] |> data.frame()
+#' etest <- edata[edata$trian_test=="Test",] |> data.frame()
+#' bg <- abbg$env_bg
+#' res1 <- tenm::ellipsoid_selection(env_train = etrain,
+#'                                   env_test = etest,
+#'                                   env_vars = varcorrs$descriptors,
+#'                                   nvarstest = 3,
+#'                                   level = 0.975,
+#'                                   mve = TRUE,
+#'                                   env_bg = bg,
+#'                                   omr_criteria = 0.1,
+#'                                   parallel = FALSE,proc = TRUE)
+#' head(res1)
 
+#' }
+#'
 
 ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,
                                 level=0.95,
