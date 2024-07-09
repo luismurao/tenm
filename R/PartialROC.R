@@ -53,7 +53,11 @@ pROC <- function(continuous_mod,test_data,
                  rseed=FALSE,
                  sub_sample=TRUE,sub_sample_size=1000){
   if (methods::is(continuous_mod,"SpatRaster")) {
-    if (continuous_mod@cpp@.xData$range_min == continuous_mod@cpp@.xData$range_max) {
+    ck1 <- paste0("continuous_mod@",names(attributes(continuous_mod))[1])
+    ck2 <- paste0(f1,"@.xData$")
+    ck_min <- eval(parse(text=paste0(ck2,"range_min")))
+    ck_max <- eval(parse(text=paste0(ck2,"range_max")))
+    if (ck_min == ck_max) {
       stop("\nModel with no variability.\n")
     }
     if (is.data.frame(test_data) || is.matrix(test_data)) {
