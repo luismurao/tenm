@@ -265,9 +265,9 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                              y=etest$bio_06,
                              z=etest$bio_12 ,
                              semiaxes= TRUE,add=TRUE)
-  p1 <- tenm::plot_ellipsoid(x = etrain$bio_05,
+  p3 <- tenm::plot_ellipsoid(x = etrain$bio_05,
                              y=etrain$bio_06, z=NULL ,
-                             semiaxes= FALSE)
+                             semiaxes= TRUE)
   testthat::expect_equal(class(p2)[1],expected = "rglLowlevel")
   # ----------------------------------------------------------------------------
   # Test for ellipsoid_omr
@@ -316,7 +316,7 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                                     env_bg = bg,
                                     omr_criteria = 0.1,
                                     parallel = TRUE,
-                                    ncores = 2,
+                                    ncores = 200000,
                                     proc = TRUE)
   testthat::expect_s3_class(res1,"data.frame")
 
