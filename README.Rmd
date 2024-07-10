@@ -20,6 +20,7 @@ set.seed(123)
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/tenm)](https://CRAN.R-project.org/package=tenm)
 [![R-CMD-check](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/luismurao/tenm/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/luismurao/bamm/actions/workflows/test-coverage.yaml)
 [![Codecov test coverage](https://codecov.io/gh/luismurao/tenm/branch/main/graph/badge.svg)](https://app.codecov.io/gh/luismurao/tenm?branch=main)
 <!-- badges: end -->
 

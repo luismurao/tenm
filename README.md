@@ -8,6 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tenm)](https://CRAN.R-project.org/package=tenm)
 [![R-CMD-check](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/luismurao/tenm/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/luismurao/bamm/actions/workflows/test-coverage.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/luismurao/tenm/branch/main/graph/badge.svg)](https://app.codecov.io/gh/luismurao/tenm?branch=main)
 <!-- badges: end -->
@@ -614,9 +615,9 @@ mod_sel <- tenm::tenm_selection(this_species = abbg,
                                 NoOfIteration=1000,
                                 parallel=TRUE,
                                 n_cores=4)
-#> -----------------------------------------------------------------------------------------
+#> -------------------------------------------------------------------
 #>      **** Starting model selection process ****
-#> -----------------------------------------------------------------------------------------
+#> -------------------------------------------------------------------
 #> 
 #> A total number of 36 models will be created for combinations of 9 variables taken by 2 
 #> 
@@ -630,10 +631,10 @@ mod_sel <- tenm::tenm_selection(this_species = abbg,
 #> 
 #> A total number of 36 models will be created for combinations of 9 variables taken by 7 
 #> 
-#> -----------------------------------------------------------------------------------------
+#> -------------------------------------------------------------------
 #>   **A total number of 492 models will be tested **
 #> 
-#> -----------------------------------------------------------------------------------------
+#> -------------------------------------------------------------------
 #> Doing calibration from model  1 to  100 in process  1 
 #> 
 #> Doing calibration from model  101 to  200 in process  2 
@@ -656,7 +657,7 @@ mod_sel <- tenm::tenm_selection(this_species = abbg,
 #> 
 #> Finishing...
 #> 
-#> -----------------------------------------------------------------------------------------
+#> -------------------------------------------------------------------
 #>   244 models passed omr_criteria for train data
 #>   27 models passed omr_criteria for test data
 #>   27 models passed omr_criteria for train and test data
@@ -695,8 +696,8 @@ head(mod_sel$mods_table,27)
 #> 16 bio_02,bio_03,bio_07,bio_12     4       0.06250              21,28
 #> 17 bio_02,bio_03,bio_04,bio_12     4       0.06250              21,28
 #> 18        bio_01,bio_07,bio_12     3       0.06250              18,31
-#> 19        bio_04,bio_07,bio_12     3       0.06250              21,28
-#> 20 bio_02,bio_03,bio_04,bio_07     4       0.03125                  3
+#> 19 bio_02,bio_03,bio_04,bio_07     4       0.03125                  3
+#> 20        bio_04,bio_07,bio_12     3       0.06250              21,28
 #> 21               bio_04,bio_07     2       0.03125                  3
 #> 22               bio_04,bio_12     2       0.06250              10,21
 #> 23               bio_03,bio_04     2       0.03125                  3
@@ -723,8 +724,8 @@ head(mod_sel$mods_table,27)
 #> 16            0                       0.5706385        0         0
 #> 17            0                       0.6412168        0         0
 #> 18            0                       0.4962126        0         0
-#> 19            0                       0.6847421        0         0
-#> 20            0                       0.6100757        0         0
+#> 19            0                       0.6100757        0         0
+#> 20            0                       0.6847421        0         0
 #> 21            0                       0.7537574        0         0
 #> 22            0                       0.7220151        0         0
 #> 23            0                       0.7382470        0         0
@@ -743,7 +744,7 @@ head(mod_sel$mods_table,27)
 #> 8          1.431383  0.7479400            0.031250                     10
 #> 9          1.429927  0.7371300            0.015625                      2
 #> 10         1.424194  0.7454525            0.046875                     23
-#> 11         1.412951  0.7442700            0.046875                     24
+#> 11         1.421566  0.7482875            0.046875                     24
 #> 12         1.409348  0.7345675            0.031250                     15
 #> 13         1.409145  0.7019625            0.031250                     14
 #> 14         1.382147  0.6807450            0.031250                     12
@@ -751,8 +752,8 @@ head(mod_sel$mods_table,27)
 #> 16         1.374939  0.6537675            0.031250                     16
 #> 17         1.373252  0.7036713            0.031250                     17
 #> 18         1.365017  0.7032725            0.031250                     13
-#> 19         1.333871  0.6878613            0.031250                     19
-#> 20         1.329613  0.6943437            0.015625                      3
+#> 19         1.329613  0.6943437            0.015625                      3
+#> 20         1.313379  0.6733787            0.031250                     19
 #> 21         1.307749  0.6769513            0.015625                      5
 #> 22         1.288655  0.6388300            0.031250                     20
 #> 23         1.267623  0.6472100            0.015625                      4
