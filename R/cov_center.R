@@ -52,28 +52,7 @@
 
 cov_center <- function (data, mve = TRUE, level, vars = NULL)
 {
-  if (is.null(vars)) {
-    nvars <- readline(prompt = "Number of variables to fit the ellipsoid model:\\n\\n")
-    data <- data.frame(data)
-    allvars <- names(data)
-    print(nvars)
-    vars <- numeric(nvars)
-    cat("Select a variable form the list:\\n\\n")
-    for (i in 1:dim(data)[2]) {
-      cat(i, ".-", allvars[i], "\\n")
-    }
-    cont <- 1
-    while (0 %in% vars) {
-      n <- readline(prompt = "Enter an option from the above list: ")
-      if (n %in% 1:dim(data)[2]) {
-        vars[cont] <- as.numeric(n)
-        cont <- cont + 1
-      }
-      else {
-        cat("Option not in the list:\\n")
-      }
-    }
-  }
+
   data <- data[, vars]
   if (mve) {
 
