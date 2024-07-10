@@ -52,10 +52,11 @@
   </div>
 </li>
       </ul>
-<ul class="navbar-nav">
-<li><form class="form-inline" role="search">
-<input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
-</form></li>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
 <li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/luismurao/tenm/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
@@ -166,9 +167,9 @@ To do this, we will use the <code><a href="../reference/clean_dup.html">tenm::cl
 <p>After applying our spatial thinning, we obtained only ten
 observations from 106 occurrences. We lost a lot of information!!! The
 function <code><a href="../reference/clean_dup.html">tenm::clean_dup</a></code> has a method to clean duplicated
-records according to a rater mask layer. The above avoids losing records
-that might occur in different pixels but fall within the distance used
-as threshold for cleaning.</p>
+records according to a raster mask layer. The above avoids losing
+records that might occur in different pixels but fall within the
+distance used as threshold for cleaning.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ab_by_mask</span> <span class="op">&lt;-</span> <span class="fu">tenm</span><span class="fu">::</span><span class="fu"><a href="../reference/clean_dup.html">clean_dup</a></span><span class="op">(</span>data <span class="op">=</span><span class="va">abronia</span>,</span>
 <span>                              longitude <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
@@ -196,11 +197,11 @@ as threshold for cleaning.</p>
 <span><span class="co">#&gt; 14 Abronia graminea            -97.9            20.1  2015 https://doi.org/10.1…</span></span>
 <span><span class="co">#&gt; 15 Abronia graminea            -97.1            18.9  1998 https://doi.org/10.1…</span></span>
 <span><span class="co">#&gt; 16 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…</span></span></code></pre></div>
-<p>We recover 6 records, not bad! On the other hand, we didn not account
-for the fact that some occurrences come from different years. The
-<code>tenm</code> package is designed to deal with occurrences coming
-from different periods as long as the user has environmental layers
-matching the years of occurrence observations.</p>
+<p>We recovered 6 records, not bad! On the other hand, we didn not
+account for the fact that some occurrences come from different years.
+The <code>tenm</code> package is designed to deal with occurrences
+coming from different periods as long as the user has environmental
+layers matching the years of occurrence observations.</p>
 </div>
 <div class="section level2">
 <h2 id="time-specific-niche-modeling">Time-specific niche modeling<a class="anchor" aria-label="anchor" href="#time-specific-niche-modeling"></a>
@@ -537,7 +538,7 @@ MaxEnt. Let’s see how it works.</p>
 <h3 id="time-specific-model-calibration-and-selection">Time-specific model calibration and selection<a class="anchor" aria-label="anchor" href="#time-specific-model-calibration-and-selection"></a>
 </h3>
 <p>As a final step, we will calibrate time-specific niche models using
-minimum volume ellipsoids. To archive this, we first select the
+minimum volume ellipsoids. To achieve this, we first select the
 environmental variables using the function
 <code><a href="../reference/correlation_finder.html">tenm::correlation_finder</a></code>. This function filters variables
 according to a correlation threshold, which is important to avoid issues
@@ -846,7 +847,7 @@ positive.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer>
