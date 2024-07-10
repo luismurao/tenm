@@ -66,7 +66,7 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
 
   if(methods::is(envlayers, "SpatRaster")){
     suitRaster <- envlayers[[1]]
-    names(suitRaster) <- "Suitability"
+    names(suitRaster) <- output
     nonaids <- which(!is.na(suitRaster[]))
     env_vars <- 1:terra::nlyr(envlayers) |> purrr::map_dfc(function(x){
       val <- envlayers[[x]][]
