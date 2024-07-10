@@ -65,11 +65,13 @@ ex_by_date <- function(this_species,train_prop=0.7){
                                          capasByResDF$layers_path[!!x])
     env_layers <- terra::rast(capasByResDF$capasDatePath[x])
     #layer_val <- env_layers[time_obs$cell_ids_year]
+    snam <- paste0("env_layers@",names(attributes(env_layers))[1])
+    snam <- eval(parse(text = paste0(snam,"$get_sourcenames()")))
     layer_val <- terra::extract(env_layers,
                                 time_obs[,this_species$lon_lat_vars])
     df1 <- data.frame(time_obs[,c(1:6)],
                       layer_val = layer_val[[2]],
-                      var_name = env_layers@cpp$get_sourcenames())
+                      var_name = snam)
     return(df1)
   },.progress = TRUE,.options = furrr::furrr_options(seed = NULL))
   gc()
