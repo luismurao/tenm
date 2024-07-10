@@ -57,21 +57,21 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                      #----------------------------------------------------------
 
                      if(methods::is(layers,"SpatRaster")){
-                       projmods <- tenm::ellipsoid_projection(envlayers = terra::rast(layers),
+                       projmods <- tenm::ellipsoid_projection(envlayers = layers,
                                                              centroid = mod$centroid,
                                                              covar = mod$covariance,
                                                              level = 0.9999,
                                                              plot = TRUE,size = 2,
                                                              output = output,
                                                              ...)
-                       names(projmods) <- paste0("suitability_proj")
+                       names(projmods) <- output
 
 
                      } else if(methods::is(layers,"list")){
                        pb <- utils::txtProgressBar(min = 0,max = length(layers),style = 3)
                        checK_if_stack <- seq_along(layers) |> purrr::map(function(x){
-                         if(methods::is(layers[[x]][1],"SpatRaster")){
-                           if(terra::nlyr(layers[[x]]) != length(model_vars)){
+                         if(methods::is(layers[[x]],"SpatRaster")){
+                           if(terra::nlyr(layers[[x]]) != length(mod_vars)){
                              stop(paste0("The number of layers in 'layers[[",
                                          x,"]]' should be the same as 'model_variables' object" ))
                            }
@@ -83,7 +83,7 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                        })
 
                        projmods <- seq_along(layers) |> purrr::map(function(x){
-                         suitmod <- tenm::ellipsoid_projection(envlayers = terra::rast(layers[[x]]),
+                         suitmod <- tenm::ellipsoid_projection(envlayers = layers[[x]],
                                                                centroid = mod$centroid,
                                                                covar = mod$covariance,
                                                                level = 0.9999,
@@ -92,11 +92,12 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                                                                output = output,
                                                                ...)
                          utils::setTxtProgressBar(pb, x, title = NULL, label = NULL)
+                         names(suitmod) <- output
 
                          return(suitmod)
 
                          })
-                       names(projmods) <- paste0("suitability_proj_",1:length(layers))
+                       names(projmods) <- paste0(output,"_",1:length(layers))
                      } else{
                        pb <- utils::txtProgressBar(min = 0,max = length(layers_path),style = 3)
                        projmods <-    seq_along(layers_path) |> purrr::map(function(x){
@@ -118,6 +119,7 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                                                                ...)
 
                          utils::setTxtProgressBar(pb, x, title = NULL, label = NULL)
+                         names(suitmod) <- paste0(output,"_",x)
 
                          return(suitmod)
                        })
@@ -126,7 +128,7 @@ methods::setMethod('predict', signature(object="sp.temporal.selection"),
                        } else{
                          projmods <- terra::rast(projmods)
                        }
-                       names(projmods) <- layers_path
+                       #names(projmods) <- layers_path
                      }
                      gc()
                      return(projmods)
