@@ -17,8 +17,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Temporal Ecological Niche Models">
-<meta name="description" content="A package to model the ecological niche using a time-specific approach. A set of tools made to generate ecological niche models with a time-calibrated focus. The framework allows users to calibrate ecological niche models with high temporal resolution environmental layers. The main objective of this package is to recover information that is lost or at least neglected while applying a data curation protocol. The curation that consists in conservating occurrences that might seen redundant spatially (occur in the same pixel) but are from different periods. The novelty in this package is that it might reconstruct the fundamental niche more accurately. The theoretical background of the package can be found in Peterson et al. (2011) \doi{10.5860/CHOICE.49-6266}.">
-<meta property="og:description" content="A package to model the ecological niche using a time-specific approach. A set of tools made to generate ecological niche models with a time-calibrated focus. The framework allows users to calibrate ecological niche models with high temporal resolution environmental layers. The main objective of this package is to recover information that is lost or at least neglected while applying a data curation protocol. The curation that consists in conservating occurrences that might seen redundant spatially (occur in the same pixel) but are from different periods. The novelty in this package is that it might reconstruct the fundamental niche more accurately. The theoretical background of the package can be found in Peterson et al. (2011) \doi{10.5860/CHOICE.49-6266}.">
+<meta name="description" content="A package to model the ecological niche using a time-specific approach. It includes tools to generate ecological niche models that are time-calibrated (multi-temporal calibration). The framework allows users to calibrate ecological niche models with high temporal resolution environmental layers. The main objective of this package is to recover information that may be lost or overlooked while applying a data curation protocol. This curation involves preserving occurrences that may appear spatially redundant (occurring in the same pixel) but originate from different time periods. A novel aspect of this package is that it might reconstruct the fundamental niche more accurately than mono-calibrated approaches. The theoretical background of the package can be found in Peterson et al. (2011) \doi{10.5860/CHOICE.49-6266}.">
+<meta property="og:description" content="A package to model the ecological niche using a time-specific approach. It includes tools to generate ecological niche models that are time-calibrated (multi-temporal calibration). The framework allows users to calibrate ecological niche models with high temporal resolution environmental layers. The main objective of this package is to recover information that may be lost or overlooked while applying a data curation protocol. This curation involves preserving occurrences that may appear spatially redundant (occurring in the same pixel) but originate from different time periods. A novel aspect of this package is that it might reconstruct the fundamental niche more accurately than mono-calibrated approaches. The theoretical background of the package can be found in Peterson et al. (2011) \doi{10.5860/CHOICE.49-6266}.">
 <meta property="og:image" content="/logo.png">
 </head>
 <body>
@@ -277,7 +277,7 @@ Fig. 1. Occurrence points of <em>Abronia graminea</em>. Colors represent the yea
 <span>                              layers_date_format<span class="op">=</span> <span class="st">"y"</span>,</span>
 <span>                              layers_by_date_dir <span class="op">=</span> <span class="va">tempora_layers_dir</span>,</span>
 <span>                              layers_ext<span class="op">=</span><span class="st">"*.tif$"</span><span class="op">)</span></span></code></pre></div>
-<p>The function <code><a href="reference/sp_temporal_data.html">tenm::sp_temporal_data</a></code> is parametrized with the occurrence dated database. To parametrize the function, we need to specify the name of the columns that contain the longitude and latitude data, the column that represents the year of observation, the format of dates (here years, but see the help of the function for other date formats), the layers date format, the directory that contains the time-specific modeling layers and the raster layer extension.</p>
+<p>The function <code><a href="reference/sp_temporal_data.html">tenm::sp_temporal_data</a></code> is parameterized with the occurrence dated database. To parameterize the function, we need to specify the name of the columns that contain the longitude and latitude data, the column that represents the year of observation, the format of dates (here years, but see the help of the function for other date formats), the layers date format, the directory that contains the time-specific modeling layers and the raster layer extension.</p>
 <p>The object <code>abt</code> is a special class called <em>sp.temporal.modeling</em> that deals with time-specific information.</p>
 <p>In the following line of code, we explore the slots of <code>abt</code> object.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -554,17 +554,17 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 8         bio_01,bio_03,bio_04     3       0.06250               3,18</span></span>
 <span><span class="co">#&gt; 9                bio_01,bio_04     2       0.03125                 18</span></span>
 <span><span class="co">#&gt; 10        bio_01,bio_02,bio_04     3       0.09375            3,18,31</span></span>
-<span><span class="co">#&gt; 11               bio_01,bio_02     2       0.09375            3,18,31</span></span>
-<span><span class="co">#&gt; 12               bio_01,bio_07     2       0.06250              18,31</span></span>
-<span><span class="co">#&gt; 13               bio_01,bio_03     2       0.06250               3,18</span></span>
+<span><span class="co">#&gt; 11               bio_01,bio_07     2       0.06250              18,31</span></span>
+<span><span class="co">#&gt; 12               bio_01,bio_03     2       0.06250               3,18</span></span>
+<span><span class="co">#&gt; 13               bio_01,bio_02     2       0.09375            3,18,31</span></span>
 <span><span class="co">#&gt; 14        bio_01,bio_03,bio_12     3       0.06250               3,18</span></span>
 <span><span class="co">#&gt; 15 bio_02,bio_04,bio_07,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 16 bio_02,bio_03,bio_07,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 17 bio_02,bio_03,bio_04,bio_12     4       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 18        bio_01,bio_07,bio_12     3       0.06250              18,31</span></span>
 <span><span class="co">#&gt; 19 bio_02,bio_03,bio_04,bio_07     4       0.03125                  3</span></span>
-<span><span class="co">#&gt; 20        bio_04,bio_07,bio_12     3       0.06250              21,28</span></span>
-<span><span class="co">#&gt; 21               bio_04,bio_07     2       0.03125                  3</span></span>
+<span><span class="co">#&gt; 20               bio_04,bio_07     2       0.03125                  3</span></span>
+<span><span class="co">#&gt; 21        bio_04,bio_07,bio_12     3       0.06250              21,28</span></span>
 <span><span class="co">#&gt; 22               bio_04,bio_12     2       0.06250              10,21</span></span>
 <span><span class="co">#&gt; 23               bio_03,bio_04     2       0.03125                  3</span></span>
 <span><span class="co">#&gt; 24        bio_02,bio_07,bio_12     3       0.09375            3,21,28</span></span>
@@ -582,17 +582,17 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 8             0                       0.4655525        0         0</span></span>
 <span><span class="co">#&gt; 9             0                       0.4835878        0         0</span></span>
 <span><span class="co">#&gt; 10            0                       0.4768546        0         0</span></span>
-<span><span class="co">#&gt; 11            0                       0.4823855        0         0</span></span>
-<span><span class="co">#&gt; 12            0                       0.5001804        0         0</span></span>
-<span><span class="co">#&gt; 13            0                       0.4995792        0         0</span></span>
+<span><span class="co">#&gt; 11            0                       0.5001804        0         0</span></span>
+<span><span class="co">#&gt; 12            0                       0.4995792        0         0</span></span>
+<span><span class="co">#&gt; 13            0                       0.4823855        0         0</span></span>
 <span><span class="co">#&gt; 14            0                       0.4844295        0         0</span></span>
 <span><span class="co">#&gt; 15            0                       0.6570879        0         0</span></span>
 <span><span class="co">#&gt; 16            0                       0.5706385        0         0</span></span>
 <span><span class="co">#&gt; 17            0                       0.6412168        0         0</span></span>
 <span><span class="co">#&gt; 18            0                       0.4962126        0         0</span></span>
 <span><span class="co">#&gt; 19            0                       0.6100757        0         0</span></span>
-<span><span class="co">#&gt; 20            0                       0.6847421        0         0</span></span>
-<span><span class="co">#&gt; 21            0                       0.7537574        0         0</span></span>
+<span><span class="co">#&gt; 20            0                       0.7537574        0         0</span></span>
+<span><span class="co">#&gt; 21            0                       0.6847421        0         0</span></span>
 <span><span class="co">#&gt; 22            0                       0.7220151        0         0</span></span>
 <span><span class="co">#&gt; 23            0                       0.7382470        0         0</span></span>
 <span><span class="co">#&gt; 24            0                       0.6783696        0         0</span></span>
@@ -610,17 +610,17 @@ Fig. 2. Comparison of the spatial distribution of occurrence records for the sta
 <span><span class="co">#&gt; 8          1.431383  0.7479400            0.031250                     10</span></span>
 <span><span class="co">#&gt; 9          1.429927  0.7371300            0.015625                      2</span></span>
 <span><span class="co">#&gt; 10         1.424194  0.7454525            0.046875                     23</span></span>
-<span><span class="co">#&gt; 11         1.421566  0.7482875            0.046875                     24</span></span>
-<span><span class="co">#&gt; 12         1.409348  0.7345675            0.031250                     15</span></span>
-<span><span class="co">#&gt; 13         1.409145  0.7019625            0.031250                     14</span></span>
+<span><span class="co">#&gt; 11         1.409348  0.7345675            0.031250                     15</span></span>
+<span><span class="co">#&gt; 12         1.409145  0.7019625            0.031250                     14</span></span>
+<span><span class="co">#&gt; 13         1.398036  0.7285350            0.046875                     24</span></span>
 <span><span class="co">#&gt; 14         1.382147  0.6807450            0.031250                     12</span></span>
 <span><span class="co">#&gt; 15         1.379969  0.7115000            0.031250                     18</span></span>
 <span><span class="co">#&gt; 16         1.374939  0.6537675            0.031250                     16</span></span>
 <span><span class="co">#&gt; 17         1.373252  0.7036713            0.031250                     17</span></span>
 <span><span class="co">#&gt; 18         1.365017  0.7032725            0.031250                     13</span></span>
 <span><span class="co">#&gt; 19         1.329613  0.6943437            0.015625                      3</span></span>
-<span><span class="co">#&gt; 20         1.313379  0.6733787            0.031250                     19</span></span>
-<span><span class="co">#&gt; 21         1.307749  0.6769513            0.015625                      5</span></span>
+<span><span class="co">#&gt; 20         1.307749  0.6769513            0.015625                      5</span></span>
+<span><span class="co">#&gt; 21         1.303573  0.6712913            0.031250                     19</span></span>
 <span><span class="co">#&gt; 22         1.288655  0.6388300            0.031250                     20</span></span>
 <span><span class="co">#&gt; 23         1.267623  0.6472100            0.015625                      4</span></span>
 <span><span class="co">#&gt; 24         1.261588  0.6146950            0.046875                     25</span></span>
