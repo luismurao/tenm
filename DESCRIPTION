@@ -33,16 +33,17 @@ Authors@R: c(
         comment = c(ORCID = "0000-0003-2160-4148"))
   )
 Description: A package to model the ecological niche using a time-specific 
-  approach. A set of tools made to generate ecological niche models 
-  with a time-calibrated focus. The framework allows users to calibrate 
-  ecological niche models with high temporal resolution environmental layers. 
-  The main objective of this package is to recover information that is 
-  lost or at least neglected while applying a data curation protocol. 
-  The curation that consists in conservating occurrences that might seen 
-  redundant spatially (occur in the same pixel) but are from different periods. 
-  The novelty in this package is that it might reconstruct the fundamental niche
-  more accurately. The theoretical background of the package can be found 
-  in Peterson et al. (2011) \doi{10.5860/CHOICE.49-6266}.
+  approach. It includes tools to generate ecological niche models that are 
+  time-calibrated (multi-temporal calibration). The framework allows users 
+  to calibrate  ecological niche models with high temporal resolution 
+  environmental layers. The main objective of this package is to recover 
+  information that may be lost or overlooked while applying a data curation 
+  protocol. This curation involves preserving occurrences that may 
+  appear spatially redundant (occurring in the same pixel) but originate from 
+  different time periods. A novel aspect of this package is that it might 
+  reconstruct the fundamental niche more accurately than mono-calibrated 
+  approaches. The theoretical background of the package can be found in 
+  Peterson et al. (2011) \doi{10.5860/CHOICE.49-6266}.
 License: GPL-3 + file LICENSE
 URL: https://luismurao.github.io/tenm/
 BugReports: https://github.com/luismurao/tenm/issues
