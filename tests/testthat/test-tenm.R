@@ -40,6 +40,15 @@ test_that("clean_dup, returns a data.frame of cleaned occurrences", {
                           n_ngbs = 0)
   expect_match(class(ab_2),"data.frame")
 
+  ab_3 <- tenm::clean_dup(data =abronia,
+                          longitude = "decimalLongitude",
+                          latitude = "decimalLatitude",
+                          threshold = terra::res(tenm_mask)[1],
+                          by_mask = TRUE,
+                          raster_mask = tenm_mask,
+                          n_ngbs = 1)
+  expect_match(class(ab_3),"data.frame")
+
 })
 test_that("clean_dup_by_date, returns an object of class sp.temporal.modeling",{
   data("abronia")
@@ -159,7 +168,10 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
   future::plan("multisession",workers=2)
   abex <- tenm::ex_by_date(this_species = abtc,train_prop=0.7)
   abbg <- tenm::bg_by_date(this_species = abex,
+                           buffer_ngbs=NULL,n_bg=50000)
+  abbg <- tenm::bg_by_date(this_species = abex,
                            buffer_ngbs=10,n_bg=50000)
+
   future::plan("sequential")
   # ----------------------------------------------------------------------------
   # Test for tdf2swd
@@ -168,6 +180,7 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
   # SWD table for background data
   bg_swd <- tdf2swd(this_species=abbg)
   testthat::expect_s3_class(bg_swd,"data.frame")
+  testthat::expect_error(tdf2swd(this_species="a"))
   # ----------------------------------------------------------------------------
 
   # ----------------------------------------------------------------------------
@@ -178,6 +191,13 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                           vars = c("bio_05","bio_06","bio_12"))
 
   testthat::expect_type(mod,"list")
+
+  mod <- tenm::cov_center(data = abex$env_data,
+                          mve = FALSE,
+                          level = 0.975,
+                          vars = c("bio_05","bio_06","bio_12"))
+  testthat::expect_type(mod,"list")
+
   # ----------------------------------------------------------------------------
 
   # ----------------------------------------------------------------------------
@@ -204,6 +224,32 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                                      size = 3,
                                      plot = TRUE)
   testthat::expect_identical(class(nmod)[1],"SpatRaster")
+  nmod_mh <- tenm::ellipsoid_projection(envlayers = elayers[[names(mod$centroid)]],
+                                        centroid = mod$centroid,
+                                        covar = mod$covariance,
+                                        level = 0.99999,
+                                        output = "mahalanobis",
+                                        size = 3,
+                                        plot = TRUE)
+  testthat::expect_identical(class(nmod_mh)[1],"SpatRaster")
+
+  nmod <- tenm::ellipsoid_projection(envlayers =
+                                       elayers[[names(mod$centroid)[1:2]]],
+                                     centroid = mod$centroid[1:2],
+                                     covar = mod$covariance[1:2,1:2],
+                                     level = 0.99999,
+                                     output = "suitability",
+                                     size = 3,
+                                     plot = TRUE)
+  testthat::expect_identical(class(nmod)[1],"SpatRaster")
+  testthat::expect_error(tenm::ellipsoid_projection(envlayers = "2",
+                                                    centroid = mod$centroid,
+                                                    covar = mod$covariance,
+                                                    level = 0.99999,
+                                                    output = "suitability",
+                                                    size = 3,
+                                                    plot = TRUE))
+
   # ----------------------------------------------------------------------------
 
   # ----------------------------------------------------------------------------
@@ -219,6 +265,9 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                              y=etest$bio_06,
                              z=etest$bio_12 ,
                              semiaxes= TRUE,add=TRUE)
+  p1 <- tenm::plot_ellipsoid(x = etrain$bio_05,
+                             y=etrain$bio_06, z=NULL ,
+                             semiaxes= FALSE)
   testthat::expect_equal(class(p2)[1],expected = "rglLowlevel")
   # ----------------------------------------------------------------------------
   # Test for ellipsoid_omr
@@ -235,6 +284,10 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                                        method = "spearman",
                                        threshold = 0.8,
                                        verbose = FALSE)
+  testthat::expect_error(tenm::correlation_finder(environmental_data ="",
+                                                  method = "spearman",
+                                                  threshold = 0.8,
+                                                  verbose = FALSE))
   edata <- abex$env_data
 
   etrain <- edata[edata$trian_test=="Train",] |> data.frame()
@@ -253,6 +306,20 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                                     omr_criteria = 0.1,
                                     parallel = FALSE,proc = TRUE)
   testthat::expect_s3_class(res1,"data.frame")
+
+  res1 <- tenm::ellipsoid_selection(env_train = etrain,
+                                    env_test = etest,
+                                    env_vars = varcorrs$descriptors,
+                                    nvarstest = 3,
+                                    level = 0.975,
+                                    mve = TRUE,
+                                    env_bg = bg,
+                                    omr_criteria = 0.1,
+                                    parallel = TRUE,
+                                    ncores = 2,
+                                    proc = TRUE)
+  testthat::expect_s3_class(res1,"data.frame")
+
   # ----------------------------------------------------------------------------
 
   # ----------------------------------------------------------------------------
@@ -261,7 +328,7 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                                   omr_criteria =0.1,
                                   ellipsoid_level=0.975,
                                   vars2fit = varcorrs$descriptors,
-                                  nvars_to_fit=c(3),
+                                  nvars_to_fit=c(3,4),
                                   proc = T,
                                   RandomPercent = 50,
                                   NoOfIteration=1000,
@@ -269,5 +336,55 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                                   n_cores=20)
   testthat::expect_equal(class(mod_sel),"sp.temporal.selection")
   # ----------------------------------------------------------------------------
+  layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
+  suit_1970_2000 <- predict(mod_sel,model_variables = NULL,
+                            layers_path = layers_70_00_dir,
+                            layers_ext = ".tif$")
+  testthat::expect_equal(class(suit_1970_2000)[1],"SpatRaster")
+
+  suit_1970_2000 <- predict(mod_sel,
+                            model_variables = c("bio_01","bio_04","bio_07"),
+                            layers_path = layers_70_00_dir,
+                            layers_ext = ".tif$")
+  testthat::expect_equal(class(suit_1970_2000)[1],"SpatRaster")
+  layers_70_00 <- terra::rast(list.files(layers_70_00_dir,
+                                         pattern = ".tif$",
+                                         full.names = TRUE))
+  suit_1970_2000 <- predict(object = mod_sel,
+                            model_variables = c("bio_01","bio_04","bio_07"),
+                            layers_path = NULL,
+                            layers = layers_70_00[[c("bio_01","bio_04","bio_07")]],
+                            layers_ext = ".tif$")
+  testthat::expect_equal(class(suit_1970_2000)[1],"SpatRaster")
+
+  layers_39_2016 <- file.path(tempora_layers_dir,
+                              c("1939","2016"))
+
+  suit_1939_2016 <- predict(mod_sel,model_variables = NULL,
+                            layers_path = layers_39_2016,
+                            layers_ext = ".tif$")
+  testthat::expect_equal(class(suit_1939_2016)[1],"SpatRaster")
+
+  layers_39 <- terra::rast(list.files(layers_39_2016[1],
+                                      pattern = ".tif$",full.names = TRUE))
+  layers_16 <- terra::rast(list.files(layers_39_2016[2],
+                                      pattern = ".tif$",full.names = TRUE))
+  layers_39 <- layers_39[[c("bio_01","bio_04","bio_07")]]
+  layers_16 <- layers_16[[c("bio_01","bio_04","bio_07")]]
+  layers_list <- list(layers_39,layers_16)
+
+  suit_1939_2016 <- predict(object = mod_sel,
+                            model_variables = c("bio_01","bio_04","bio_07"),
+                            layers_path = NULL,
+                            layers = layers_list,
+                            layers_ext = ".tif$")
+
+  testthat::expect_equal(class(suit_1939_2016), "list")
+
+  testthat::expect_error(  predict(object = mod_sel,
+                                   model_variables = c("bio_01b","bio_04","bio_07"),
+                                   layers_path = NULL,
+                                   layers = layers_list,
+                                   layers_ext = ".tif$"))
  }
 )
