@@ -191,8 +191,8 @@ abt <- tenm::sp_temporal_data(occs = abronia,
                               layers_ext="*.tif$")
 ```
 
-The function `tenm::sp_temporal_data` is parametrized with the occurrence 
-dated database. To parametrize the function, we need to specify the name of
+The function `tenm::sp_temporal_data` is parameterized with the occurrence 
+dated database. To parameterize the function, we need to specify the name of
 the columns that contain the longitude and latitude data, the column that 
 represents the year of observation, the format of dates (here years, but
 see the help of the function for other date formats), the layers date format,
