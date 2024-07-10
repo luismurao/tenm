@@ -29,10 +29,9 @@ as a performance criteria."><meta property="og:image" content="/logo.png"><!-- m
     <a class="dropdown-item" href="../articles/tenm-vignette.html">Introduction to tenm package</a>
   </div>
 </li>
-      </ul><form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
-
-      <ul class="navbar-nav"><li class="nav-item">
+      </ul><ul class="navbar-nav"><li><form class="form-inline" role="search">
+<input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json"></form></li>
+<li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/luismurao/tenm/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
@@ -75,61 +74,61 @@ as a performance criteria.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>this_species, </dt>
+    <dl><dt id="arg-this-species-">this_species, <a class="anchor" aria-label="anchor" href="#arg-this-species-"></a></dt>
 <dd><p>Species Temporal Environment "sp.temporal.env" object
 see <code><a href="ex_by_date.html">ex_by_date</a></code>.</p></dd>
 
 
-<dt>omr_criteria</dt>
+<dt id="arg-omr-criteria">omr_criteria<a class="anchor" aria-label="anchor" href="#arg-omr-criteria"></a></dt>
 <dd><p>Omission rate used to select best models.
 See <code><a href="ellipsoid_selection.html">ellipsoid_selection</a></code> for more details.</p></dd>
 
 
-<dt>ellipsoid_level</dt>
+<dt id="arg-ellipsoid-level">ellipsoid_level<a class="anchor" aria-label="anchor" href="#arg-ellipsoid-level"></a></dt>
 <dd><p>The proportion of points to be included inside the
 ellipsoid.</p></dd>
 
 
-<dt>vars2fit</dt>
+<dt id="arg-vars-fit">vars2fit<a class="anchor" aria-label="anchor" href="#arg-vars-fit"></a></dt>
 <dd><p>A vector with the names of environmental variables to be
 used in the selection process.</p></dd>
 
 
-<dt>nvars_to_fit</dt>
+<dt id="arg-nvars-to-fit">nvars_to_fit<a class="anchor" aria-label="anchor" href="#arg-nvars-to-fit"></a></dt>
 <dd><p>Number of variables that will be used to model.</p></dd>
 
 
-<dt>proc</dt>
+<dt id="arg-proc">proc<a class="anchor" aria-label="anchor" href="#arg-proc"></a></dt>
 <dd><p>Logical. If TRUE the partial ROC test will be computed for each
 model.</p></dd>
 
 
-<dt>sub_sample</dt>
+<dt id="arg-sub-sample">sub_sample<a class="anchor" aria-label="anchor" href="#arg-sub-sample"></a></dt>
 <dd><p>Logical. Indicates whether the test should run using a
 subsample of size sub_sample_size. It is recommended for big rasters</p></dd>
 
 
-<dt>sub_sample_size</dt>
+<dt id="arg-sub-sample-size">sub_sample_size<a class="anchor" aria-label="anchor" href="#arg-sub-sample-size"></a></dt>
 <dd><p>Numeric. Size of the sample to be used for computing
 pROC values.</p></dd>
 
 
-<dt>RandomPercent</dt>
+<dt id="arg-randompercent">RandomPercent<a class="anchor" aria-label="anchor" href="#arg-randompercent"></a></dt>
 <dd><p>Occurrence points to be sampled in randomly for the
 boostrap of the Partial Roc test <code><a href="pROC.html">pROC</a></code>.</p></dd>
 
 
-<dt>NoOfIteration</dt>
+<dt id="arg-noofiteration">NoOfIteration<a class="anchor" aria-label="anchor" href="#arg-noofiteration"></a></dt>
 <dd><p>Number of iteration for the bootstrapping of the Partial
 Roc test <code><a href="pROC.html">pROC</a></code>.</p></dd>
 
 
-<dt>parallel</dt>
+<dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
 <dd><p>Logical argument to run computations in parallel. Default
 TRUE</p></dd>
 
 
-<dt>n_cores</dt>
+<dt id="arg-n-cores">n_cores<a class="anchor" aria-label="anchor" href="#arg-n-cores"></a></dt>
 <dd><p>Number of cores to be used in parallelization. Default 4</p></dd>
 
 </dl></div>
@@ -218,7 +217,7 @@ the performance of the Partial Roc test.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
 
     </footer></div>

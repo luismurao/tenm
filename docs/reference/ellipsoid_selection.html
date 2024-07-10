@@ -29,10 +29,9 @@ omission rates in the environmental space."><meta property="og:image" content="/
     <a class="dropdown-item" href="../articles/tenm-vignette.html">Introduction to tenm package</a>
   </div>
 </li>
-      </ul><form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
-
-      <ul class="navbar-nav"><li class="nav-item">
+      </ul><ul class="navbar-nav"><li><form class="form-inline" role="search">
+<input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json"></form></li>
+<li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/luismurao/tenm/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
@@ -77,73 +76,73 @@ omission rates in the environmental space.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>env_train</dt>
+    <dl><dt id="arg-env-train">env_train<a class="anchor" aria-label="anchor" href="#arg-env-train"></a></dt>
 <dd><p>A data frame with the environmental training data.</p></dd>
 
 
-<dt>env_test</dt>
+<dt id="arg-env-test">env_test<a class="anchor" aria-label="anchor" href="#arg-env-test"></a></dt>
 <dd><p>A data frame with the environmental testing data. The default
 is NULL if given the selection process will show the p-value of a binomial
 test.</p></dd>
 
 
-<dt>env_vars</dt>
+<dt id="arg-env-vars">env_vars<a class="anchor" aria-label="anchor" href="#arg-env-vars"></a></dt>
 <dd><p>A vector with the names of environmental variables to be
 used in the selection process.</p></dd>
 
 
-<dt>nvarstest</dt>
+<dt id="arg-nvarstest">nvarstest<a class="anchor" aria-label="anchor" href="#arg-nvarstest"></a></dt>
 <dd><p>A vector indicating the number of variables to fit the
 ellipsoids during model selection. It is allowed to test models with a
 different number of variables (i.e. nvarstest=c(3,6)).</p></dd>
 
 
-<dt>level</dt>
+<dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
 <dd><p>Proportion of points to be included in the ellipsoids. This
 parameter is equivalent to the error (E) proposed by Peterson et al. (2008).</p></dd>
 
 
-<dt>mve</dt>
+<dt id="arg-mve">mve<a class="anchor" aria-label="anchor" href="#arg-mve"></a></dt>
 <dd><p>A logical value. If TRUE a minimum volume ellipsoid will be
 computed using the function <code><a href="https://rdrr.io/pkg/MASS/man/cov.rob.html" class="external-link">cov.rob</a></code> of the <span class="pkg">MASS</span>
 package. If False the covariance matrix of the input data will be used.</p></dd>
 
 
-<dt>env_bg</dt>
+<dt id="arg-env-bg">env_bg<a class="anchor" aria-label="anchor" href="#arg-env-bg"></a></dt>
 <dd><p>Environmental data to compute the approximated prevalence of
 the model. The data should be a sample of the environmental layers of the
 calibration area.</p></dd>
 
 
-<dt>omr_criteria</dt>
+<dt id="arg-omr-criteria">omr_criteria<a class="anchor" aria-label="anchor" href="#arg-omr-criteria"></a></dt>
 <dd><p>Omission rate criteria. Value of the omission rate
 allowed for the selection process. Default NULL see details.</p></dd>
 
 
-<dt>parallel</dt>
+<dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
 <dd><p>The computations will be run in parallel. Default FALSE</p></dd>
 
 
-<dt>ncores</dt>
+<dt id="arg-ncores">ncores<a class="anchor" aria-label="anchor" href="#arg-ncores"></a></dt>
 <dd><p>The number of cores that will be used for the parallel process.
 By default tenm will use the total number of available cores less one.</p></dd>
 
 
-<dt>comp_each</dt>
+<dt id="arg-comp-each">comp_each<a class="anchor" aria-label="anchor" href="#arg-comp-each"></a></dt>
 <dd><p>Number of models to run in each job in the parallel
 computation. Default 100</p></dd>
 
 
-<dt>proc</dt>
+<dt id="arg-proc">proc<a class="anchor" aria-label="anchor" href="#arg-proc"></a></dt>
 <dd><p>Logical if TRUE a partial roc test will be run.</p></dd>
 
 
-<dt>proc_iter</dt>
+<dt id="arg-proc-iter">proc_iter<a class="anchor" aria-label="anchor" href="#arg-proc-iter"></a></dt>
 <dd><p>Numeric. The total number of iterations for the partial ROC
 bootstrap.</p></dd>
 
 
-<dt>rseed</dt>
+<dt id="arg-rseed">rseed<a class="anchor" aria-label="anchor" href="#arg-rseed"></a></dt>
 <dd><p>Logical. Whether or not to set a random seed for partial roc
 bootstrap. Default TRUE.</p></dd>
 
@@ -237,7 +236,7 @@ Modell. 213, 63–72. <a href="https://doi.org/10.1016/j.ecolmodel.2007.11.008" 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
 
     </footer></div>
