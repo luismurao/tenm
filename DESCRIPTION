@@ -46,7 +46,6 @@ Description: The tenm package has methods and functions to calibrate
   reconstruct the fundamental niche more accurately than mono-calibrated 
   approaches. The theoretical background of the package can be found in 
   Peterson et al. (2011) \doi{10.5860/CHOICE.49-6266}.
-License: GPL-3 + file LICENSE
 URL: https://luismurao.github.io/tenm/
 BugReports: https://github.com/luismurao/tenm/issues
 Roxygen: list(markdown = TRUE)
