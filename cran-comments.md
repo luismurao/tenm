@@ -1,3 +1,10 @@
+## Resubmission
+
+This is a resubmission. In this version I have done what the reviewer asked for:
+
+* I have utilized single quotes in the package name.
+* I have rectified the citation formatting in the description file. 
+
 ## R CMD check results
 
 0 errors | 0 warnings | 2 note
