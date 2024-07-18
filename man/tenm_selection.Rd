@@ -10,6 +10,7 @@ tenm_selection(
   ellipsoid_level = 0.975,
   vars2fit,
   nvars_to_fit = c(2, 3),
+  mve = TRUE,
   proc = TRUE,
   sub_sample = TRUE,
   sub_sample_size = 1000,
@@ -31,6 +32,8 @@ See \code{\link[tenm]{ellipsoid_selection}} for details}
 \item{vars2fit}{A vector of variable names to use in building the models.}
 
 \item{nvars_to_fit}{Number of variables used to build the models.}
+
+\item{mve}{Logical. If TRUE, a minimum volume ellipsoid will be computed.}
 
 \item{proc}{Logical. If TRUE, compute the partial ROC test for each model.}
 
@@ -97,7 +100,7 @@ mod_sel <- tenm::tenm_selection(this_species = abbg,
                                 ellipsoid_level=0.975,
                                 vars2fit = vars2fit,
                                 nvars_to_fit=c(2,3),
-                                proc = T,
+                                proc = TRUE,
                                 RandomPercent = 50,
                                 NoOfIteration=1000,
                                 parallel=TRUE,

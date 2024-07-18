@@ -9,6 +9,7 @@
 #'   See \code{\link[tenm]{ellipsoid_selection}} for details
 #' @param ellipsoid_level Proportion of points to include inside the ellipsoid.
 #' @param nvars_to_fit Number of variables used to build the models.
+#' @param mve Logical. If TRUE, a minimum volume ellipsoid will be computed.
 #' @param proc Logical. If TRUE, compute the partial ROC test for each model.
 #' @param RandomPercent Percentage of occurrence points to sample randomly for
 #'   bootstrap in the Partial ROC test. See \code{\link[tenm]{pROC}}.
@@ -61,7 +62,7 @@
 #'                                 ellipsoid_level=0.975,
 #'                                 vars2fit = vars2fit,
 #'                                 nvars_to_fit=c(2,3),
-#'                                 proc = T,
+#'                                 proc = TRUE,
 #'                                 RandomPercent = 50,
 #'                                 NoOfIteration=1000,
 #'                                 parallel=TRUE,
@@ -103,6 +104,7 @@ tenm_selection <- function(this_species,omr_criteria =0.1,
                            ellipsoid_level=0.975,
                            vars2fit,
                            nvars_to_fit=c(2,3),
+                           mve = TRUE,
                            proc = TRUE,
                            sub_sample = TRUE,
                            sub_sample_size = 1000,
@@ -121,7 +123,7 @@ tenm_selection <- function(this_species,omr_criteria =0.1,
                                               env_vars = vars2fit,
                                               nvarstest = nvars_to_fit,
                                               level = ellipsoid_level,
-                                              mve = TRUE,
+                                              mve = mve,
                                               ncores = n_cores,
                                               comp_each = 100,
                                               env_bg = enbg,
