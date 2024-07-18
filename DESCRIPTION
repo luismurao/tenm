@@ -32,20 +32,19 @@ Authors@R: c(
          role = "ctb",
         comment = c(ORCID = "0000-0003-2160-4148"))
   )
-Description: The tenm package has methods and functions to calibrate 
+Description: Implements methods and functions to calibrate 
   time-specific niche models (multi-temporal calibration), letting users 
   execute a strict calibration and selection process of niche models based 
   on ellipsoids, as well as functions to project the potential distribution in 
-  the present and in global change  scenarios. The framework allows users 
-  to calibrate  ecological niche models with high temporal resolution 
-  environmental layers. The package has functions to recover information 
-  that may be lost or overlooked while applying a data curation protocol. 
-  This curation involves preserving occurrences that may 
+  the present and in global change  scenarios.The 'tenm' package has functions
+  to recover information that may be lost or overlooked while applying a data 
+  curation protocol. This curation involves preserving occurrences that may 
   appear spatially redundant (occurring in the same pixel) but originate from 
   different time periods. A novel aspect of this package is that it might 
   reconstruct the fundamental niche more accurately than mono-calibrated 
   approaches. The theoretical background of the package can be found in 
-  Peterson et al. (2011) \doi{10.5860/CHOICE.49-6266}.
+  Peterson et al. (2011)<doi:10.5860/CHOICE.49-6266>.
+License: GPL-3
 URL: https://luismurao.github.io/tenm/
 BugReports: https://github.com/luismurao/tenm/issues
 Roxygen: list(markdown = TRUE)
