@@ -7,10 +7,13 @@
 metaras(r)
 }
 \arguments{
-\item{r}{An object of class SpatRaster}
+\item{An}{object of class SpatRaster representing the raster layer.}
+}
+\value{
+A character vector with the name of the raster layer.
 }
 \description{
-Returns a character vector with the name of the raster layer
+Returns a character vector with the name of the raster layer.
 }
 \examples{
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

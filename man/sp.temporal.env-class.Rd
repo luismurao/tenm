@@ -3,9 +3,14 @@
 \docType{class}
 \name{sp.temporal.env-class}
 \alias{sp.temporal.env-class}
-\title{S3 classes to organize data and results of \code{tenmp} objects}
+\title{S3 classes to organize data and results of \code{tenm} objects}
+\value{
+An object of class 'sp.temporal.env' inheriting information from
+'sp.temporal.env'. This object adds a data.frame of environmental values
+associated with occurrence data.
+}
 \description{
-S3 classes to organize data and results of \code{tenmp} objects
+S3 classes to organize data and results of \code{tenm} objects
 }
 \author{
 Luis Osorio-Olvera

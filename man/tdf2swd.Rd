@@ -7,20 +7,21 @@
 tdf2swd(this_species, sp_name = "sp")
 }
 \arguments{
-\item{this_species}{An object of class sp.temporal.env or sp.temporal.bg
-\code{\link[tenm]{ex_by_date}} and \code{\link[tenm]{bg_by_date}}.}
+\item{this_species}{An object of class sp.temporal.env
+(see \code{\link[tenm]{ex_by_date}} ) or sp.temporal.bg
+(see \code{\link[tenm]{bg_by_date}}).}
 
-\item{sp_name}{A character vector with species' name.}
+\item{sp_name}{Character vector specifying the species name.}
 }
 \value{
 A data.frame formatted as Samples With Data (SWD) table.
 }
 \description{
-Converts a temporal data.frame to Samples With Data (SWD) table to used
-with MaxEnt.
+Converts a temporal data.frame to Samples With Data (SWD) table for use
+with other modeling platforms such as MaxEnt.
 }
 \examples{
-\dontrun{
+\donttest{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

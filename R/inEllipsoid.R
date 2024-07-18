@@ -1,18 +1,20 @@
 
 #' inEllipsoid: Determine if a point is inside or outside an ellipsoid
-#'
-#' @description Determine if a point is inside or outside an ellipsoid.
-#' @param centroid A numeric vector of centroids for each environmental variable
+#' @description Determine if a point is inside or outside an ellipsoid based on
+#' a confidence level.
+#' @param centroid Numeric vector of centroids for each environmental variable.
 #' @param eShape Shape matrix of the ellipsoid (can be a covariance matrix or a
 #' minimum volume ellipsoid).
-#' @param env_data A data frame with the environmental training data.
-#' @param level Proportion of points to be included in the ellipsoids. This
-#' parameter is equivalent to the error (E) proposed by Peterson et al. (2008).
-#' @return A data.frame with 2 columns. The first "in_Ellipsoid" binary response
-#' with values 1 (inside the ellipsoid) and zeros (outside the ellipsoid); the
-#' second "mh_dist" Mahalanobis distance to centroid.
+#' @param env_data Data frame with the environmental data.
+#' @param level Proportion of points to be included in the ellipsoids,
+#'  equivalent to the error (E) proposed by Peterson et al. (2008).
+#' @return A data.frame with 2 columns:
+#'   - "in_Ellipsoid": Binary response indicating if each point is inside (1)
+#'     or outside (0) the ellipsoid.
+#'   - "mh_dist": Mahalanobis distance from each point to the centroid.
+#'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

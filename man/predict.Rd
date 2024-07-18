@@ -4,8 +4,8 @@
 \name{predict,sp.temporal.selection-method}
 \alias{predict,sp.temporal.selection-method}
 \alias{predict}
-\title{Predict potential distribution for \pkg{tenm} regarding to a specific time
-period of environmental conditions or averages.}
+\title{Predict the potential distribution of \pkg{tenm} based on specific time periods
+of environmental conditions or averages.}
 \usage{
 \S4method{predict}{sp.temporal.selection}(
   object,
@@ -24,7 +24,8 @@ period of environmental conditions or averages.}
 
 \item{model_variables}{A vector with variable names}
 
-\item{layers}{A SpatRaster object or a list where each element is a SpatRaster.}
+\item{layers}{A SpatRaster object or a list where each element is a
+SpatRaster.}
 
 \item{layers_path}{Path to layers}
 
@@ -40,13 +41,92 @@ or Mahalanobis distances. Possible values are "suitability" and "mahalanobis"}
 \item{...}{Additional parameters passed to
 \code{\link[tenm]{ellipsoid_projection}}}
 }
+\value{
+Returns a SpatRaster of suitability values or Mahalanobis distances
+to niche center.
+}
 \description{
-Predict potential distribution for \pkg{tenm} regarding to a specific time
-period of environmental conditions or averages.
+Predict the potential distribution of \pkg{tenm} based on specific time periods
+of environmental conditions or averages.
 }
 \details{
-Note that the SpatRaster in layers parameter should have the same
-number of elements (layers) than model_variables. The predict method will
-assume that variables in each SpatRaster are the same as the ones in
-model_variables.
+Note that each SpatRaster in the 'layers' parameter should have the
+same number of elements (layers) as 'model_variables'. The predict method
+assumes that variables in each SpatRaster correspond to those in
+'model_variables'. If layers in the 'layers' parameter are given as a
+list of objects of class SpatRaster, then the number of prediction layers
+will have the same number of elements in the list.
+}
+\examples{
+\donttest{
+library(tenm)
+data("abronia")
+tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+abt <- tenm::sp_temporal_data(occs = abronia,
+                              longitude = "decimalLongitude",
+                              latitude = "decimalLatitude",
+                              sp_date_var = "year",
+                              occ_date_format="y",
+                              layers_date_format= "y",
+                              layers_by_date_dir = tempora_layers_dir,
+                              layers_ext="*.tif$")
+abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+future::plan("multisession",workers=2)
+abex <- tenm::ex_by_date(this_species = abtc,train_prop=0.7)
+abbg <- tenm::bg_by_date(this_species = abex,
+                         buffer_ngbs=NULL,n_bg=50000)
+abbg <- tenm::bg_by_date(this_species = abex,
+                         buffer_ngbs=10,n_bg=50000)
+future::plan("sequential")
+varcorrs <- tenm::correlation_finder(environmental_data =
+                                       abex$env_data[,-ncol(abex$env_data)],
+                                     method = "spearman",
+                                     threshold = 0.8,
+                                     verbose = FALSE)
+mod_sel <- tenm::tenm_selection(this_species = abbg,
+                                omr_criteria =0.1,
+                                ellipsoid_level=0.975,
+                                vars2fit = varcorrs$descriptors,
+                                nvars_to_fit=c(3,4),
+                                proc = TRUE,
+                                RandomPercent = 50,
+                                NoOfIteration=1000,
+                                parallel=TRUE,
+                                n_cores=2)
+# Prediction using variables path
+layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
+# The if the 'model_variables' parameter is set to NULL, the method uses
+# the first model in the results table (mod_sel$mods_table)
+suit_1970_2000 <- predict(mod_sel,
+                          model_variables = NULL,
+                          layers_path = layers_70_00_dir,
+                          layers_ext = ".tif$")
+# You can select the modeling variables used to project the model
+suit_1970_2000 <- predict(mod_sel,
+                          model_variables = c("bio_01","bio_04",
+                                              "bio_07","bio_12"),
+                          layers_path = layers_70_00_dir,
+                          layers_ext = ".tif$")
+
+# Pass a list containing the paths of the modeling layers
+layers_1939_2016 <- file.path(tempora_layers_dir,c("1939","2016"))
+suit_1939_2016 <- predict(mod_sel,model_variables = NULL,
+                          layers_path = layers_1939_2016,
+                          layers_ext = ".tif$")
+# Pass a list of raster layers
+layers_1939 <- terra::rast(list.files(layers_1939_2016[1],
+                                      pattern = ".tif$",full.names = TRUE))
+layers_2016 <- terra::rast(list.files(layers_1939_2016[2],
+                                      pattern = ".tif$",full.names = TRUE))
+layers_1939 <- layers_1939[[c("bio_01","bio_04","bio_07")]]
+layers_2016 <- layers_2016[[c("bio_01","bio_04","bio_07")]]
+layers_list <- list(layers_1939,layers_2016)
+suit_1939_2016 <- predict(object = mod_sel,
+                          model_variables = c("bio_01","bio_04","bio_07"),
+                          layers_path = NULL,
+                          layers = layers_list,
+                          layers_ext = ".tif$")
+
+}
+
 }

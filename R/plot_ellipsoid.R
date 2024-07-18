@@ -1,27 +1,40 @@
 #' Function to plot ellipsoid models in E-space
 #' @description The function plots 2D and 3D ellipsoids using environmental
 #' information as coordinates.
-#' @param x A numeric vectors representing the x coordinate of the ellipsoid.
-#' @param y A numeric vectors representing the y coordinate of the ellipsoid.
-#' @param z A numeric vectors representing the z coordinate of the ellipsoid.
-#' This is set to NULL by default.
+#' @param x Numeric vector representing the x coordinate of the ellipsoid.
+#' @param x Numeric vector representing the y coordinate of the ellipsoid.
+#' @param x Numeric vector representing the z coordinate of the ellipsoid.
+#' Defaults to NULL.
 #' @param col Plot color
-#' @param xlab A character vector with name of x label.
-#' @param ylab A character vector with name of y label.
-#' @param zlab A character vector with name of z label.
-#' @param mve Logical. If true the function fits a minimum ellipsoid model.
-#' @param level A numeric value indicating the proportion of points to be
+#' @param xlab Character vector with the name of the x-axis label.
+#' @param ylab Character vector with the name of the y-axis label.
+#' @param zlab Character vector with the name of the z-axis label
+#' (if plotting in 3D).
+#' @param mve Logical. If TRUE, fits a minimum volume ellipsoid model.
+#' @param level Numeric value indicating the proportion of points to be
 #' included inside the ellipsoid model.
-#' @param semiaxes Logical. Show semi-axes
-#' @param lwd_axes Line width for ellipsoid semi-axes
-#' @param lty_axes Line type for ellipsoid semi-axes
-#' @param add Add plot.
-#' @param ... Arguments to pass to base::plot, rgl::plot3d,rgl::wire3d or to
-#' @return A 2-Dimensional or 3-Dimensional plot
-#' rgl::segments3d
+#' @param semiaxes Logical. Show semi-axes of the ellipsoid.
+#' @param lwd_axes Line width for ellipsoid semi-axes.
+#' @param lty_axes Line type for ellipsoid semi-axes.
+#' @param add Logical. If TRUE, add plot to existing plot (for 2D plots only).
+#' @param ... Additional arguments to pass to base::plot,
+#' rgl::plot3d, rgl::wire3d, or other plotting functions
+#' @return A 2-dimensional or 3-dimensional plot depending on the input
+#' coordinates.
+#'
 #' @export
 #' @examples
-#' \dontrun{
+#' x <- rnorm(100)
+#' y <- rnorm(100)
+#' z <- rnorm(100)
+#' # 2 dimensional plot
+#' plot_ellipsoid(x, y, col = "darkgreen", xlab = "X-axis", ylab = "Y-axis",
+#'                mve = TRUE, level = 0.95)
+#' # 3 dimensional plot
+#' plot_ellipsoid(x, y, z, col = "blue", xlab = "X-axis", ylab = "Y-axis",
+#'                zlab = "Z-axis", mve = TRUE, level = 0.95)
+#' \donttest{
+#' # Examples using functions of the package
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
@@ -67,6 +80,8 @@ plot_ellipsoid <- function(x,y,z=NULL,xlab="x",ylab="y",zlab="x",mve=TRUE,
   sigma <- e_metadata$covariance
   centroid <- e_metadata$centroid
   axes_coordinates <- e_metadata$axis_coordinates
+  oldpar <- graphics::par(no.readonly = TRUE)
+  on.exit(graphics::par(oldpar))
   if(is.null(col)) col <- sample(dark2,1)
   if(ndim==2){
 

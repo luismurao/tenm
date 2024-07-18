@@ -1,8 +1,6 @@
-#' ellipsoid_projection: function to fit an ellipsoid model
-#' @description Function to fit an ellipsoid model using the shape matrix
-#' (covariance matrix) of the niche variables. This is an optimized version of
-#' the ellipsoidfit function of ntbox; the difference is that it
-#' does not give the table of distances to niche centroid.
+#' ellipsoid_projection: function to project an ellipsoid model
+#' @description Function to project an ellipsoid model using the shape matrix
+#' (covariance matrix) of the niche variables.
 #' @param envlayers A SpatRaster object of the niche variables.
 #' @param centroid A vector with the values of the centers of the ellipsoid
 #' (see \code{\link[tenm]{cov_center}}).
@@ -11,16 +9,14 @@
 #' @param level The proportion of points  to be included inside the ellipsoid
 #' @param output The output distance: two possible values "suitability" or
 #' "mahalanobis". By default the function uses "suitability".
-#' @param plot Logical If True a plot of the niche will be shown.
+#' @param plot Logical If TRUE a plot of the niche will be shown.
 #' @param size The size of the points of the niche plot.
 #' @param xlab1 For x label for 2-dimensional histogram
 #' @param ylab1 For y label for 2-dimensional histogram
 #' @param zlab1 For z label for 2-dimensional histogram
 #' @param alpha Control the transparency of the 3-dimensional ellipsoid
 #' @param ... Arguments passed to \code{\link[rgl]{plot3d}} function from rgl
-#' @return Returns a list containing a data.frame with the suitability values;
-#' a suitability raster;
-#' a data.frame with the mahalanobis and euclidean distances to the centroid.
+#' @return Returns a SpatRaster of suitability values.
 #' @export
 #'
 #' @examples
@@ -117,7 +113,8 @@ ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
     }
     #z <- x %o% y
     z <- outer(x,y,FUN = suit1)
-
+    oldpar <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(oldpar))
     p1 <- graphics::persp(x,y,z, box=T,xlab=xlab1,
                           ylab=ylab1,zlab=zlab1, col="blue",
                           theta = 55, phi = 30,r = 40,

@@ -1,5 +1,5 @@
 
-#' Function to compute the Minimum Volume covariance Matrix of an ellipsoid
+#' Function to compute the covariance matrix that defines an ellipsoid
 #' niche model.
 #' @description Function to compute the covariance matrix, the niche centroid
 #' and volume of an ellipsoid model. It uses the values of the niche variables
@@ -8,19 +8,18 @@
 #' that will be used to model the niche.
 #' @param mve A logical value. If TRUE a minimum volume ellipsoid will be
 #' computed using
-#' the function \code{\link[MASS]{cov.mve}} of the \pkg{MASS} package. If False
+#' the function \code{\link[MASS]{cov.mve}} of the \pkg{MASS} package. If FALSE
 #' the covariance matrix of the input data will be used.
 #' @param level A numerical value specifying the proportion of the data to be
 #' used to compute the ellipsoid.
 #' @param vars A numeric or a string vector specifying the columns indexes/names
 #' of the variables of the input data which will be used to fit the ellipsoid
-#' model. If NULL the user will be asked to enter the indexes.
-#' interactively
+#' model.
 #' @return Returns a list containing the centroid of the ellipsoid, the
 #' covariance matrix based on the input data, ellipsoid volume, semi-axis length
 #'  and axis coordinates.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
@@ -36,10 +35,6 @@
 #' future::plan("multisession",workers=2)
 #' abex <- tenm::ex_by_date(abtc,train_prop=0.7)
 #' future::plan("sequential")
-#' varcorrs <- tenm::correlation_finder(environmental_data = abex$env_data[,-ncol(abex$env_data)],
-#'                                      method = "spearman",
-#'                                      threshold = 0.8,
-#'                                      verbose = FALSE)
 #' mod <- tenm::cov_center(data = abex$env_data,
 #'                         mve = TRUE,
 #'                         level = 0.975,

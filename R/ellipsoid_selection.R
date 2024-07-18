@@ -1,53 +1,61 @@
-#' ellipsoid_selection: Performs variable selection for ellipsoid models
+#' ellipsoid_selection: Performs models selection for ellipsoid models
 #'
-#' @description Performs variable selection for ellipsoid models according to
-#' omission rates in the environmental space.
+#' @description
+#' The function performs model selection for ellipsoid models
+#' using three criteria: a) the omission rate, b) the significance of partial
+#' ROC and binomial tests and c) the AUC value.
+#'
 #' @param env_train A data frame with the environmental training data.
-#' @param env_test A data frame with the environmental testing data. The default
-#' is NULL if given the selection process will show the p-value of a binomial
-#' test.
-#' @param env_vars A vector with the names of environmental variables to be
-#' used in the selection process.
+#' @param env_test A data frame with the environmental testing data.
+#' Default is NULL.
+#' @param env_vars A vector with the names of environmental variables used in
+#' the selection process. To help choosing which variables to use see
+#' \code{\link[tenm]{correlation_finder}}.
 #' @param nvarstest A vector indicating the number of variables to fit the
-#' ellipsoids during model selection. It is allowed to test models with a
-#' different number of variables (i.e. nvarstest=c(3,6)).
-#' @param level Proportion of points to be included in the ellipsoids. This
-#' parameter is equivalent to the error (E) proposed by Peterson et al. (2008).
-#' @param mve A logical value. If TRUE a minimum volume ellipsoid will be
-#' computed using the function \code{\link[MASS]{cov.rob}} of the \pkg{MASS}
-#' package. If False the covariance matrix of the input data will be used.
-#' @param omr_criteria Omission rate criteria. Value of the omission rate
-#' allowed for the selection process. Default NULL see details.
-#' @param env_bg Environmental data to compute the approximated prevalence of
-#' the model. The data should be a sample of the environmental layers of the
-#' calibration area.
-#' @param parallel The computations will be run in parallel. Default FALSE
-#' @param ncores The number of cores that will be used for the parallel process.
-#' By default tenm will use the total number of available cores less one.
-#' @param proc Logical if TRUE a partial roc test will be run.
-#' @param proc_iter Numeric. The total number of iterations for the partial ROC
-#' bootstrap.
-#' @param rseed Logical. Whether or not to set a random seed for partial roc
-#' bootstrap. Default TRUE.
-#' @param comp_each Number of models to run in each job in the parallel
-#' computation. Default 100
-#' @return A data.frame with 5 columns: i) "fitted_vars" the names of variables
-#' that were fitted; ii) "om_rate" omission rates of the model; iii)
-#' "bg_prevalence" approximated prevalence of the model see details section;
-#' iv) The rank value of importance in model selection by omission rate; v)
-#' The rank value by prevalence after if the value of omr_criteria is passed.
-#' @details Model selection occurs in environmental space (E-space). For each
-#' variable combination the omission rate (omr) in E-space is computed using the
-#' function \code{\link[tenm]{inEllipsoid}}. The results will be ordered by omr
-#' and if the user-specified the environmental background "env_bg" an
-#' estimated prevalence will be computed and the results will be ordered also
-#' by "bg_prevalence". The number of variables to construct candidate models
-#' can be specified by the user in the parameter "nvarstest". Model selection
-#' will be run in parallel if the user-specified more than one set of
-#' combinations and the total number of models to be tested is greater than 500.
-#' If given"omr_criteria" and "bg_prevalence", the results will be shown
-#' pondering those models that met the "omr_criteria" by the value of
-#' "bg_prevalence".
+#' ellipsoids during model selection.
+#' @param level Proportion of points to be included in the ellipsoids,
+#' equivalent to the error (E) proposed by Peterson et al. (2008).
+#' @param mve Logical. If TRUE, a minimum volume ellipsoid will be computed
+#' using \code{\link[MASS]{cov.rob}} from \pkg{MASS}. If FALSE, the covariance
+#' matrix of the input data will be used.
+#' @param omr_criteria Omission rate criteria: the allowable omission rate for
+#' the selection process. Default is NULL (see details).
+#' @param env_bg Environmental data to compute the approximated prevalence
+#' of the model, should be a sample of the environmental layers of
+#' the calibration area.
+#' @param parallel Logical. If TRUE, computations will run in parallel.
+#' Default is FALSE.
+#' @param ncores Number of cores to use for parallel processing. Default uses
+#' all available cores minus one.
+#' @param proc Logical. If TRUE, a partial ROC test will be run.
+#' @param proc_iter Numeric. Total iterations for the partial ROC bootstrap.
+#' @param rseed Logical. If TRUE, set a random seed for partial ROC bootstrap.
+#' Default is TRUE.
+#' @param comp_each Number of models to run in each job in parallel computation.
+#'  Default is 100.
+#' @return A data.frame with 5 columns:
+#'   - "fitted_vars": Names of variables that were fitted.
+#'   - "nvars": Number of fitted variables
+#'   - "om_rate_train": Omission rate of the training data.
+#'   - "non_pred_train_ids": Row IDs of non-predicted training data.
+#'   - "om_rate_test"': Omission rate of the testing data.
+#'   - "non_pred_test_ids": Row IDs of non-predicted testing data.
+#'   - "bg_prevalence": Approximated prevalence of the model (see details).
+#'   - "pval_bin": p-value of the binomial test.
+#'   - "pval_proc": p-value of the partial ROC test.
+#'   - "env_bg_paucratio": Environmental partial AUC ratio value.
+#'   - "env_bg_auc": Environmental AUC value.
+#'   - "mean_omr_train_test": Mean value of omission rates (train and test).
+#'   - "rank_by_omr_train_test": Rank value of importance in model selection
+#'     by omission rate.
+#'   - "rank_omr_aucratio": Rank value by AUC ratio.
+#' @details
+#' Model selection occurs in environmental space (E-space). For each variable
+#' combination specified in nvarstest, the omission rate (omr) in E-space is
+#' computed using \code{\link[tenm]{inEllipsoid}} function.
+#' Results are ordered by omr of the testing data. If env_bg is provided,
+#' an estimated prevalence is computed and results are additionally ordered
+#' by partial AUC. Model selection can be run in parallel.
 #' For more details and examples go to \code{\link[tenm]{ellipsoid_omr}} help.
 #' @export
 #' @import future
@@ -57,7 +65,7 @@
 #' Modell. 213, 63–72. \doi{10.1016/j.ecolmodel.2007.11.008}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
@@ -249,7 +257,7 @@ ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,
     rfinal$mean_omr_train_test <- mean_omr
     rfinal <- rfinal[order(rfinal$mean_omr_train_tes,
                            rfinal$bg_prevalence,
-                           decreasing = F),]
+                           decreasing = FALSE),]
 
     rfinal <- data.frame(rfinal,rank_by_omr_train_test=1:nrow(rfinal))
     met_criteriaID_train <- which(rfinal$om_rate_train <= omr_criteria)
@@ -289,7 +297,7 @@ ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,
   }
   else
     rfinal <- rfinal[order(rfinal$om_rate_train,
-                           decreasing = F),]
+                           decreasing = FALSE),]
   rownames(rfinal) <- NULL
   return(rfinal)
 }

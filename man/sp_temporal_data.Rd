@@ -16,39 +16,26 @@ sp_temporal_data(
 )
 }
 \arguments{
-\item{occs}{A data.frame with information about
-the occurrence records of the specie that is being modeled. It is fundamental
-to count with exact geographical coordinates of longitude and latitude where
-the specie was detected or at least the nearest, also a temporal column
-indicating the time at which was the record.}
+\item{occs}{A data.frame with information about occurrence records of the
+species being modeled.}
 
-\item{longitude}{If occs is a data.frame the user must indicate the variable
-name of longitude data.}
+\item{longitude}{Name of the variable in 'occs' containing longitude data.}
 
-\item{latitude}{If occs is a data.frame the user must indicate the variable
-name of latitude data.}
+\item{latitude}{Name of the variable in 'occs' containing latitude data.}
 
-\item{sp_date_var}{A date variable indicating the date of each observation.
-The name of the variable where is stored the date of each observation.}
+\item{sp_date_var}{Name of the date variable.}
 
-\item{occ_date_format}{Occurrences date format. It is the format with which
-the dates of the occurrence points are organized. The possible options are
-"y" for years; "ym" for years and months; "ymd" for year, month and day;
-"mdy" for month, day and year; "my" for month and year; "dmy" for day, month
-and year.}
+\item{occ_date_format}{Format of dates in occurrence records.
+Options: "y", "ym", "ymd", "mdy", "my", "dmy".}
 
-\item{layers_date_format}{Raster layers of environmental information data
-format. The possible options are "y" for years; "ym" for years and months;
-"ymd" for year, month and day; "mdy" for month, day and year; "my" for month
-and year; "dmy" for day, month and year.}
+\item{layers_date_format}{Format of dates in raster layers. Options:
+"y", "ym", "ymd", "mdy", "my", "dmy".}
 
-\item{layers_by_date_dir}{A directory which has contain inside other folders
-organized by date with the raster layers of environmental information.}
+\item{layers_by_date_dir}{Directory containing folders organized by date
+with raster layers of environmental information.}
 
-\item{layers_ext}{This is the extension or path of each raster layer archive.
-In other words, this is the object where is stored each one of the paths
-that leads to the location of the environmental raster layers into the inner
-memory.}
+\item{layers_ext}{Extension or path of each raster layer archive
+(e.g., ".tif").}
 }
 \value{
 Returns a  sp.temporal.modeling object (list) with the coordinates
@@ -56,21 +43,28 @@ of each occurrences points, the years of observation and the path to the
 temporal layers.
 }
 \description{
-This function creates an object of class sp.temporal.modeling
-that contains a list with four attributes. Inside the list, there is a data
-frame called temporal_df containing five columns: the first two columns are
-coordinates of longitude and latitude that came from the occurrences
-records, the third is the date variable at which the species were
-registered, the fourth is the format of dates for each layer, organized in
-a particular pattern, for example year/month/day, year/month, just year or
-some other arrangement like month/year, month/year/day, day/month/year and
-the fifth one is the path where is stored the bioclimatic layer
-corresponding to each year. The other three variables present in the list
-are character class objects: sp_date_var[1] is the name of the date
-variable column available in the occurrences records, lon_lat_vars[2] are
-both of the columns with the coordinates of longitude and latitude
-correspondingly, layers_ext[1] is the final extension format of the
-environmental information (“.tif$”).
+Creates an object of class sp.temporal.modeling that contains
+a list with four attributes:
+\itemize{
+\item temporal_df: A data frame with the following columns:
+\itemize{
+\item Longitude: Longitude coordinates of occurrence records.
+\item Latitude: Latitude coordinates of occurrence records.
+\item Date: Date variable indicating when the species were observed.
+\item Layer Dates: Format of dates for each layer of environmental data.
+\item Layers Path: Path to the bioclimatic layer corresponding to each year.
+}
+\item sp_date_var: Name of the date variable column in the occurrence records.
+\item lon_lat_vars: Names of the longitude and latitude columns.
+\item layers_ext: Final extension format of the environmental information
+(e.g., ".tif").
+}
+}
+\details{
+The format of dates for each layer can be organized in a particular pattern,
+for example year/month/day ("ymd"), year/month ("ym"), just year ("y") or
+some other arrangement like month/year ("my"), month/year/day ("myd"),
+day/month/year ("dmy").
 }
 \examples{
 library(tenm)

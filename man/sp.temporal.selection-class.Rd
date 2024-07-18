@@ -3,9 +3,15 @@
 \docType{class}
 \name{sp.temporal.selection-class}
 \alias{sp.temporal.selection-class}
-\title{S3 classes to organize data and results of \code{tenmp} objects}
+\title{S3 classes to organize data and results of \code{tenm} objects}
+\value{
+An object of class 'sp.temporal.selection'. This object inherits
+information from objects of classes 'sp.temporal.modeling', 'sp.temporal.env'
+and 'sp.temporal.bg'. The object stores the results of
+the model calibration and selection process in a data.frame.
+}
 \description{
-S3 classes to organize data and results of \code{tenmp} objects
+S3 classes to organize data and results of \code{tenm} objects
 }
 \author{
 Luis Osorio-Olvera

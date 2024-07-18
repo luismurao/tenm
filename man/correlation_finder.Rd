@@ -17,18 +17,41 @@ correlation_finder(
 \item{method}{A method to estimate correlation matrix. Possible options are
 "spearman", "pearson" or "kendall".}
 
-\item{threshold}{Threshold value from which it is considered that the
-correlation is high.}
+\item{threshold}{Correlation value used to filter variables.}
 
 \item{verbose}{Verbose output.}
 }
 \value{
-Returns a vector with variable names that can summarize the
-information.
+Returns a list of two elements: the first is a vector with the names
+of not correlated variables; the second is a list with the correlation values
+of all variables.
 }
 \description{
 The function finds out which variables have strong
-correlations according to a correlation threshold. The output
-returns a list of variables names that can summarize the information
-and removes the variables that are redundant.
+correlations according to a correlation threshold.
+}
+\examples{
+\donttest{
+
+library(tenm)
+data("abronia")
+tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+abt <- tenm::sp_temporal_data(occs = abronia,
+                              longitude = "decimalLongitude",
+                              latitude = "decimalLatitude",
+                              sp_date_var = "year",
+                              occ_date_format="y",
+                              layers_date_format= "y",
+                              layers_by_date_dir = tempora_layers_dir,
+                              layers_ext="*.tif$")
+abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+future::plan("multisession",workers=2)
+abex <- tenm::ex_by_date(abtc,train_prop=0.7)
+future::plan("sequential")
+envdata <- abex$env_data[,-ncol(abex$env_data)]
+ecors <- tenm::correlation_finder(environmental_data =envdata,
+                                  method="spearman",
+                                  threshold = 0.7 )
+}
+
 }

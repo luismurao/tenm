@@ -1,10 +1,9 @@
-#' Function to obtain environmental background by dates
-#' @description Get environmental background for each set of dated environmental
-#' layers.
-#' Function to obtain environmental records as background for each set of dated
-#' environmental layers.
-#' @param this_species Species Temporal Environmental Data object
-#' from \code{\link[tenm]{ex_by_date}}.
+#' Function to obtain environmental background organized by date
+#' @description Function to retrieve background data from occurrence records.
+#' The background data is organized as a function of the dated
+#' environmental data
+#' @param this_species Species Temporal Environmental Data (sp.temporal.env)
+#' object from \code{\link[tenm]{ex_by_date}}.
 #' @param buffer_ngbs Number of pixel neighbors used to build the buffer.
 #' @param buffer_distance Distance used to create a buffer in which background
 #' data will be taken.

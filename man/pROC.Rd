@@ -16,40 +16,51 @@ pROC(
 )
 }
 \arguments{
-\item{continuous_mod}{a SpatRaster or a numeric vector of the ecological
-niche model to be evaluated. If a numeric vector is provided it should
+\item{continuous_mod}{A SpatRaster or numeric vector of the ecological
+niche model to be evaluated. If a numeric vector is provided, it should
 contain the values of the predicted suitability.}
 
-\item{test_data}{A numerical matrix, data.frame, or a numeric vector. If it
-is data.frame or matrix it should contain coordinates of the occurrences used
-to test the ecological niche model to be evaluated; columns must be:
-longitude and latitude. If numeric vector it should contain the values of the
-predicted suitability.}
+\item{test_data}{A numerical matrix, data.frame, or numeric vector:
+\itemize{
+\item If data.frame or matrix, it should contain coordinates of the
+occurrences used to test the ecological niche model.
+Columns must be: longitude and latitude.
+\item If numeric vector, it should contain the values of the predicted
+suitability.
+}}
 
-\item{n_iter}{(numeric) number of bootstrap iterations to be performed;
-default = 1000.}
+\item{n_iter}{Number of bootstrap iterations to perform for partial ROC
+calculations. Default is 1000.}
 
-\item{E_percent}{(numeric) value from 0 to 100 that will be used as a
-threshold (E); default = 5.}
+\item{E_percent}{Numeric value from 0 to 100 used as the threshold (E)
+for partial ROC calculations. Default is 5.}
 
-\item{boost_percent}{(numeric) value from 0 to 100 representing the percent
-of testing data to be used for performing the bootstrap process for
-calculating the partial ROC; default = 50.}
+\item{boost_percent}{Numeric value from 0 to 100 representing the
+percentage of testing data to use for bootstrap iterations in partial ROC.
+Default is 50.}
 
-\item{rseed}{Logical. Whether or not to set a random seed. Default FALSE.}
+\item{rseed}{Logical. Whether or not to set a random seed for
+reproducibility. Default is FALSE.}
 
-\item{sub_sample}{Logical. Indicates whether the test should run using a
-subsample of size sub_sample_size. It is recommended for big rasters.}
+\item{sub_sample}{Logical. Indicates whether to use a subsample of
+the test data. Recommended for large datasets.}
 
-\item{sub_sample_size}{Numeric. Size of the sample to be used for computing
-pROC values.}
+\item{sub_sample_size}{Size of the subsample to use for computing pROC
+values when sub_sample is TRUE.}
 }
 \value{
-A data.frame containing the AUC values and AUC ratios calculated for
-each iteration.
+A list of two elements:
+\itemize{
+\item "pROC_summary": a data.frame containing the mean
+AUC value, AUC ratio calculated for each iteration and the p-value of the
+test.
+\item "pROC_results": a data.frame with four columns containing the AUC
+(auc_model), partial AUC (auc_pmodel), partial AUC of the random model
+(auc_prand) and the AUC ratio (auc_ratio) for each iteration.
+}
 }
 \description{
-pROC applies partial ROC tests to continuous niche models.
+Apply partial ROC tests to continuous niche models.
 }
 \details{
 Partial ROC is calculated following Peterson et al.

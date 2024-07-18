@@ -1,19 +1,25 @@
 #' Extract environmental data by date
-#' @description Function to extract environmental data by date. This function
-#' generates training and testing data sets using a random partition with a
-#' definite proportion.
-#' @param this_species Species Temporal Data object see
-#' \code{\link[tenm]{sp_temporal_data}}.
-#' @param train_prop Numeric. Training proportion. This is the proportion at
-#' which each record (occurrences points) will be used as training or testing.
-#' A 0.7 train_prop indicates that 70 of the data will be used to train the
-#' model, and the other 30 to model itself.
+#' @description
+#' Function to extract environmental data by date. It generates training and
+#' testing datasets using a random partition with a specified proportion.
+#' @param this_species Species Temporal Data object. See
+#' \code{\link[tenm]{sp_temporal_data}} for details.
+#' @param train_prop Numeric. Proportion of data to use for training.
+#' For example, a train_prop of 0.7 means 70% of the data will be used for
+#' training and 30% for testing.
 #' @importFrom future plan tweak sequential
-#' @return An object of class sp.temporal.env that contains a temporal
-#' data.frame (temporal_df) with the following columns: latitude, longitude,
-#' year, layer_dates, layers_path, cell_ids_year, and environmental data.
+#' @return An object of class sp.temporal.env that consists in a list of five
+#' elmentes:
+#' 1) "temporal_df": a temporal data.frame (temporal_df) with the following
+#'    columns: latitude, longitude, year, layer_dates, layers_path,
+#'    cell_ids_year, and environmental data.
+#' 2) "sp_date_var": Name of date variable.
+#' 3) "lon_lat_vars": Names of the longitude and latitude variables.
+#' 4) "layers_ext": Environmental layers extension.
+#' 5) "env_data": Environmental data of occurrences.
+#' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
@@ -31,7 +37,6 @@
 #'                          train_prop=0.7)
 #' future::plan("sequential")
 #' }
-#' @export
 
 ex_by_date <- function(this_species,train_prop=0.7){
 

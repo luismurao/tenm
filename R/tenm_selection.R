@@ -1,33 +1,38 @@
-#' Function to find the best n-dimensional ellipsoid model using Partial Roc
-#' as a performance criteria.
-#' @param this_species, Species Temporal Environment "sp.temporal.env" object
-#' see \code{\link[tenm]{ex_by_date}}.
-#' @param vars2fit A vector with variable names that will be used to build the
-#' models
-#' @param omr_criteria Omission rate used to select best models.
-#' See \code{\link[tenm]{ellipsoid_selection}} for more details.
-#' @param ellipsoid_level The proportion of points to be included inside the
-#' ellipsoid.
-#' @param vars2fit  A vector with the names of environmental variables to be
-#' used in the selection process.
-#' @param nvars_to_fit Number of variables that will be used to model.
-#' @param RandomPercent Occurrence points to be sampled in randomly for the
-#' boostrap of the Partial Roc test \code{\link[tenm]{pROC}}.
-#' @param NoOfIteration Number of iteration for the bootstrapping of the Partial
-#' Roc test \code{\link[tenm]{pROC}}.
-#' @param proc Logical. If TRUE the partial ROC test will be computed for each
-#' model.
-#' @param sub_sample Logical. Indicates whether the test should run using a
-#' subsample of size sub_sample_size. It is recommended for big rasters
-#' @param sub_sample_size Numeric. Size of the sample to be used for computing
-#' pROC values.
-#' @param parallel Logical argument to run computations in parallel. Default
-#' TRUE
-#' @param n_cores Number of cores to be used in parallelization. Default 4
-#' @return A "sp.temp.best.model" object with metadata of the best model given
-#' the performance of the Partial Roc test.
+#' Function to find the best n-dimensional ellipsoid model
+#' @description
+#' Finds the best n-dimensional ellipsoid model using a model
+#' calibration and selection protocol for ellipsoid models.
+#' @param this_species An object of class sp.temporal.env representing species
+#' occurrence data organized by date. See \code{\link[tenm]{ex_by_date}}.
+#' @param vars2fit A vector of variable names to use in building the models.
+#' @param omr_criteria Omission rate criterion used to select the best models.
+#'   See \code{\link[tenm]{ellipsoid_selection}} for details
+#' @param ellipsoid_level Proportion of points to include inside the ellipsoid.
+#' @param nvars_to_fit Number of variables used to build the models.
+#' @param proc Logical. If TRUE, compute the partial ROC test for each model.
+#' @param RandomPercent Percentage of occurrence points to sample randomly for
+#'   bootstrap in the Partial ROC test. See \code{\link[tenm]{pROC}}.
+#' @param NoOfIteration Number of iterations for the bootstrap in the
+#' Partial ROC test. See \code{\link[tenm]{pROC}}.
+#' @param sub_sample Logical. Indicates whether to use a subsample of size
+#' sub_sample_size for computing pROC values, recommended for large datasets.
+#' @param sub_sample_size Size of the sub_sample to use for
+#' computing pROC values when sub_sample is TRUE.
+#' @param parallel Logical. Whether to run computations in parallel.
+#' Default is TRUE.
+#' @param n_cores Number of cores to use for parallelization. Default is 4.
+#' @return An object of class "sp.temporal.selection" containing metadata of
+#' model statistics of the calibrated models, obtainable from the "mods_table"
+#' attribute. The function internally uses
+#' \code{\link[tenm]{ellipsoid_selection}}
+#' to obtain model statistics. Note that this function inherits attributes
+#' from classes "sp.temporal.modeling"
+#' (see \code{\link[tenm]{sp_temporal_data}}),
+#' "sp.temporal.env" (see \code{\link[tenm]{ex_by_date}}),
+#' and "sp.temporal.bg" (see \code{\link[tenm]{bg_by_date}}), thus all
+#' information from these classes can be extracted from this object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
@@ -55,7 +60,7 @@
 #'                                 omr_criteria =0.1,
 #'                                 ellipsoid_level=0.975,
 #'                                 vars2fit = vars2fit,
-#'                                 nvars_to_fit=c(2,3,4,5,6,7),
+#'                                 nvars_to_fit=c(2,3),
 #'                                 proc = T,
 #'                                 RandomPercent = 50,
 #'                                 NoOfIteration=1000,

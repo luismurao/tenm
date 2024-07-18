@@ -22,46 +22,54 @@ plot_ellipsoid(
 )
 }
 \arguments{
-\item{x}{A numeric vectors representing the x coordinate of the ellipsoid.}
+\item{x}{Numeric vector representing the z coordinate of the ellipsoid.
+Defaults to NULL.}
 
-\item{y}{A numeric vectors representing the y coordinate of the ellipsoid.}
+\item{xlab}{Character vector with the name of the x-axis label.}
 
-\item{z}{A numeric vectors representing the z coordinate of the ellipsoid.
-This is set to NULL by default.}
+\item{ylab}{Character vector with the name of the y-axis label.}
 
-\item{xlab}{A character vector with name of x label.}
+\item{zlab}{Character vector with the name of the z-axis label
+(if plotting in 3D).}
 
-\item{ylab}{A character vector with name of y label.}
+\item{mve}{Logical. If TRUE, fits a minimum volume ellipsoid model.}
 
-\item{zlab}{A character vector with name of z label.}
-
-\item{mve}{Logical. If true the function fits a minimum ellipsoid model.}
-
-\item{level}{A numeric value indicating the proportion of points to be
+\item{level}{Numeric value indicating the proportion of points to be
 included inside the ellipsoid model.}
 
 \item{col}{Plot color}
 
-\item{lwd_axes}{Line width for ellipsoid semi-axes}
+\item{lwd_axes}{Line width for ellipsoid semi-axes.}
 
-\item{lty_axes}{Line type for ellipsoid semi-axes}
+\item{lty_axes}{Line type for ellipsoid semi-axes.}
 
-\item{semiaxes}{Logical. Show semi-axes}
+\item{semiaxes}{Logical. Show semi-axes of the ellipsoid.}
 
-\item{add}{Add plot.}
+\item{add}{Logical. If TRUE, add plot to existing plot (for 2D plots only).}
 
-\item{...}{Arguments to pass to base::plot, rgl::plot3d,rgl::wire3d or to}
+\item{...}{Additional arguments to pass to base::plot,
+rgl::plot3d, rgl::wire3d, or other plotting functions}
 }
 \value{
-A 2-Dimensional or 3-Dimensional plot
-rgl::segments3d
+A 2-dimensional or 3-dimensional plot depending on the input
+coordinates.
 }
 \description{
 The function plots 2D and 3D ellipsoids using environmental
 information as coordinates.
 }
 \examples{
-\dontrun{
+x <- rnorm(100)
+y <- rnorm(100)
+z <- rnorm(100)
+# 2 dimensional plot
+plot_ellipsoid(x, y, col = "darkgreen", xlab = "X-axis", ylab = "Y-axis",
+               mve = TRUE, level = 0.95)
+# 3 dimensional plot
+plot_ellipsoid(x, y, z, col = "blue", xlab = "X-axis", ylab = "Y-axis",
+               zlab = "Z-axis", mve = TRUE, level = 0.95)
+\donttest{
+# Examples using functions of the package
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

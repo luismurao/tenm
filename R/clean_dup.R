@@ -1,37 +1,24 @@
-#' Function to clean duplicated longitude and latitude data
-#' @description Clean up duplicated or redundant occurrence records that
-#' present overlapping longitude and latitude geographical coordinates regarding
-#' a referent system that the user can choose from fourth possible ways to
-#' eliminate: distance threshold, per single pixel grain of resolution, by pixel
-#' neighborhood, or both combined distance and pixel at the same time.This
-#' function has as its main purpose to eliminate occurrence points
-#' geographically spliced, using the information of the spatial position to
-#' determine it, in order to debug large clouds of occurrence points that
-#' could cause an environmental overestimation in the future model, we call this
-#' process "cleaning of spatial duplicated data". The user has to set a distance
-#' in "units" that arose an overlapping area from a random chosen record where
-#' any other occurrence within this is consider as a duplicated and then
-#' eliminated. Also you can use a raster mask with a determinate pixel grain
-#' resolution as a base sift; see in arguments raster_mask and n_ngbs.
+#' Function to thin longitude and latitude data
+#' @description Thin duplicated or redundant occurrence records that
+#' present overlapping longitude and latitude coordinates. The user can thin
+#' occurrences using a geographical distance threshold or by a pixel
+#' neighborhood.
 #' @param data A data.frame with longitude and latitude of occurrence records
-#' belongings to some specie.
-#' @param longitude A character vector of the column name "longitude" within
-#' the dataframe.
-#' @param latitude A character vector of the column name of "latitude" within
-#' the dataframe.
+#' @param longitude A character vector indicating the column name of the
+#' "longitude" variable.
+#' @param latitude A character vector indicating the column name of the
+#' "latitude" variable.
 #' @param threshold A numeric value representing the euclidean distance between
-#' coordinates to be considered as a duplicate. Also it could be view as a
-#' value of radio (r) that covers an area.
-#' @param by_mask Logical. If TRUE the elimination of duplicates will be done
-#' using a raster layer as a mask; If False the elimination of duplicates will
-#' be done by the distance threshold.
-#' @param raster_mask An object of class SpatRaster that will be used to clean
-#' duplicates that are present in the same ID pixel.
-#' @param n_ngbs Number of pixel neighbors. Remove duplicates depending on how
-#' many pixels range you want, 1 is for eliminate duplicates in the same pixel,
-#' that means just one record per single pixel of resolution,2 is a neighborhood
-#' with one-pixel length of 3 for 3 pixels, 3 is an 5 for 5 vicinity and so on
-#' depending on how much area you want to cover.
+#' coordinates to be considered as a duplicate.
+#' @param by_mask Logical. If TRUE data thinning will be done
+#' using a raster layer as a mask.
+#' @param raster_mask An object of class SpatRaster that will be used a
+#' reference to identify duplicates.
+#' @param n_ngbs Number of pixels used to define the neighborhood matrix that
+#' helps to determine which occurrences are duplicates.
+#' - A value of 0 removes occurrences within the same pixel, keeping one.
+#' - A value of 1 considers as duplicates all occurrences within a
+#' distance of one pixel.
 #' @return Returns a data.frame with coordinate data from a species
 #' @examples
 #' data(abronia)

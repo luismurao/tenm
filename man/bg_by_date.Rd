@@ -2,7 +2,7 @@
 % Please edit documentation in R/bg_by_date.R
 \name{bg_by_date}
 \alias{bg_by_date}
-\title{Function to obtain environmental background by dates}
+\title{Function to obtain environmental background organized by date}
 \usage{
 bg_by_date(
   this_species,
@@ -13,8 +13,8 @@ bg_by_date(
 )
 }
 \arguments{
-\item{this_species}{Species Temporal Environmental Data object
-from \code{\link[tenm]{ex_by_date}}.}
+\item{this_species}{Species Temporal Environmental Data (sp.temporal.env)
+object from \code{\link[tenm]{ex_by_date}}.}
 
 \item{buffer_ngbs}{Number of pixel neighbors used to build the buffer.}
 
@@ -32,10 +32,9 @@ contains a data.frame with longitude, latitude, year, layer_date, layer_path,
 cell_ids_year and environmental information.
 }
 \description{
-Get environmental background for each set of dated environmental
-layers.
-Function to obtain environmental records as background for each set of dated
-environmental layers.
+Function to retrieve background data from occurrence records.
+The background data is organized as a function of the dated
+environmental data
 }
 \details{
 The buffer is built around the occurrences using a neighborhood

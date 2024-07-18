@@ -2,7 +2,7 @@
 % Please edit documentation in R/ellipsoid_projection.R
 \name{ellipsoid_projection}
 \alias{ellipsoid_projection}
-\title{ellipsoid_projection: function to fit an ellipsoid model}
+\title{ellipsoid_projection: function to project an ellipsoid model}
 \usage{
 ellipsoid_projection(
   envlayers,
@@ -33,7 +33,7 @@ ellipsoid_projection(
 \item{output}{The output distance: two possible values "suitability" or
 "mahalanobis". By default the function uses "suitability".}
 
-\item{plot}{Logical If True a plot of the niche will be shown.}
+\item{plot}{Logical If TRUE a plot of the niche will be shown.}
 
 \item{size}{The size of the points of the niche plot.}
 
@@ -48,15 +48,11 @@ ellipsoid_projection(
 \item{...}{Arguments passed to \code{\link[rgl]{plot3d}} function from rgl}
 }
 \value{
-Returns a list containing a data.frame with the suitability values;
-a suitability raster;
-a data.frame with the mahalanobis and euclidean distances to the centroid.
+Returns a SpatRaster of suitability values.
 }
 \description{
-Function to fit an ellipsoid model using the shape matrix
-(covariance matrix) of the niche variables. This is an optimized version of
-the ellipsoidfit function of ntbox; the difference is that it
-does not give the table of distances to niche centroid.
+Function to project an ellipsoid model using the shape matrix
+(covariance matrix) of the niche variables.
 }
 \examples{
 \dontrun{

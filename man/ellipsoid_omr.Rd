@@ -19,7 +19,7 @@ ellipsoid_omr(
 \item{env_data}{A data frame with the environmental data.}
 
 \item{env_test}{A data frame with the environmental testing data. The default
-is NULL if given the selection process will show the p-value of a binomial
+is NULL, if given, the selection process will show the p-value of a binomial
 test.}
 
 \item{env_bg}{Environmental data to compute the approximated prevalence of
@@ -27,11 +27,12 @@ the model. The data should be a sample of the environmental layers of the
 calibration area.}
 
 \item{cf_level}{Proportion of points to be included in the ellipsoids. This
-parameter is equivalent to the error (E) proposed by Peterson et al. (2008).}
+parameter is equivalent to the error (E) proposed by Peterson et al. (2008)
+\doi{10.1016/j.ecolmodel.2007.11.008}.}
 
 \item{mve}{A logical value. If TRUE a minimum volume ellipsoid will be
 computed using
-the function \code{\link[MASS]{cov.rob}} of the \pkg{MASS} package. If False
+the function \code{\link[MASS]{cov.rob}} of the \pkg{MASS} package. If FALSE
 the covariance matrix of the input data will be used.}
 
 \item{proc}{Logical if TRUE a partial roc test will be run.}
@@ -45,13 +46,14 @@ bootstrap. Default TRUE.}
 \value{
 A data.frame with 5 columns: i) "fitted_vars" the names of variables
 that were fitted; ii) "om_rate" omission rates of the model; iii)
-"bg_prevalence" approximated prevalence of the model see details section.
+"bg_prevalence" approximated prevalence of the model.
 }
 \description{
-Compute the omission rate of ellipsoid models
+Compute the omission rate and statistical metrics of
+ellipsoid models
 }
 \examples{
-\dontrun{
+\donttest{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

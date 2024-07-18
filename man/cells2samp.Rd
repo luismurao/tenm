@@ -2,8 +2,8 @@
 % Please edit documentation in R/cells2samp.R
 \name{cells2samp}
 \alias{cells2samp}
-\title{Helper function to generate cell IDs to be used for choosing  the
-environmental background data}
+\title{Helper function to randomly select cell IDs for generating
+environmental background data.}
 \usage{
 cells2samp(
   data,
@@ -18,15 +18,14 @@ cells2samp(
 )
 }
 \arguments{
-\item{data}{A data.frame with longitude and latitude data}
+\item{data}{A data.frame with longitude and latitude data.}
 
 \item{longitude}{A character vector of the column name of longitude.}
 
 \item{latitude}{A character vector of the column name of latitude.}
 
-\item{cell_ids}{A numeric vector with pixel ids. The default values NULL.
-Use this parameter if you have obtained this information using the function
-cellFromXY.}
+\item{cell_ids}{A numeric vector indicating the IDs of the cells that
+be used as the geographic centers of the buffers. The default values NULL.}
 
 \item{buffer_ngbs}{Number of pixel neighbors around occurrences to be used
 to build the buffer.}
@@ -39,14 +38,14 @@ is for memory management.}
 
 \item{n_bg}{Number of background pixels.}
 
-\item{progress}{Logical. Show computation progress}
+\item{progress}{Logical. Show computation progress.}
 }
 \value{
 A numeric vector with the IDs of cells to be sampled.
 }
 \description{
 Returns pixel IDs to be sample for generating
-environmental background form modeling layers.
+environmental background data.
 }
 \examples{
 \donttest{
@@ -59,6 +58,16 @@ samp_01 <- tenm::cells2samp(data = abronia,
                             longitude = "decimalLongitude",
                             latitude = "decimalLatitude",
                             cell_ids = NULL,
+                            buffer_ngbs = 4,
+                            raster_mask = raster_mask,
+                            process_ngbs_by = 10,
+                            n_bg = 50000,
+                            progress =TRUE)
+# Generete a sample using pixel IDs
+samp_02 <- tenm::cells2samp(data = abronia,
+                            longitude = NULL,
+                            latitude = NULL,
+                            cell_ids = c(256,290,326),
                             buffer_ngbs = 4,
                             raster_mask = raster_mask,
                             process_ngbs_by = 10,

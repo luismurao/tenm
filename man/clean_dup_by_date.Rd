@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_dup_by_date.R
 \name{clean_dup_by_date}
 \alias{clean_dup_by_date}
-\title{Function to clean duplicated coordinates data}
+\title{Function to thin occurrence data}
 \usage{
 clean_dup_by_date(
   this_species,
@@ -19,31 +19,29 @@ see \code{\link[tenm]{sp_temporal_data}}.}
 \item{threshold}{A numeric value representing the distance
 between coordinates to be considered as a duplicate.}
 
-\item{by_mask}{Logical. If TRUE the elimination of duplicates will be done
-using a raster layer as a mask; If False the elimination of duplicates will
-be done by the distance threshold.}
+\item{by_mask}{Logical. If TRUE the thinning process will be done
+using a raster layer as a mask.}
 
-\item{raster_mask}{An object of class SpatRaster that will be used to clean
-duplicates that are present in the same ID pixel.}
+\item{raster_mask}{An object of class SpatRaster that will be used as
+reference to thin the data.}
 
-\item{n_ngbs}{Number of pixel neighbors. Remove duplicates depending on how
-many pixels range you want,"0" is use in order to remove all the duplicated
-occurrence points present in a single pixel (1x1), "1" is to eliminate
-duplicates in a 1 pixel-long neighborhood of a 9 pixel area (3x3), "2"
-correspond to a neighborhood of 2 adjacent pixels of a 25 pixel area (5x5)
-and so on depending on how much area you want to cover.}
+\item{n_ngbs}{Number of pixels used to define the neighborhood matrix that
+helps to determine which occurrences are duplicates.
+\itemize{
+\item A value of 0 removes occurrences within the same pixel, keeping one.
+\item A value of 1 considers as duplicates all occurrences within a
+distance of one pixel.
+}}
 }
 \value{
 A sp.temporal.modeling object that contains a temporal data.frame.
-This table has five columns: longitude, latitude, year, layers_dates and
-layers_path
+This table has five columns: longitude, latitude, date variable,
+layers_dates and layers_path.
 }
 \description{
-Clean up duplicated longitude and latitude data by year using a
-threshold distance. The main propose of this function is eliminate data
-occurrence points spliced in each different year or date
-by a given distance threshold. This function also allows you to clean
-duplicate data by pixel at a given resolution of a raster mask.
+Cleans up duplicated longitude and latitude data by year using a
+specified distance threshold. The distance can be specified as a geographic
+distance or, if a raster_mask is provided, as a pixel distance.
 }
 \details{
 This function is build on the basis of
@@ -70,9 +68,16 @@ print(nrow(abtc1$temporal_df))
 abtc2 <- tenm::clean_dup_by_date(this_species = abt,
                                 by_mask = TRUE,
                                 threshold = terra::res(tenm_mask)[1],
-                                raster_mask = tenm_mask[1],
+                                raster_mask = tenm_mask,
                                 n_ngbs = 0)
 # Check number of records
 print(nrow(abtc2$temporal_df))
 
+abtc3 <- tenm::clean_dup_by_date(this_species = abt,
+                                by_mask = TRUE,
+                                threshold = terra::res(tenm_mask)[1],
+                                raster_mask = tenm_mask,
+                                n_ngbs = 2)
+# Check number of records
+print(nrow(abtc3$temporal_df))
 }

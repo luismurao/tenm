@@ -2,7 +2,7 @@
 % Please edit documentation in R/ellipsoid_selection.R
 \name{ellipsoid_selection}
 \alias{ellipsoid_selection}
-\title{ellipsoid_selection: Performs variable selection for ellipsoid models}
+\title{ellipsoid_selection: Performs models selection for ellipsoid models}
 \usage{
 ellipsoid_selection(
   env_train,
@@ -24,75 +24,82 @@ ellipsoid_selection(
 \arguments{
 \item{env_train}{A data frame with the environmental training data.}
 
-\item{env_test}{A data frame with the environmental testing data. The default
-is NULL if given the selection process will show the p-value of a binomial
-test.}
+\item{env_test}{A data frame with the environmental testing data.
+Default is NULL.}
 
-\item{env_vars}{A vector with the names of environmental variables to be
-used in the selection process.}
+\item{env_vars}{A vector with the names of environmental variables used in
+the selection process. To help choosing which variables to use see
+\code{\link[tenm]{correlation_finder}}.}
 
 \item{nvarstest}{A vector indicating the number of variables to fit the
-ellipsoids during model selection. It is allowed to test models with a
-different number of variables (i.e. nvarstest=c(3,6)).}
+ellipsoids during model selection.}
 
-\item{level}{Proportion of points to be included in the ellipsoids. This
-parameter is equivalent to the error (E) proposed by Peterson et al. (2008).}
+\item{level}{Proportion of points to be included in the ellipsoids,
+equivalent to the error (E) proposed by Peterson et al. (2008).}
 
-\item{mve}{A logical value. If TRUE a minimum volume ellipsoid will be
-computed using the function \code{\link[MASS]{cov.rob}} of the \pkg{MASS}
-package. If False the covariance matrix of the input data will be used.}
+\item{mve}{Logical. If TRUE, a minimum volume ellipsoid will be computed
+using \code{\link[MASS]{cov.rob}} from \pkg{MASS}. If FALSE, the covariance
+matrix of the input data will be used.}
 
-\item{env_bg}{Environmental data to compute the approximated prevalence of
-the model. The data should be a sample of the environmental layers of the
-calibration area.}
+\item{env_bg}{Environmental data to compute the approximated prevalence
+of the model, should be a sample of the environmental layers of
+the calibration area.}
 
-\item{omr_criteria}{Omission rate criteria. Value of the omission rate
-allowed for the selection process. Default NULL see details.}
+\item{omr_criteria}{Omission rate criteria: the allowable omission rate for
+the selection process. Default is NULL (see details).}
 
-\item{parallel}{The computations will be run in parallel. Default FALSE}
+\item{parallel}{Logical. If TRUE, computations will run in parallel.
+Default is FALSE.}
 
-\item{ncores}{The number of cores that will be used for the parallel process.
-By default tenm will use the total number of available cores less one.}
+\item{ncores}{Number of cores to use for parallel processing. Default uses
+all available cores minus one.}
 
-\item{comp_each}{Number of models to run in each job in the parallel
-computation. Default 100}
+\item{comp_each}{Number of models to run in each job in parallel computation.
+Default is 100.}
 
-\item{proc}{Logical if TRUE a partial roc test will be run.}
+\item{proc}{Logical. If TRUE, a partial ROC test will be run.}
 
-\item{proc_iter}{Numeric. The total number of iterations for the partial ROC
-bootstrap.}
+\item{proc_iter}{Numeric. Total iterations for the partial ROC bootstrap.}
 
-\item{rseed}{Logical. Whether or not to set a random seed for partial roc
-bootstrap. Default TRUE.}
+\item{rseed}{Logical. If TRUE, set a random seed for partial ROC bootstrap.
+Default is TRUE.}
 }
 \value{
-A data.frame with 5 columns: i) "fitted_vars" the names of variables
-that were fitted; ii) "om_rate" omission rates of the model; iii)
-"bg_prevalence" approximated prevalence of the model see details section;
-iv) The rank value of importance in model selection by omission rate; v)
-The rank value by prevalence after if the value of omr_criteria is passed.
+A data.frame with 5 columns:
+\itemize{
+\item "fitted_vars": Names of variables that were fitted.
+\item "nvars": Number of fitted variables
+\item "om_rate_train": Omission rate of the training data.
+\item "non_pred_train_ids": Row IDs of non-predicted training data.
+\item "om_rate_test"': Omission rate of the testing data.
+\item "non_pred_test_ids": Row IDs of non-predicted testing data.
+\item "bg_prevalence": Approximated prevalence of the model (see details).
+\item "pval_bin": p-value of the binomial test.
+\item "pval_proc": p-value of the partial ROC test.
+\item "env_bg_paucratio": Environmental partial AUC ratio value.
+\item "env_bg_auc": Environmental AUC value.
+\item "mean_omr_train_test": Mean value of omission rates (train and test).
+\item "rank_by_omr_train_test": Rank value of importance in model selection
+by omission rate.
+\item "rank_omr_aucratio": Rank value by AUC ratio.
+}
 }
 \description{
-Performs variable selection for ellipsoid models according to
-omission rates in the environmental space.
+The function performs model selection for ellipsoid models
+using three criteria: a) the omission rate, b) the significance of partial
+ROC and binomial tests and c) the AUC value.
 }
 \details{
-Model selection occurs in environmental space (E-space). For each
-variable combination the omission rate (omr) in E-space is computed using the
-function \code{\link[tenm]{inEllipsoid}}. The results will be ordered by omr
-and if the user-specified the environmental background "env_bg" an
-estimated prevalence will be computed and the results will be ordered also
-by "bg_prevalence". The number of variables to construct candidate models
-can be specified by the user in the parameter "nvarstest". Model selection
-will be run in parallel if the user-specified more than one set of
-combinations and the total number of models to be tested is greater than 500.
-If given"omr_criteria" and "bg_prevalence", the results will be shown
-pondering those models that met the "omr_criteria" by the value of
-"bg_prevalence".
+Model selection occurs in environmental space (E-space). For each variable
+combination specified in nvarstest, the omission rate (omr) in E-space is
+computed using \code{\link[tenm]{inEllipsoid}} function.
+Results are ordered by omr of the testing data. If env_bg is provided,
+an estimated prevalence is computed and results are additionally ordered
+by partial AUC. Model selection can be run in parallel.
 For more details and examples go to \code{\link[tenm]{ellipsoid_omr}} help.
 }
 \examples{
-\dontrun{
+\donttest{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
