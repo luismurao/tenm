@@ -7,7 +7,7 @@
 metaras(r)
 }
 \arguments{
-\item{An}{object of class SpatRaster representing the raster layer.}
+\item{r}{An object of class SpatRaster representing the raster layer.}
 }
 \value{
 A character vector with the name of the raster layer.

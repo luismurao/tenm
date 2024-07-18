@@ -1,6 +1,6 @@
 #' Helper function to obtain layer name from a raster layer
 #' @description Returns a character vector with the name of the raster layer.
-#' @param  An object of class SpatRaster representing the raster layer.
+#' @param r An object of class SpatRaster representing the raster layer.
 #' @return A character vector with the name of the raster layer.
 #' @examples
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

@@ -22,7 +22,11 @@ plot_ellipsoid(
 )
 }
 \arguments{
-\item{x}{Numeric vector representing the z coordinate of the ellipsoid.
+\item{x}{Numeric vector representing the x coordinate of the ellipsoid.}
+
+\item{y}{Numeric vector representing the y coordinate of the ellipsoid.}
+
+\item{z}{Numeric vector representing the z coordinate of the ellipsoid.
 Defaults to NULL.}
 
 \item{xlab}{Character vector with the name of the x-axis label.}

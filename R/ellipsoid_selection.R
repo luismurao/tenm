@@ -108,7 +108,8 @@
 
 ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,
                                 level=0.95,
-                                mve=TRUE,env_bg=NULL,omr_criteria,parallel=F,
+                                mve=TRUE,env_bg=NULL,omr_criteria,
+                                parallel=FALSE,
                                 ncores=NULL,
                                 comp_each=100,proc=FALSE,
                                 proc_iter=100,rseed=TRUE){
@@ -252,7 +253,7 @@ ellipsoid_selection <- function(env_train,env_test=NULL,env_vars,nvarstest,
     rfinal[["om_rate_train"]] <- ifelse(is.na(rfinal[["om_rate_train"]]),0,
                                        rfinal[["om_rate_train"]])
     mean_omr <- rowMeans(rfinal[,c("om_rate_train",
-                                   "om_rate_test")],na.rm = T)
+                                   "om_rate_test")],na.rm = TRUE)
     #mean_omr <- ifelse(is.na(mean_omr),0,mean_omr)
     rfinal$mean_omr_train_test <- mean_omr
     rfinal <- rfinal[order(rfinal$mean_omr_train_tes,

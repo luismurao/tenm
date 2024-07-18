@@ -2,8 +2,8 @@
 #' @description The function plots 2D and 3D ellipsoids using environmental
 #' information as coordinates.
 #' @param x Numeric vector representing the x coordinate of the ellipsoid.
-#' @param x Numeric vector representing the y coordinate of the ellipsoid.
-#' @param x Numeric vector representing the z coordinate of the ellipsoid.
+#' @param y Numeric vector representing the y coordinate of the ellipsoid.
+#' @param z Numeric vector representing the z coordinate of the ellipsoid.
 #' Defaults to NULL.
 #' @param col Plot color
 #' @param xlab Character vector with the name of the x-axis label.

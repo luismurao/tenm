@@ -13,7 +13,7 @@ ellipsoid_selection(
   mve = TRUE,
   env_bg = NULL,
   omr_criteria,
-  parallel = F,
+  parallel = FALSE,
   ncores = NULL,
   comp_each = 100,
   proc = FALSE,
