@@ -37,7 +37,7 @@ ellipsoids during model selection.}
 \item{level}{Proportion of points to be included in the ellipsoids,
 equivalent to the error (E) proposed by Peterson et al. (2008).}
 
-\item{mve}{Logical. If TRUE, a minimum volume ellipsoid will be computed
+\item{mve}{Logical. If TRUE, a minimum volume ellipsoid will be computed.
 using \code{\link[MASS]{cov.rob}} from \pkg{MASS}. If FALSE, the covariance
 matrix of the input data will be used.}
 
