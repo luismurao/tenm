@@ -178,7 +178,7 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
   occ_swd <- tenm::tdf2swd(this_species=abex,sp_name="abro_gram")
   testthat::expect_s3_class(occ_swd,"data.frame")
   # SWD table for background data
-  bg_swd <- tdf2swd(this_species=abbg)
+  bg_swd <- tenm::tdf2swd(this_species=abbg)
   testthat::expect_s3_class(bg_swd,"data.frame")
   testthat::expect_error(tdf2swd(this_species="a"))
   # ----------------------------------------------------------------------------
@@ -329,7 +329,7 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
                                   ellipsoid_level=0.975,
                                   vars2fit = varcorrs$descriptors,
                                   nvars_to_fit=c(3,4),
-                                  proc = T,
+                                  proc = TRUE,
                                   RandomPercent = 50,
                                   NoOfIteration=1000,
                                   parallel=TRUE,
