@@ -40,13 +40,13 @@ percentage of testing data to use for bootstrap iterations in partial ROC.
 Default is 50.}
 
 \item{rseed}{Logical. Whether or not to set a random seed for
-reproducibility. Default is FALSE.}
+reproducibility. Default is \code{F}.}
 
 \item{sub_sample}{Logical. Indicates whether to use a subsample of
 the test data. Recommended for large datasets.}
 
 \item{sub_sample_size}{Size of the subsample to use for computing pROC
-values when sub_sample is TRUE.}
+values when sub_sample is \code{T}.}
 }
 \value{
 A list of two elements:

@@ -9,7 +9,7 @@
 #' @param level The proportion of points  to be included inside the ellipsoid
 #' @param output The output distance: two possible values "suitability" or
 #' "mahalanobis". By default the function uses "suitability".
-#' @param plot Logical If TRUE a plot of the niche will be shown.
+#' @param plot Logical If \code{T} a plot of the niche will be shown.
 #' @param size The size of the points of the niche plot.
 #' @param xlab1 For x label for 2-dimensional histogram
 #' @param ylab1 For y label for 2-dimensional histogram
@@ -20,7 +20,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(tenm)
 #' data("abronia")
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

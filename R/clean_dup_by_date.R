@@ -1,26 +1,33 @@
 #' Function to thin occurrence data
-#' @description Cleans up duplicated longitude and latitude data by year using a
-#' specified distance threshold. The distance can be specified as a geographic
-#' distance or, if a raster_mask is provided, as a pixel distance.
-#' @param this_species Species Temporal Data object
-#' see \code{\link[tenm]{sp_temporal_data}}.
-#' @param threshold A numeric value representing the distance
-#' between coordinates to be considered as a duplicate.
-#' @param by_mask Logical. If TRUE the thinning process will be done
-#' using a raster layer as a mask.
-#' @param raster_mask An object of class SpatRaster that will be used as
-#' reference to thin the data.
+#' Cleans up duplicated longitude and latitude data by year using a specified
+#' distance threshold. The distance can be specified as a geographic distance
+#' or, if a raster_mask is provided, as a pixel distance.
+#' @param this_species An object of class sp.temporal.modeling representing
+#' species occurrence data organized by date.
+#' See \code{\link[tenm]{sp_temporal_data}}.
+#' @param threshold A numeric value representing the distance threshold between
+#' coordinates to be considered duplicates. Units depend on whether
+#' `by_mask` is \code{T} or \code{F}. If \code{T}, the user needs to specify the number
+#' of pixels that define the neighborhood of duplicates (see n_ngbs parameter).
+#' @param by_mask Logical. If \code{T}, the thinning process will use a raster layer
+#' as a mask for defining distance in pixel units.
+#' @param raster_mask An object of class SpatRaster that serves as a reference
+#' to thin the occurrence data. Required if `by_mask` is \code{T}.
 #' @param n_ngbs Number of pixels used to define the neighborhood matrix that
-#' helps to determine which occurrences are duplicates.
-#' - A value of 0 removes occurrences within the same pixel, keeping one.
-#' - A value of 1 considers as duplicates all occurrences within a
-#' distance of one pixel.
-#' @return A sp.temporal.modeling object that contains a temporal data.frame.
-#' This table has five columns: longitude, latitude, date variable,
-#' layers_dates and layers_path.
+#' helps determine which occurrences are duplicates:
+#'   - 0 removes occurrences within the same pixel, keeping one.
+#'   - 1 considers duplicates all occurrences within a distance of one pixel.
+#'   - n considers duplicates all occurrences within a distance of n pixels.
+#' @return An object of class sp.temporal.modeling containing a temporal
+#' data.frame with cleaned occurrence data, including columns for
+#'  longitude, latitude, date variable, layers_dates, and layers_path.
 #'
-#' @details This function is build on the basis of
-#' \code{\link[tenm]{clean_dup}}. See the help of the function for more examples
+#' @details
+#' This function is based on \code{\link[tenm]{clean_dup}}. It cleans up
+#' duplicated occurrences based on the specified threshold. If `by_mask`
+#' is \code{T}, the distance is interpreted as pixel distance using the provided
+#' raster_mask; otherwise, it is interpreted as geographic distance.
+
 #' @examples
 #' library(tenm)
 #' data("abronia")
@@ -63,7 +70,7 @@ clean_dup_by_date <- function(this_species,threshold,by_mask = FALSE,
   df_occs_date <- this_species$temporal_df
   df_occs_dateL <- split(df_occs_date,df_occs_date$layers_path,drop=T)
   clean_by_date <- seq_along(df_occs_dateL) |>
-    purrr::map_df(function(x){
+    furrr::future_map_dfr(function(x){
       dd <- tenm::clean_dup(data = df_occs_dateL[[x]],
                             longitude = this_species$lon_lat_vars[1],
                             latitude = this_species$lon_lat_vars[2],
@@ -72,7 +79,11 @@ clean_dup_by_date <- function(this_species,threshold,by_mask = FALSE,
                             raster_mask = raster_mask,
                             n_ngbs = n_ngbs)
       return(dd)
-    })
+    },.progress = TRUE,
+    .options = furrr::furrr_options(globals = c("this_species",
+                                                "df_occs_date",
+                                                "df_occs_dateL"),
+                                    seed = NULL))
 
   sp.temp.data.clean <- list(temporal_df = clean_by_date,
                              sp_date_var = this_species$sp_date_var,

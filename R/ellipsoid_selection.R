@@ -15,25 +15,25 @@
 #' ellipsoids during model selection.
 #' @param level Proportion of points to be included in the ellipsoids,
 #' equivalent to the error (E) proposed by Peterson et al. (2008).
-#' @param mve Logical. If TRUE, a minimum volume ellipsoid will be computed.
-#' using \code{\link[MASS]{cov.rob}} from \pkg{MASS}. If FALSE, the covariance
+#' @param mve Logical. If \code{T}, a minimum volume ellipsoid will be computed.
+#' using \code{\link[MASS]{cov.rob}} from \pkg{MASS}. If \code{F}, the covariance
 #' matrix of the input data will be used.
 #' @param omr_criteria Omission rate criteria: the allowable omission rate for
 #' the selection process. Default is NULL (see details).
 #' @param env_bg Environmental data to compute the approximated prevalence
 #' of the model, should be a sample of the environmental layers of
 #' the calibration area.
-#' @param parallel Logical. If TRUE, computations will run in parallel.
+#' @param parallel Logical. If \code{T}, computations will run in parallel.
 #' Default is FALSE.
 #' @param ncores Number of cores to use for parallel processing. Default uses
 #' all available cores minus one.
-#' @param proc Logical. If TRUE, a partial ROC test will be run.
+#' @param proc Logical. If \code{T}, a partial ROC test will be run.
 #' @param proc_iter Numeric. Total iterations for the partial ROC bootstrap.
-#' @param rseed Logical. If TRUE, set a random seed for partial ROC bootstrap.
-#' Default is TRUE.
+#' @param rseed Logical. If \code{T}, set a random seed for partial ROC bootstrap.
+#' Default is \code{T}.
 #' @param comp_each Number of models to run in each job in parallel computation.
 #'  Default is 100.
-#' @return A data.frame with 5 columns:
+#' @return A data.frame with the following columns:
 #'   - "fitted_vars": Names of variables that were fitted.
 #'   - "nvars": Number of fitted variables
 #'   - "om_rate_train": Omission rate of the training data.

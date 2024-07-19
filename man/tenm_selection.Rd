@@ -33,15 +33,15 @@ See \code{\link[tenm]{ellipsoid_selection}} for details}
 
 \item{nvars_to_fit}{Number of variables used to build the models.}
 
-\item{mve}{Logical. If TRUE, a minimum volume ellipsoid will be computed.}
+\item{mve}{Logical. If \code{T}, a minimum volume ellipsoid will be computed.}
 
-\item{proc}{Logical. If TRUE, compute the partial ROC test for each model.}
+\item{proc}{Logical. If \code{T}, compute the partial ROC test for each model.}
 
 \item{sub_sample}{Logical. Indicates whether to use a subsample of size
 sub_sample_size for computing pROC values, recommended for large datasets.}
 
 \item{sub_sample_size}{Size of the sub_sample to use for
-computing pROC values when sub_sample is TRUE.}
+computing pROC values when sub_sample is \code{T}.}
 
 \item{RandomPercent}{Percentage of occurrence points to sample randomly for
 bootstrap in the Partial ROC test. See \code{\link[tenm]{pROC}}.}
@@ -50,7 +50,7 @@ bootstrap in the Partial ROC test. See \code{\link[tenm]{pROC}}.}
 Partial ROC test. See \code{\link[tenm]{pROC}}.}
 
 \item{parallel}{Logical. Whether to run computations in parallel.
-Default is TRUE.}
+Default is \code{T}.}
 
 \item{n_cores}{Number of cores to use for parallelization. Default is 4.}
 }

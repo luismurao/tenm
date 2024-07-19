@@ -13,35 +13,44 @@ bg_by_date(
 )
 }
 \arguments{
-\item{this_species}{Species Temporal Environmental Data (sp.temporal.env)
-object from \code{\link[tenm]{ex_by_date}}.}
+\item{this_species}{An object of class sp.temporal.env representing species
+occurrence data organized by date. See \code{\link[tenm]{ex_by_date}}.}
 
-\item{buffer_ngbs}{Number of pixel neighbors used to build the buffer.}
+\item{buffer_ngbs}{Number of pixel neighbors used to build the buffer around
+each occurrence point.}
 
-\item{buffer_distance}{Distance used to create a buffer in which background
-data will be taken.}
+\item{buffer_distance}{Distance (in the same units as raster layers) used to
+create a buffer around occurrence points to sample background data.}
 
-\item{n_bg}{Number of background points.}
+\item{n_bg}{Number of background points to sample.}
 
-\item{process_ngbs_by}{Numeric. Estimates neighbor cells each x cells. This
-is for memory management.}
+\item{process_ngbs_by}{Numeric parameter to improve memory management.
+It process neighbor cells by a quantity specified by the user.}
 }
 \value{
-Returns an object of class sp.temporal.bg which is a list that
-contains a data.frame with longitude, latitude, year, layer_date, layer_path,
-cell_ids_year and environmental information.
+An object of class sp.temporal.bg containing background data
+organized by date. The object is a list with the following components:
+\itemize{
+\item "bg_df": A data.frame with columns for longitude, latitude, year,
+layer_date, layer_path, cell_ids_year, and environmental information.
+\item Other metadata relevant to background sampling.
+}
 }
 \description{
 Function to retrieve background data from occurrence records.
 The background data is organized as a function of the dated
-environmental data
+environmental data.
 }
 \details{
-The buffer is built around the occurrences using a neighborhood
-distance.
+This function retrieves background data around species occurrence points,
+sampled based on the dated environmental data provided in \code{this_species}.
+Background points are sampled within a buffer around each occurrence point.
+The function returns an object of class sp.temporal.bg, which contains
+background data organized by date. This object is the input of the function
+\code{\link[tenm]{tenm_selection}}.
 }
 \examples{
-\dontrun{
+\donttest{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

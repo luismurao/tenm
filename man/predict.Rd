@@ -4,8 +4,8 @@
 \name{predict,sp.temporal.selection-method}
 \alias{predict,sp.temporal.selection-method}
 \alias{predict}
-\title{Predict the potential distribution of \pkg{tenm} based on specific time periods
-of environmental conditions or averages.}
+\title{Predict the potential distribution of species based on environmental
+conditions}
 \usage{
 \S4method{predict}{sp.temporal.selection}(
   object,
@@ -22,34 +22,43 @@ of environmental conditions or averages.}
 \arguments{
 \item{object}{An object of class sp.temporal.selection}
 
-\item{model_variables}{A vector with variable names}
+\item{model_variables}{A character vector specifying the variable names used
+to buid the model.}
 
 \item{layers}{A SpatRaster object or a list where each element is a
 SpatRaster.}
 
-\item{layers_path}{Path to layers}
+\item{layers_path}{Path to the directory containing raster layers.}
 
-\item{layers_ext}{Layers extension}
+\item{layers_ext}{File extension of the raster layers.}
 
-\item{mve}{If the projection will use the minimum volume ellipsoid algorithm}
+\item{mve}{Logical indicating whether to use the minimum volume
+ellipsoid algorithm.}
 
-\item{level}{Proportion of data used to fit the minimum volume ellipsoid}
+\item{level}{Proportion of data to include inside the ellipsoid
+if mve is \code{T}.}
 
-\item{output}{A character to indicate if model uses suitability values
-or Mahalanobis distances. Possible values are "suitability" and "mahalanobis"}
+\item{output}{Character indicating if the model outputs "suitability" values
+or "mahalanobis" distances.}
 
 \item{...}{Additional parameters passed to
-\code{\link[tenm]{ellipsoid_projection}}}
+\code{\link[tenm]{ellipsoid_projection}}.}
 }
 \value{
-Returns a SpatRaster of suitability values or Mahalanobis distances
-to niche center.
+A SpatRaster object representing predicted suitability values or
+Mahalanobis distances to niche center.
 }
 \description{
-Predict the potential distribution of \pkg{tenm} based on specific time periods
-of environmental conditions or averages.
+Predict the potential distribution of species based on environmental
+conditions
 }
 \details{
+This function predicts the potential distribution of a species based on
+environmental conditions represented by raster layers. The prediction is
+based on the model statistics and environmental variables specified in
+'model_variables'. If 'mve' is \code{T}, the minimum volume ellipsoid algorithm
+is used to model the niche space. The output can be either "suitability",
+or "mahalanobis", indicating distance to the niche center.
 Note that each SpatRaster in the 'layers' parameter should have the
 same number of elements (layers) as 'model_variables'. The predict method
 assumes that variables in each SpatRaster correspond to those in

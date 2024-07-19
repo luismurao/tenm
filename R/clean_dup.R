@@ -1,25 +1,33 @@
 #' Function to thin longitude and latitude data
-#' @description Thin duplicated or redundant occurrence records that
-#' present overlapping longitude and latitude coordinates. The user can thin
-#' occurrences using a geographical distance threshold or by a pixel
-#' neighborhood.
-#' @param data A data.frame with longitude and latitude of occurrence records
+#' @description
+#' Cleans up duplicated or redundant occurrence records that present overlapping
+#' longitude and latitude coordinates. Thinning can be performed using either a
+#' geographical distance threshold or a pixel neighborhood approach.
+#' @param data A data.frame with longitude and latitude of occurrence records.
 #' @param longitude A character vector indicating the column name of the
 #' "longitude" variable.
 #' @param latitude A character vector indicating the column name of the
 #' "latitude" variable.
-#' @param threshold A numeric value representing the euclidean distance between
-#' coordinates to be considered as a duplicate.
-#' @param by_mask Logical. If TRUE data thinning will be done
-#' using a raster layer as a mask.
-#' @param raster_mask An object of class SpatRaster that will be used a
-#' reference to identify duplicates.
+#' @param threshold A numeric value representing the distance threshold between
+#' coordinates to be considered duplicates. Units depend on whether
+#' `by_mask` is \code{T} or \code{F}. If \code{T}, the user needs to specify the number
+#' of pixels that define the neighborhood of duplicates (see n_ngbs parameter).
+#' @param by_mask Logical. If \code{T}, the thinning process will use a raster layer
+#' as a mask for defining distance in pixel units.
+#' @param raster_mask An object of class SpatRaster that serves as a reference
+#' to thin the occurrence data. Required if `by_mask` is \code{T}.
 #' @param n_ngbs Number of pixels used to define the neighborhood matrix that
-#' helps to determine which occurrences are duplicates.
-#' - A value of 0 removes occurrences within the same pixel, keeping one.
-#' - A value of 1 considers as duplicates all occurrences within a
-#' distance of one pixel.
-#' @return Returns a data.frame with coordinate data from a species
+#' helps determine which occurrences are duplicates:
+#'   - 0 removes occurrences within the same pixel, keeping one.
+#'   - 1 considers duplicates all occurrences within a distance of one pixel.
+#'   - n considers duplicates all occurrences within a distance of n pixels.
+#' @return Returns a data.frame with cleaned occurrence records, excluding
+#' duplicates based on the specified criteria.
+#' @details
+#' This function cleans up duplicated occurrences based on the specified
+#' distance threshold. If `by_mask` is \code{T}, the distance is interpreted as
+#' pixel distance using the provided raster_mask; otherwise, it is interpreted
+#' as geographic distance.
 #' @examples
 #' data(abronia)
 #' tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

@@ -1,21 +1,25 @@
 #' Helper function to randomly select cell IDs for generating
 #' environmental background data.
-#' @description Returns pixel IDs to be sample for generating
-#' environmental background data.
-#' @param data A data.frame with longitude and latitude data.
-#' @param longitude A character vector of the column name of longitude.
-#' @param latitude A character vector of the column name of latitude.
-#' @param cell_ids A numeric vector indicating the IDs of the cells that
-#' be used as the geographic centers of the buffers. The default values NULL.
-#' @param buffer_ngbs Number of pixel neighbors around occurrences to be used
-#' to build the buffer.
-#' @param raster_mask An object of class SpatRaster that will be used to
-#' obtain pixel IDs.
-#' @param process_ngbs_by Numeric. Estimates neighbor cells each x cells. This
-#' is for memory management.
-#' @param n_bg Number of background pixels.
-#' @param progress Logical. Show computation progress.
-#' @return A numeric vector with the IDs of cells to be sampled.
+#' @description
+#' This function returns pixel IDs to be sampled for generating environmental
+#' background data around species occurrence points.
+#' @param data A data.frame containing longitude and latitude data of occurrence
+#' points.
+#' @param longitude A character vector specifying the column name of longitude
+#' in 'data'.
+#' @param latitude A character vector specifying the column name of latitude
+#' in 'data'.
+#' @param cell_ids A numeric vector indicating the IDs of cells that serve as
+#' geographic centers for buffers. Default is NULL.
+#' @param buffer_ngbs Number of neighboring pixels around occurrence points
+#' used to build the buffer for sampling.
+#' @param raster_mask An object of class SpatRaster used to obtain pixel IDs.
+#' @param process_ngbs_by Numeric parameter to improve memory management.
+#' It process neighbor cells by a quantity specified by the user.
+#' @param n_bg Number of background pixels to sample.
+#' @param progress Logical. If \code{T}, show computation progress.
+#' @return A numeric vector of cell IDs to be sampled for environmental
+#' background data.
 #' @examples
 #' \donttest{
 #' # cells to sample

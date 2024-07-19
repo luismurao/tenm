@@ -2,36 +2,38 @@
 % Please edit documentation in R/cov_center.R
 \name{cov_center}
 \alias{cov_center}
-\title{Function to compute the covariance matrix that defines an ellipsoid
-niche model.}
+\title{Function to compute the covariance matrix of an ellipsoid niche model.}
 \usage{
 cov_center(data, mve = TRUE, level, vars = NULL)
 }
 \arguments{
-\item{data}{A data.frame or a matrix with the numeric values of the variables
-that will be used to model the niche.}
+\item{data}{A data.frame or matrix containing numeric values of variables
+used to model the niche.}
 
-\item{mve}{A logical value. If TRUE a minimum volume ellipsoid will be
-computed using
-the function \code{\link[MASS]{cov.mve}} of the \pkg{MASS} package. If FALSE
-the covariance matrix of the input data will be used.}
+\item{mve}{Logical. If \code{T}, computes a minimum volume ellipsoid using
+the \code{\link[MASS]{cov.mve}} function from the MASS package. If \code{F},
+uses the covariance matrix of the input data.}
 
-\item{level}{A numerical value specifying the proportion of the data to be
-used to compute the ellipsoid.}
+\item{level}{Proportion of data to be used for computing the ellipsoid,
+applicable when mve is \code{T}.}
 
-\item{vars}{A numeric or a string vector specifying the columns indexes/names
-of the variables of the input data which will be used to fit the ellipsoid
-model.}
+\item{vars}{Vector specifying column indexes or names of variables in
+the input data used to fit the ellipsoid model.}
 }
 \value{
-Returns a list containing the centroid of the ellipsoid, the
-covariance matrix based on the input data, ellipsoid volume, semi-axis length
-and axis coordinates.
+A list containing the following components:
+\itemize{
+\item \code{centroid}: Centroid (mean vector) of the ellipsoid.
+\item \code{covariance_matrix}: Covariance matrix based on the input data.
+\item \code{volume}: Volume of the ellipsoid.
+\item \code{semi_axes_lengths}: Lengths of semi-axes of the ellipsoid.
+\item \code{axis_coordinates}: Coordinates of ellipsoid axes.
+}
 }
 \description{
-Function to compute the covariance matrix, the niche centroid
-and volume of an ellipsoid model. It uses the values of the niche variables
-of the occurrences points.
+Computes the covariance matrix, niche centroid, volume, and other
+ellipsoid parameter based on the values of niche variables from
+occurrence points.
 }
 \examples{
 \donttest{

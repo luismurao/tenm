@@ -2,7 +2,7 @@
 % Please edit documentation in R/ellipsoid_omr.R
 \name{ellipsoid_omr}
 \alias{ellipsoid_omr}
-\title{ellipsoid_omr}
+\title{Compute omission rate and statistical metrics for ellipsoid models.}
 \usage{
 ellipsoid_omr(
   env_data,
@@ -16,41 +16,55 @@ ellipsoid_omr(
 )
 }
 \arguments{
-\item{env_data}{A data frame with the environmental data.}
+\item{env_data}{A data frame containing the environmental data used for
+modeling.}
 
-\item{env_test}{A data frame with the environmental testing data. The default
-is NULL, if given, the selection process will show the p-value of a binomial
-test.}
+\item{env_test}{A data frame with environmental testing data.
+Default is NULL. If provided, the selection process includes p-values
+from a binomial test.}
 
-\item{env_bg}{Environmental data to compute the approximated prevalence of
-the model. The data should be a sample of the environmental layers of the
-calibration area.}
+\item{env_bg}{Environmental data sampled from the calibration area to compute
+the approximated prevalence of the model.}
 
-\item{cf_level}{Proportion of points to be included in the ellipsoids. This
-parameter is equivalent to the error (E) proposed by Peterson et al. (2008)
+\item{cf_level}{Proportion of points to be included in the ellipsoids.
+Equivalent to the error (E) proposed by Peterson et al. (2008).
 \doi{10.1016/j.ecolmodel.2007.11.008}.}
 
-\item{mve}{A logical value. If TRUE a minimum volume ellipsoid will be
-computed using
-the function \code{\link[MASS]{cov.rob}} of the \pkg{MASS} package. If FALSE
-the covariance matrix of the input data will be used.}
+\item{mve}{Logical. If \code{T}, computes a minimum volume ellipsoid using
+\code{\link[MASS]{cov.rob}} from the MASS package. If \code{F}, uses the
+covariance matrix of the input data.}
 
-\item{proc}{Logical if TRUE a partial roc test will be run.}
+\item{proc}{Logical. If \code{T}, performs a partial ROC test.}
 
-\item{proc_iter}{Numeric. The total number of iterations for the partial ROC
+\item{proc_iter}{Numeric. Total number of iterations for the partial ROC
 bootstrap.}
 
-\item{rseed}{Logical. Whether or not to set a random seed for partial roc
-bootstrap. Default TRUE.}
+\item{rseed}{Logical. If \code{T}, sets a random seed for the partial
+ROC bootstrap. Default is \code{T}.}
 }
 \value{
-A data.frame with 5 columns: i) "fitted_vars" the names of variables
-that were fitted; ii) "om_rate" omission rates of the model; iii)
-"bg_prevalence" approximated prevalence of the model.
+A data.frame with the following columns:
+\itemize{
+\item "fitted_vars": Names of variables that were fitted.
+\item "nvars": Number of fitted variables
+\item "om_rate_train": Omission rate of the training data.
+\item "non_pred_train_ids": Row IDs of non-predicted training data.
+\item "om_rate_test"': Omission rate of the testing data.
+\item "non_pred_test_ids": Row IDs of non-predicted testing data.
+\item "bg_prevalence": Approximated prevalence of the model (see details).
+\item "pval_bin": p-value of the binomial test.
+\item "pval_proc": p-value of the partial ROC test.
+\item "env_bg_paucratio": Environmental partial AUC ratio value.
+\item "env_bg_auc": Environmental AUC value.
+\item "mean_omr_train_test": Mean value of omission rates (train and test).
+\item "rank_by_omr_train_test": Rank value of importance in model selection
+by omission rate.
+\item "rank_omr_aucratio": Rank value by AUC ratio.
+}
 }
 \description{
-Compute the omission rate and statistical metrics of
-ellipsoid models
+Computes omission rate and statistical metrics for ellipsoid models using
+environmental data.
 }
 \examples{
 \donttest{

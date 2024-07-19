@@ -18,34 +18,37 @@ cells2samp(
 )
 }
 \arguments{
-\item{data}{A data.frame with longitude and latitude data.}
+\item{data}{A data.frame containing longitude and latitude data of occurrence
+points.}
 
-\item{longitude}{A character vector of the column name of longitude.}
+\item{longitude}{A character vector specifying the column name of longitude
+in 'data'.}
 
-\item{latitude}{A character vector of the column name of latitude.}
+\item{latitude}{A character vector specifying the column name of latitude
+in 'data'.}
 
-\item{cell_ids}{A numeric vector indicating the IDs of the cells that
-be used as the geographic centers of the buffers. The default values NULL.}
+\item{cell_ids}{A numeric vector indicating the IDs of cells that serve as
+geographic centers for buffers. Default is NULL.}
 
-\item{buffer_ngbs}{Number of pixel neighbors around occurrences to be used
-to build the buffer.}
+\item{buffer_ngbs}{Number of neighboring pixels around occurrence points
+used to build the buffer for sampling.}
 
-\item{raster_mask}{An object of class SpatRaster that will be used to
-obtain pixel IDs.}
+\item{raster_mask}{An object of class SpatRaster used to obtain pixel IDs.}
 
-\item{process_ngbs_by}{Numeric. Estimates neighbor cells each x cells. This
-is for memory management.}
+\item{process_ngbs_by}{Numeric parameter to improve memory management.
+It process neighbor cells by a quantity specified by the user.}
 
-\item{n_bg}{Number of background pixels.}
+\item{n_bg}{Number of background pixels to sample.}
 
-\item{progress}{Logical. Show computation progress.}
+\item{progress}{Logical. If \code{T}, show computation progress.}
 }
 \value{
-A numeric vector with the IDs of cells to be sampled.
+A numeric vector of cell IDs to be sampled for environmental
+background data.
 }
 \description{
-Returns pixel IDs to be sample for generating
-environmental background data.
+This function returns pixel IDs to be sampled for generating environmental
+background data around species occurrence points.
 }
 \examples{
 \donttest{

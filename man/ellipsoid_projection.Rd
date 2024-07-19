@@ -33,7 +33,7 @@ ellipsoid_projection(
 \item{output}{The output distance: two possible values "suitability" or
 "mahalanobis". By default the function uses "suitability".}
 
-\item{plot}{Logical If TRUE a plot of the niche will be shown.}
+\item{plot}{Logical If \code{T} a plot of the niche will be shown.}
 
 \item{size}{The size of the points of the niche plot.}
 
@@ -55,7 +55,7 @@ Function to project an ellipsoid model using the shape matrix
 (covariance matrix) of the niche variables.
 }
 \examples{
-\dontrun{
+\donttest{
 library(tenm)
 data("abronia")
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")

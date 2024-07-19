@@ -88,10 +88,10 @@ test_that("correlation_finder, returns a list with non-correlated variables",{
                               threshold = 0.5,verbose = TRUE)
   cf4 <-   correlation_finder(environmental_data = dfp,method = "pearson",
                               threshold = 0.5,verbose = TRUE)
-  expect_equal(class(cf1), "list")
-  expect_equal(class(cf2), "list")
-  testthat::expect_null(cf3)
-  testthat::expect_null(cf3)
+  testthat::expect_equal(class(cf1), "list")
+  testthat::expect_equal(class(cf2), "list")
+  testthat::expect_equal(class(cf3), "list")
+  testthat::expect_equal(class(cf4), "list")
 
 })
 

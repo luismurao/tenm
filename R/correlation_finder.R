@@ -1,14 +1,24 @@
-#' Function to find out strong correlations in a correlation matrix
-#' @description The function finds out which variables have strong
-#' correlations according to a correlation threshold.
-#' @param environmental_data A matrix or a data.frame of environmental data
-#' @param method A method to estimate correlation matrix. Possible options are
-#' "spearman", "pearson" or "kendall".
-#' @param threshold Correlation value used to filter variables.
-#' @param verbose Verbose output.
-#' @return Returns a list of two elements: the first is a vector with the names
-#' of not correlated variables; the second is a list with the correlation values
-#' of all variables.
+#' Function to find strong correlations within environmental predictors
+#' @description
+#' This function identifies variables with strong correlations based on a
+#' specified threshold.
+#' @param environmental_data A matrix or data.frame containing
+#' environmental data.
+#' @param method Method used to estimate the correlation matrix. Possible
+#' options include "spearman" (Spearman's rank correlation),
+#' "pearson" (Pearson's correlation),
+#' or "kendall" (Kendall's tau correlation).
+#' @param threshold Correlation threshold value. Variables with absolute
+#' correlation values greater than or equal to this threshold are considered
+#' strongly correlated.
+#' @param verbose Logical. If \code{T}, prints verbose output detailing
+#' correlations.
+#' @return A list with two elements:
+#'   - `not_correlated_vars`: A vector containing names of variables that are
+#'      not strongly correlated.
+#'   - `correlation_values`: A list with correlation values for all pairs of
+#'      variables.
+
 #' @export
 #' @examples
 #' \donttest{
@@ -92,7 +102,6 @@ correlation_finder <- function(environmental_data,method="spearman",threshold,
         print(list_cor[[i]])
         cat('----------------------------------------------------------------\n\n')
       }
-      return()
     }
     return(list(descriptors=descriptors,list_cor=list_cor))
   }

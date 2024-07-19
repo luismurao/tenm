@@ -2,7 +2,7 @@
 % Please edit documentation in R/correlation_finder.R
 \name{correlation_finder}
 \alias{correlation_finder}
-\title{Function to find out strong correlations in a correlation matrix}
+\title{Function to find strong correlations within environmental predictors}
 \usage{
 correlation_finder(
   environmental_data,
@@ -12,23 +12,33 @@ correlation_finder(
 )
 }
 \arguments{
-\item{environmental_data}{A matrix or a data.frame of environmental data}
+\item{environmental_data}{A matrix or data.frame containing
+environmental data.}
 
-\item{method}{A method to estimate correlation matrix. Possible options are
-"spearman", "pearson" or "kendall".}
+\item{method}{Method used to estimate the correlation matrix. Possible
+options include "spearman" (Spearman's rank correlation),
+"pearson" (Pearson's correlation),
+or "kendall" (Kendall's tau correlation).}
 
-\item{threshold}{Correlation value used to filter variables.}
+\item{threshold}{Correlation threshold value. Variables with absolute
+correlation values greater than or equal to this threshold are considered
+strongly correlated.}
 
-\item{verbose}{Verbose output.}
+\item{verbose}{Logical. If \code{T}, prints verbose output detailing
+correlations.}
 }
 \value{
-Returns a list of two elements: the first is a vector with the names
-of not correlated variables; the second is a list with the correlation values
-of all variables.
+A list with two elements:
+\itemize{
+\item \code{not_correlated_vars}: A vector containing names of variables that are
+not strongly correlated.
+\item \code{correlation_values}: A list with correlation values for all pairs of
+variables.
+}
 }
 \description{
-The function finds out which variables have strong
-correlations according to a correlation threshold.
+This function identifies variables with strong correlations based on a
+specified threshold.
 }
 \examples{
 \donttest{

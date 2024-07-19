@@ -10,13 +10,13 @@
 #' @param ylab Character vector with the name of the y-axis label.
 #' @param zlab Character vector with the name of the z-axis label
 #' (if plotting in 3D).
-#' @param mve Logical. If TRUE, fits a minimum volume ellipsoid model.
+#' @param mve Logical. If \code{T}, fits a minimum volume ellipsoid model.
 #' @param level Numeric value indicating the proportion of points to be
 #' included inside the ellipsoid model.
-#' @param semiaxes Logical. Show semi-axes of the ellipsoid.
+#' @param semiaxes Logical. If \code{T}, shows semi-axes of the ellipsoid.
 #' @param lwd_axes Line width for ellipsoid semi-axes.
 #' @param lty_axes Line type for ellipsoid semi-axes.
-#' @param add Logical. If TRUE, add plot to existing plot (for 2D plots only).
+#' @param add Logical. If \code{T}, add plot to existing plot (for 2D plots only).
 #' @param ... Additional arguments to pass to base::plot,
 #' rgl::plot3d, rgl::wire3d, or other plotting functions
 #' @return A 2-dimensional or 3-dimensional plot depending on the input

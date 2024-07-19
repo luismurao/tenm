@@ -1,23 +1,25 @@
 
-#' Function to compute the covariance matrix that defines an ellipsoid
-#' niche model.
-#' @description Function to compute the covariance matrix, the niche centroid
-#' and volume of an ellipsoid model. It uses the values of the niche variables
-#' of the occurrences points.
-#' @param data A data.frame or a matrix with the numeric values of the variables
-#' that will be used to model the niche.
-#' @param mve A logical value. If TRUE a minimum volume ellipsoid will be
-#' computed using
-#' the function \code{\link[MASS]{cov.mve}} of the \pkg{MASS} package. If FALSE
-#' the covariance matrix of the input data will be used.
-#' @param level A numerical value specifying the proportion of the data to be
-#' used to compute the ellipsoid.
-#' @param vars A numeric or a string vector specifying the columns indexes/names
-#' of the variables of the input data which will be used to fit the ellipsoid
-#' model.
-#' @return Returns a list containing the centroid of the ellipsoid, the
-#' covariance matrix based on the input data, ellipsoid volume, semi-axis length
-#'  and axis coordinates.
+#' Function to compute the covariance matrix of an ellipsoid niche model.
+#' @description
+#' Computes the covariance matrix, niche centroid, volume, and other
+#' ellipsoid parameter based on the values of niche variables from
+#' occurrence points.
+#' @param data A data.frame or matrix containing numeric values of variables
+#'   used to model the niche.
+#' @param mve Logical. If \code{T}, computes a minimum volume ellipsoid using
+#'   the \code{\link[MASS]{cov.mve}} function from the MASS package. If \code{F},
+#'   uses the covariance matrix of the input data.
+#' @param level Proportion of data to be used for computing the ellipsoid,
+#'   applicable when mve is \code{T}.
+#' @param vars Vector specifying column indexes or names of variables in
+#' the input data used to fit the ellipsoid model.
+#' @return A list containing the following components:
+#'   - `centroid`: Centroid (mean vector) of the ellipsoid.
+#'   - `covariance_matrix`: Covariance matrix based on the input data.
+#'   - `volume`: Volume of the ellipsoid.
+#'   - `semi_axes_lengths`: Lengths of semi-axes of the ellipsoid.
+#'   - `axis_coordinates`: Coordinates of ellipsoid axes.
+
 #' @examples
 #' \donttest{
 #' library(tenm)

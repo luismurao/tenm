@@ -1,23 +1,33 @@
 
-#' Predict the potential distribution of \pkg{tenm} based on specific time periods
-#' of environmental conditions or averages.
+#' Predict the potential distribution of species based on environmental
+#' conditions
 #' @importFrom methods new
 #' @docType methods
 #' @param object An object of class sp.temporal.selection
-#' @param model_variables A vector with variable names
+#' @param model_variables A character vector specifying the variable names used
+#' to buid the model.
 #' @param layers A SpatRaster object or a list where each element is a
 #' SpatRaster.
-#' @param layers_path Path to layers
-#' @param layers_ext Layers extension
-#' @param mve If the projection will use the minimum volume ellipsoid algorithm
-#' @param level Proportion of data used to fit the minimum volume ellipsoid
-#' @param output A character to indicate if model uses suitability values
-#' or Mahalanobis distances. Possible values are "suitability" and "mahalanobis"
+#' @param layers_path Path to the directory containing raster layers.
+#' @param layers_ext File extension of the raster layers.
+#' @param mve Logical indicating whether to use the minimum volume
+#' ellipsoid algorithm.
+#' @param level Proportion of data to include inside the ellipsoid
+#' if mve is \code{T}.
+#' @param output Character indicating if the model outputs "suitability" values
+#'  or "mahalanobis" distances.
 #' @param ... Additional parameters passed to
-#' \code{\link[tenm]{ellipsoid_projection}}
-#' @return Returns a SpatRaster of suitability values or Mahalanobis distances
-#' to niche center.
-#' @details Note that each SpatRaster in the 'layers' parameter should have the
+#' \code{\link[tenm]{ellipsoid_projection}}.
+#' @return A SpatRaster object representing predicted suitability values or
+#' Mahalanobis distances to niche center.
+#' @details
+#' This function predicts the potential distribution of a species based on
+#' environmental conditions represented by raster layers. The prediction is
+#' based on the model statistics and environmental variables specified in
+#' 'model_variables'. If 'mve' is \code{T}, the minimum volume ellipsoid algorithm
+#' is used to model the niche space. The output can be either "suitability",
+#' or "mahalanobis", indicating distance to the niche center.
+#' Note that each SpatRaster in the 'layers' parameter should have the
 #' same number of elements (layers) as 'model_variables'. The predict method
 #' assumes that variables in each SpatRaster correspond to those in
 #' 'model_variables'. If layers in the 'layers' parameter are given as a

@@ -15,7 +15,7 @@ clean_dup(
 )
 }
 \arguments{
-\item{data}{A data.frame with longitude and latitude of occurrence records}
+\item{data}{A data.frame with longitude and latitude of occurrence records.}
 
 \item{longitude}{A character vector indicating the column name of the
 "longitude" variable.}
@@ -23,31 +23,39 @@ clean_dup(
 \item{latitude}{A character vector indicating the column name of the
 "latitude" variable.}
 
-\item{threshold}{A numeric value representing the euclidean distance between
-coordinates to be considered as a duplicate.}
+\item{threshold}{A numeric value representing the distance threshold between
+coordinates to be considered duplicates. Units depend on whether
+\code{by_mask} is \code{T} or \code{F}. If \code{T}, the user needs to specify the number
+of pixels that define the neighborhood of duplicates (see n_ngbs parameter).}
 
-\item{by_mask}{Logical. If TRUE data thinning will be done
-using a raster layer as a mask.}
+\item{by_mask}{Logical. If \code{T}, the thinning process will use a raster layer
+as a mask for defining distance in pixel units.}
 
-\item{raster_mask}{An object of class SpatRaster that will be used a
-reference to identify duplicates.}
+\item{raster_mask}{An object of class SpatRaster that serves as a reference
+to thin the occurrence data. Required if \code{by_mask} is \code{T}.}
 
 \item{n_ngbs}{Number of pixels used to define the neighborhood matrix that
-helps to determine which occurrences are duplicates.
+helps determine which occurrences are duplicates:
 \itemize{
-\item A value of 0 removes occurrences within the same pixel, keeping one.
-\item A value of 1 considers as duplicates all occurrences within a
-distance of one pixel.
+\item 0 removes occurrences within the same pixel, keeping one.
+\item 1 considers duplicates all occurrences within a distance of one pixel.
+\item n considers duplicates all occurrences within a distance of n pixels.
 }}
 }
 \value{
-Returns a data.frame with coordinate data from a species
+Returns a data.frame with cleaned occurrence records, excluding
+duplicates based on the specified criteria.
 }
 \description{
-Thin duplicated or redundant occurrence records that
-present overlapping longitude and latitude coordinates. The user can thin
-occurrences using a geographical distance threshold or by a pixel
-neighborhood.
+Cleans up duplicated or redundant occurrence records that present overlapping
+longitude and latitude coordinates. Thinning can be performed using either a
+geographical distance threshold or a pixel neighborhood approach.
+}
+\details{
+This function cleans up duplicated occurrences based on the specified
+distance threshold. If \code{by_mask} is \code{T}, the distance is interpreted as
+pixel distance using the provided raster_mask; otherwise, it is interpreted
+as geographic distance.
 }
 \examples{
 data(abronia)

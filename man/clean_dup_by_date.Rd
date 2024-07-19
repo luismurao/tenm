@@ -2,7 +2,10 @@
 % Please edit documentation in R/clean_dup_by_date.R
 \name{clean_dup_by_date}
 \alias{clean_dup_by_date}
-\title{Function to thin occurrence data}
+\title{Function to thin occurrence data
+Cleans up duplicated longitude and latitude data by year using a specified
+distance threshold. The distance can be specified as a geographic distance
+or, if a raster_mask is provided, as a pixel distance.}
 \usage{
 clean_dup_by_date(
   this_species,
@@ -13,39 +16,45 @@ clean_dup_by_date(
 )
 }
 \arguments{
-\item{this_species}{Species Temporal Data object
-see \code{\link[tenm]{sp_temporal_data}}.}
+\item{this_species}{An object of class sp.temporal.modeling representing
+species occurrence data organized by date.
+See \code{\link[tenm]{sp_temporal_data}}.}
 
-\item{threshold}{A numeric value representing the distance
-between coordinates to be considered as a duplicate.}
+\item{threshold}{A numeric value representing the distance threshold between
+coordinates to be considered duplicates. Units depend on whether
+\code{by_mask} is \code{T} or \code{F}. If \code{T}, the user needs to specify the number
+of pixels that define the neighborhood of duplicates (see n_ngbs parameter).}
 
-\item{by_mask}{Logical. If TRUE the thinning process will be done
-using a raster layer as a mask.}
+\item{by_mask}{Logical. If \code{T}, the thinning process will use a raster layer
+as a mask for defining distance in pixel units.}
 
-\item{raster_mask}{An object of class SpatRaster that will be used as
-reference to thin the data.}
+\item{raster_mask}{An object of class SpatRaster that serves as a reference
+to thin the occurrence data. Required if \code{by_mask} is \code{T}.}
 
 \item{n_ngbs}{Number of pixels used to define the neighborhood matrix that
-helps to determine which occurrences are duplicates.
+helps determine which occurrences are duplicates:
 \itemize{
-\item A value of 0 removes occurrences within the same pixel, keeping one.
-\item A value of 1 considers as duplicates all occurrences within a
-distance of one pixel.
+\item 0 removes occurrences within the same pixel, keeping one.
+\item 1 considers duplicates all occurrences within a distance of one pixel.
+\item n considers duplicates all occurrences within a distance of n pixels.
 }}
 }
 \value{
-A sp.temporal.modeling object that contains a temporal data.frame.
-This table has five columns: longitude, latitude, date variable,
-layers_dates and layers_path.
+An object of class sp.temporal.modeling containing a temporal
+data.frame with cleaned occurrence data, including columns for
+longitude, latitude, date variable, layers_dates, and layers_path.
 }
 \description{
-Cleans up duplicated longitude and latitude data by year using a
-specified distance threshold. The distance can be specified as a geographic
-distance or, if a raster_mask is provided, as a pixel distance.
+Function to thin occurrence data
+Cleans up duplicated longitude and latitude data by year using a specified
+distance threshold. The distance can be specified as a geographic distance
+or, if a raster_mask is provided, as a pixel distance.
 }
 \details{
-This function is build on the basis of
-\code{\link[tenm]{clean_dup}}. See the help of the function for more examples
+This function is based on \code{\link[tenm]{clean_dup}}. It cleans up
+duplicated occurrences based on the specified threshold. If \code{by_mask}
+is \code{T}, the distance is interpreted as pixel distance using the provided
+raster_mask; otherwise, it is interpreted as geographic distance.
 }
 \examples{
 library(tenm)
