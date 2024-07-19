@@ -49,7 +49,7 @@ the calibration area.}
 the selection process. Default is NULL (see details).}
 
 \item{parallel}{Logical. If \code{T}, computations will run in parallel.
-Default is FALSE.}
+Default is \code{F}.}
 
 \item{ncores}{Number of cores to use for parallel processing. Default uses
 all available cores minus one.}

@@ -33,10 +33,7 @@
 #'   - "pval_proc": p-value of the partial ROC test.
 #'   - "env_bg_paucratio": Environmental partial AUC ratio value.
 #'   - "env_bg_auc": Environmental AUC value.
-#'   - "mean_omr_train_test": Mean value of omission rates (train and test).
-#'   - "rank_by_omr_train_test": Rank value of importance in model selection
-#'     by omission rate.
-#'   - "rank_omr_aucratio": Rank value by AUC ratio.
+
 #' @examples
 #' \donttest{
 #' library(tenm)

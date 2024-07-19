@@ -12,7 +12,7 @@ calibration and selection protocol for ellipsoid models."><meta property="og:ima
     
     <a class="navbar-brand me-2" href="../index.html">tenm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,11 +101,11 @@ See <code><a href="ellipsoid_selection.html">ellipsoid_selection</a></code> for 
 
 
 <dt id="arg-mve">mve<a class="anchor" aria-label="anchor" href="#arg-mve"></a></dt>
-<dd><p>Logical. If TRUE, a minimum volume ellipsoid will be computed.</p></dd>
+<dd><p>Logical. If <code>T</code>, a minimum volume ellipsoid will be computed.</p></dd>
 
 
 <dt id="arg-proc">proc<a class="anchor" aria-label="anchor" href="#arg-proc"></a></dt>
-<dd><p>Logical. If TRUE, compute the partial ROC test for each model.</p></dd>
+<dd><p>Logical. If <code>T</code>, compute the partial ROC test for each model.</p></dd>
 
 
 <dt id="arg-sub-sample">sub_sample<a class="anchor" aria-label="anchor" href="#arg-sub-sample"></a></dt>
@@ -115,7 +115,7 @@ sub_sample_size for computing pROC values, recommended for large datasets.</p></
 
 <dt id="arg-sub-sample-size">sub_sample_size<a class="anchor" aria-label="anchor" href="#arg-sub-sample-size"></a></dt>
 <dd><p>Size of the sub_sample to use for
-computing pROC values when sub_sample is TRUE.</p></dd>
+computing pROC values when sub_sample is <code>T</code>.</p></dd>
 
 
 <dt id="arg-randompercent">RandomPercent<a class="anchor" aria-label="anchor" href="#arg-randompercent"></a></dt>
@@ -130,7 +130,7 @@ Partial ROC test. See <code><a href="pROC.html">pROC</a></code>.</p></dd>
 
 <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
 <dd><p>Logical. Whether to run computations in parallel.
-Default is TRUE.</p></dd>
+Default is <code>T</code>.</p></dd>
 
 
 <dt id="arg-n-cores">n_cores<a class="anchor" aria-label="anchor" href="#arg-n-cores"></a></dt>
@@ -248,8 +248,8 @@ information from these classes can be extracted from this object.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 82 models passed omr_criteria for train data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 17 models passed omr_criteria for test data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 17 models passed omr_criteria for train and test data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 18 models passed omr_criteria for test data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 18 models passed omr_criteria for train and test data</span>
 <span class="r-in"><span><span class="co"># Project potential distribution using bioclimatic layers for 1970-2000</span></span></span>
 <span class="r-in"><span><span class="co"># period.</span></span></span>
 <span class="r-in"><span><span class="va">layers_70_00_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/bio_1970_2000"</span>,package <span class="op">=</span> <span class="st">"tenm"</span><span class="op">)</span></span></span>

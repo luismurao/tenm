@@ -1,3 +1,7 @@
+# tenm 0.5.1
+
+* Improvements to documentation
+
 # tenm 0.5.0
 
 * Initial CRAN submission.

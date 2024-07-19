@@ -24,7 +24,7 @@
 #' of the model, should be a sample of the environmental layers of
 #' the calibration area.
 #' @param parallel Logical. If \code{T}, computations will run in parallel.
-#' Default is FALSE.
+#' Default is \code{F}.
 #' @param ncores Number of cores to use for parallel processing. Default uses
 #' all available cores minus one.
 #' @param proc Logical. If \code{T}, a partial ROC test will be run.

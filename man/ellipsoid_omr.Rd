@@ -56,10 +56,6 @@ A data.frame with the following columns:
 \item "pval_proc": p-value of the partial ROC test.
 \item "env_bg_paucratio": Environmental partial AUC ratio value.
 \item "env_bg_auc": Environmental AUC value.
-\item "mean_omr_train_test": Mean value of omission rates (train and test).
-\item "rank_by_omr_train_test": Rank value of importance in model selection
-by omission rate.
-\item "rank_omr_aucratio": Rank value by AUC ratio.
 }
 }
 \description{
