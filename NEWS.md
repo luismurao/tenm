@@ -29,7 +29,7 @@
     This function allows users to use other modeling algorithms such 
     as MaxEnt and GLMs.
   - Time-specific model calibration: calibrate time-specific niche models 
-    using minimum volume ellipsoids. Itfits numerous models based on a 
+    using minimum volume ellipsoids. It fits numerous models based on a 
     combination of user-set parameters, including different combinations of
     environmental variables.
   - Time-specific model selection: select n models from all the fitted 

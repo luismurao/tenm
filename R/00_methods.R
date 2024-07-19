@@ -5,7 +5,7 @@
 #' @docType methods
 #' @param object An object of class sp.temporal.selection
 #' @param model_variables A character vector specifying the variable names used
-#' to buid the model.
+#' to build the model.
 #' @param layers A SpatRaster object or a list where each element is a
 #' SpatRaster.
 #' @param layers_path Path to the directory containing raster layers.

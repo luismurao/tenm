@@ -144,7 +144,7 @@ tidyr::as_tibble(ab_by_mask)
 #> 16 Abronia graminea            -97.3            19.0  1983 https://doi.org/10.1…
 ```
 
-We recovered 6 records, not bad! On the other hand, we didn not account
+We recovered 6 records, not bad! On the other hand, we did not account
 for the fact that some occurrences come from different years. The `tenm`
 package is designed to deal with occurrences coming from different
 periods as long as the user has environmental layers matching the years

@@ -9,7 +9,7 @@
 #' training and 30% for testing.
 #' @importFrom future plan tweak sequential
 #' @return An object of class sp.temporal.env that consists in a list of five
-#' elmentes:
+#' elements:
 #' 1) "temporal_df": a temporal data.frame (temporal_df) with the following
 #'    columns: latitude, longitude, year, layer_dates, layers_path,
 #'    cell_ids_year, and environmental data.

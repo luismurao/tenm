@@ -23,7 +23,7 @@ conditions}
 \item{object}{An object of class sp.temporal.selection}
 
 \item{model_variables}{A character vector specifying the variable names used
-to buid the model.}
+to build the model.}
 
 \item{layers}{A SpatRaster object or a list where each element is a
 SpatRaster.}

@@ -16,7 +16,7 @@ training and 30\% for testing.}
 }
 \value{
 An object of class sp.temporal.env that consists in a list of five
-elmentes:
+elements:
 \enumerate{
 \item "temporal_df": a temporal data.frame (temporal_df) with the following
 columns: latitude, longitude, year, layer_dates, layers_path,
