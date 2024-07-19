@@ -11,7 +11,7 @@ ROC and binomial tests and c) the AUC value."><meta property="og:image" content=
 
     <a class="navbar-brand me-2" href="../index.html">tenm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,8 +96,8 @@ equivalent to the error (E) proposed by Peterson et al. (2008).</p></dd>
 
 
 <dt id="arg-mve">mve<a class="anchor" aria-label="anchor" href="#arg-mve"></a></dt>
-<dd><p>Logical. If TRUE, a minimum volume ellipsoid will be computed.
-using <code><a href="https://rdrr.io/pkg/MASS/man/cov.rob.html" class="external-link">cov.rob</a></code> from <span class="pkg">MASS</span>. If FALSE, the covariance
+<dd><p>Logical. If <code>T</code>, a minimum volume ellipsoid will be computed.
+using <code><a href="https://rdrr.io/pkg/MASS/man/cov.rob.html" class="external-link">cov.rob</a></code> from <span class="pkg">MASS</span>. If <code>F</code>, the covariance
 matrix of the input data will be used.</p></dd>
 
 
@@ -113,7 +113,7 @@ the selection process. Default is NULL (see details).</p></dd>
 
 
 <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
-<dd><p>Logical. If TRUE, computations will run in parallel.
+<dd><p>Logical. If <code>T</code>, computations will run in parallel.
 Default is FALSE.</p></dd>
 
 
@@ -128,7 +128,7 @@ Default is 100.</p></dd>
 
 
 <dt id="arg-proc">proc<a class="anchor" aria-label="anchor" href="#arg-proc"></a></dt>
-<dd><p>Logical. If TRUE, a partial ROC test will be run.</p></dd>
+<dd><p>Logical. If <code>T</code>, a partial ROC test will be run.</p></dd>
 
 
 <dt id="arg-proc-iter">proc_iter<a class="anchor" aria-label="anchor" href="#arg-proc-iter"></a></dt>
@@ -136,13 +136,13 @@ Default is 100.</p></dd>
 
 
 <dt id="arg-rseed">rseed<a class="anchor" aria-label="anchor" href="#arg-rseed"></a></dt>
-<dd><p>Logical. If TRUE, set a random seed for partial ROC bootstrap.
-Default is TRUE.</p></dd>
+<dd><p>Logical. If <code>T</code>, set a random seed for partial ROC bootstrap.
+Default is <code>T</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data.frame with 5 columns:</p><ul><li><p>"fitted_vars": Names of variables that were fitted.</p></li>
+    <p>A data.frame with the following columns:</p><ul><li><p>"fitted_vars": Names of variables that were fitted.</p></li>
 <li><p>"nvars": Number of fitted variables</p></li>
 <li><p>"om_rate_train": Omission rate of the training data.</p></li>
 <li><p>"non_pred_train_ids": Row IDs of non-predicted training data.</p></li>
@@ -240,19 +240,19 @@ Modell. 213, 63–72. <a href="https://doi.org/10.1016/j.ecolmodel.2007.11.008" 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 bio_01,bio_07,bio_12     3       0.06250              18,31            0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 bio_04,bio_07,bio_12     3       0.06250              21,28            0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   non_pred_test_ids bg_prevalence pval_bin pval_proc env_bg_paucratio</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                       0.4661502        0         0         1.476077</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       0.4692861        0         0         1.453305</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                       0.4809998        0         0         1.439724</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                       0.4851503        0         0         1.398230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                       0.4973252        0         0         1.386418</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                       0.7312304        0         0         1.325186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                       0.4661502        0         0         1.490142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       0.4692861        0         0         1.447998</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                       0.4809998        0         0         1.445395</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                       0.4851503        0         0         1.387971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                       0.4973252        0         0         1.381564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                       0.7312304        0         0         1.326297</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   env_bg_auc mean_omr_train_test rank_by_omr_train_test rank_omr_aucratio</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.7891250            0.031250                      1                 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.7574138            0.031250                      2                 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.7502087            0.046875                      6                 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.6889550            0.031250                      3                 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.7182150            0.031250                      4                 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.6926312            0.031250                      5                 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.8036213            0.031250                      1                 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.7617325            0.031250                      2                 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.7636137            0.046875                      6                 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.6886475            0.031250                      3                 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.7197813            0.031250                      4                 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.6970550            0.031250                      5                 6</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
