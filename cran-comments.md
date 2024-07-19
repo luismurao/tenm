@@ -1,9 +1,14 @@
 ## Resubmission
 
-This is a resubmission. In this version I have done what the reviewer asked for:
+This resubmission incorporates the following revisions based on the reviewer's feedback:
 
-* I have utilized single quotes in the package name.
-* I have rectified the citation formatting in the description file. 
+* I have utilized single quotes for the package name in the description file.
+* Corrected the citation formatting in the description file. 
+* Replaced \dontrun with \donttest.
+* I fixed all documentation issues.
+* I made sure not to change user's options, par or working directory.
+
+Additionally, significant enhancements have been made to the package documentation.
 
 ## R CMD check results
 
