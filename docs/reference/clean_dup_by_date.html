@@ -85,18 +85,19 @@ See <code><a href="sp_temporal_data.html">sp_temporal_data</a></code>.</p></dd>
 <dt id="arg-threshold">threshold<a class="anchor" aria-label="anchor" href="#arg-threshold"></a></dt>
 <dd><p>A numeric value representing the distance threshold between
 coordinates to be considered duplicates. Units depend on whether
-<code>by_mask</code> is <code>T</code> or <code>F</code>. If <code>T</code>, the user needs to specify the number
-of pixels that define the neighborhood of duplicates (see n_ngbs parameter).</p></dd>
+<code>by_mask</code> is <code>TRUE</code> or <code>FALSE</code>. If <code>TRUE</code>, the user needs
+to specify the number of pixels that define the neighborhood of duplicates
+(see n_ngbs parameter).</p></dd>
 
 
 <dt id="arg-by-mask">by_mask<a class="anchor" aria-label="anchor" href="#arg-by-mask"></a></dt>
-<dd><p>Logical. If <code>T</code>, the thinning process will use a raster layer
-as a mask for defining distance in pixel units.</p></dd>
+<dd><p>Logical. If <code>TRUE</code>, the thinning process will use a
+raster layer as a mask for defining distance in pixel units.</p></dd>
 
 
 <dt id="arg-raster-mask">raster_mask<a class="anchor" aria-label="anchor" href="#arg-raster-mask"></a></dt>
 <dd><p>An object of class SpatRaster that serves as a reference
-to thin the occurrence data. Required if <code>by_mask</code> is <code>T</code>.</p></dd>
+to thin the occurrence data. Required if <code>by_mask</code> is <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-n-ngbs">n_ngbs<a class="anchor" aria-label="anchor" href="#arg-n-ngbs"></a></dt>
@@ -119,7 +120,7 @@ longitude, latitude, date variable, layers_dates, and layers_path.</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function is based on <code><a href="clean_dup.html">clean_dup</a></code>. It cleans up
 duplicated occurrences based on the specified threshold. If <code>by_mask</code>
-is <code>T</code>, the distance is interpreted as pixel distance using the provided
+is <code>TRUE</code>, the distance is interpreted as pixel distance using the provided
 raster_mask; otherwise, it is interpreted as geographic distance.</p>
     </div>
 
