@@ -9,8 +9,8 @@
 #'   See \code{\link[tenm]{ellipsoid_selection}} for details
 #' @param ellipsoid_level Proportion of points to include inside the ellipsoid.
 #' @param nvars_to_fit Number of variables used to build the models.
-#' @param mve Logical. If \code{T}, a minimum volume ellipsoid will be computed.
-#' @param proc Logical. If \code{T}, compute the partial ROC test for each model.
+#' @param mve Logical. If \code{TRUE}, a minimum volume ellipsoid will be computed.
+#' @param proc Logical. If \code{TRUE}, compute the partial ROC test for each model.
 #' @param RandomPercent Percentage of occurrence points to sample randomly for
 #'   bootstrap in the Partial ROC test. See \code{\link[tenm]{pROC}}.
 #' @param NoOfIteration Number of iterations for the bootstrap in the
@@ -18,9 +18,9 @@
 #' @param sub_sample Logical. Indicates whether to use a subsample of size
 #' sub_sample_size for computing pROC values, recommended for large datasets.
 #' @param sub_sample_size Size of the sub_sample to use for
-#' computing pROC values when sub_sample is \code{T}.
+#' computing pROC values when sub_sample is \code{TRUE}.
 #' @param parallel Logical. Whether to run computations in parallel.
-#' Default is \code{T}.
+#' Default is \code{TRUE}.
 #' @param n_cores Number of cores to use for parallelization. Default is 4.
 #' @return An object of class "sp.temporal.selection" containing metadata of
 #' model statistics of the calibrated models, obtainable from the "mods_table"

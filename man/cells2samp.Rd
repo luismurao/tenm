@@ -40,7 +40,7 @@ It process neighbor cells by a quantity specified by the user.}
 
 \item{n_bg}{Number of background pixels to sample.}
 
-\item{progress}{Logical. If \code{T}, show computation progress.}
+\item{progress}{Logical. If \code{TRUE}, show computation progress.}
 }
 \value{
 A numeric vector of cell IDs to be sampled for environmental

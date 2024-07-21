@@ -17,7 +17,7 @@
 #' @param process_ngbs_by Numeric parameter to improve memory management.
 #' It process neighbor cells by a quantity specified by the user.
 #' @param n_bg Number of background pixels to sample.
-#' @param progress Logical. If \code{T}, show computation progress.
+#' @param progress Logical. If \code{TRUE}, show computation progress.
 #' @return A numeric vector of cell IDs to be sampled for environmental
 #' background data.
 #' @examples

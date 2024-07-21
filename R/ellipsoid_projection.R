@@ -9,7 +9,7 @@
 #' @param level The proportion of points  to be included inside the ellipsoid
 #' @param output The output distance: two possible values "suitability" or
 #' "mahalanobis". By default the function uses "suitability".
-#' @param plot Logical If \code{T} a plot of the niche will be shown.
+#' @param plot Logical If \code{TRUE} a plot of the niche will be shown.
 #' @param size The size of the points of the niche plot.
 #' @param xlab1 For x label for 2-dimensional histogram
 #' @param ylab1 For y label for 2-dimensional histogram
@@ -56,7 +56,7 @@
 #' }
 #'
 ellipsoid_projection <- function(envlayers,centroid,covar,level=0.95,
-                                 output="suitability",plot=T,size,
+                                 output="suitability",plot=TRUE,size,
                                  xlab1="niche var 1",ylab1= "niche var 2",
                                  zlab1="S", alpha=0.1,...){
 

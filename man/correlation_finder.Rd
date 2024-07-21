@@ -24,7 +24,7 @@ or "kendall" (Kendall's tau correlation).}
 correlation values greater than or equal to this threshold are considered
 strongly correlated.}
 
-\item{verbose}{Logical. If \code{T}, prints verbose output detailing
+\item{verbose}{Logical. If \code{TRUE}, prints verbose output detailing
 correlations.}
 }
 \value{

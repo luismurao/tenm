@@ -10,7 +10,7 @@ ellipsoid_projection(
   covar,
   level = 0.95,
   output = "suitability",
-  plot = T,
+  plot = TRUE,
   size,
   xlab1 = "niche var 1",
   ylab1 = "niche var 2",
@@ -33,7 +33,7 @@ ellipsoid_projection(
 \item{output}{The output distance: two possible values "suitability" or
 "mahalanobis". By default the function uses "suitability".}
 
-\item{plot}{Logical If \code{T} a plot of the niche will be shown.}
+\item{plot}{Logical If \code{TRUE} a plot of the niche will be shown.}
 
 \item{size}{The size of the points of the niche plot.}
 

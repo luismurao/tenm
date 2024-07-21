@@ -11,7 +11,7 @@
 #' @param threshold Correlation threshold value. Variables with absolute
 #' correlation values greater than or equal to this threshold are considered
 #' strongly correlated.
-#' @param verbose Logical. If \code{T}, prints verbose output detailing
+#' @param verbose Logical. If \code{TRUE}, prints verbose output detailing
 #' correlations.
 #' @return A list with two elements:
 #'   - `not_correlated_vars`: A vector containing names of variables that are

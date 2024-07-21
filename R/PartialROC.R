@@ -18,11 +18,11 @@
 #' @param n_iter Number of bootstrap iterations to perform for partial ROC
 #' calculations. Default is 1000.
 #' @param rseed Logical. Whether or not to set a random seed for
-#' reproducibility. Default is \code{F}.
+#' reproducibility. Default is \code{FALSE}.
 #' @param sub_sample Logical. Indicates whether to use a subsample of
 #'  the test data. Recommended for large datasets.
 #' @param sub_sample_size Size of the subsample to use for computing pROC
-#' values when sub_sample is \code{T}.
+#' values when sub_sample is \code{TRUE}.
 #' @return A list of two elements:
 #' - "pROC_summary": a data.frame containing the mean
 #'   AUC value, AUC ratio calculated for each iteration and the p-value of the

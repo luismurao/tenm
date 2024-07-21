@@ -22,14 +22,15 @@ See \code{\link[tenm]{sp_temporal_data}}.}
 
 \item{threshold}{A numeric value representing the distance threshold between
 coordinates to be considered duplicates. Units depend on whether
-\code{by_mask} is \code{T} or \code{F}. If \code{T}, the user needs to specify the number
-of pixels that define the neighborhood of duplicates (see n_ngbs parameter).}
+\code{by_mask} is \code{TRUE} or \code{FALSE}. If \code{TRUE}, the user needs
+to specify the number of pixels that define the neighborhood of duplicates
+(see n_ngbs parameter).}
 
-\item{by_mask}{Logical. If \code{T}, the thinning process will use a raster layer
-as a mask for defining distance in pixel units.}
+\item{by_mask}{Logical. If \code{TRUE}, the thinning process will use a
+raster layer as a mask for defining distance in pixel units.}
 
 \item{raster_mask}{An object of class SpatRaster that serves as a reference
-to thin the occurrence data. Required if \code{by_mask} is \code{T}.}
+to thin the occurrence data. Required if \code{by_mask} is \code{TRUE}.}
 
 \item{n_ngbs}{Number of pixels used to define the neighborhood matrix that
 helps determine which occurrences are duplicates:
@@ -53,7 +54,7 @@ or, if a raster_mask is provided, as a pixel distance.
 \details{
 This function is based on \code{\link[tenm]{clean_dup}}. It cleans up
 duplicated occurrences based on the specified threshold. If \code{by_mask}
-is \code{T}, the distance is interpreted as pixel distance using the provided
+is \code{TRUE}, the distance is interpreted as pixel distance using the provided
 raster_mask; otherwise, it is interpreted as geographic distance.
 }
 \examples{

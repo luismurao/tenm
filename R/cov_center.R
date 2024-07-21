@@ -6,11 +6,11 @@
 #' occurrence points.
 #' @param data A data.frame or matrix containing numeric values of variables
 #'   used to model the niche.
-#' @param mve Logical. If \code{T}, computes a minimum volume ellipsoid using
-#'   the \code{\link[MASS]{cov.mve}} function from the MASS package. If \code{F},
-#'   uses the covariance matrix of the input data.
+#' @param mve Logical. If \code{TRUE}, computes a minimum volume ellipsoid using
+#'   the \code{\link[MASS]{cov.mve}} function from the MASS package. If
+#'   \code{FALSE}, uses the covariance matrix of the input data.
 #' @param level Proportion of data to be used for computing the ellipsoid,
-#'   applicable when mve is \code{T}.
+#'   applicable when mve is \code{TRUE}.
 #' @param vars Vector specifying column indexes or names of variables in
 #' the input data used to fit the ellipsoid model.
 #' @return A list containing the following components:

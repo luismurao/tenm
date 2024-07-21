@@ -13,14 +13,14 @@
 #' @param cf_level Proportion of points to be included in the ellipsoids.
 #'   Equivalent to the error (E) proposed by Peterson et al. (2008).
 #'   \doi{10.1016/j.ecolmodel.2007.11.008}.
-#' @param mve Logical. If \code{T}, computes a minimum volume ellipsoid using
-#'   \code{\link[MASS]{cov.rob}} from the MASS package. If \code{F}, uses the
-#'   covariance matrix of the input data.
-#' @param proc Logical. If \code{T}, performs a partial ROC test.
+#' @param mve Logical. If \code{TRUE}, computes a minimum volume ellipsoid using
+#'   \code{\link[MASS]{cov.rob}} from the MASS package. If \code{FALSE},
+#'   uses the covariance matrix of the input data.
+#' @param proc Logical. If \code{TRUE}, performs a partial ROC test.
 #' @param proc_iter Numeric. Total number of iterations for the partial ROC
 #'   bootstrap.
-#' @param rseed Logical. If \code{T}, sets a random seed for the partial
-#' ROC bootstrap. Default is \code{T}.
+#' @param rseed Logical. If \code{TRUE}, sets a random seed for the partial
+#' ROC bootstrap. Default is \code{TRUE}.
 #' @return A data.frame with the following columns:
 #'   - "fitted_vars": Names of variables that were fitted.
 #'   - "nvars": Number of fitted variables

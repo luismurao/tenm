@@ -36,7 +36,7 @@ SpatRaster.}
 ellipsoid algorithm.}
 
 \item{level}{Proportion of data to include inside the ellipsoid
-if mve is \code{T}.}
+if mve is \code{TRUE}.}
 
 \item{output}{Character indicating if the model outputs "suitability" values
 or "mahalanobis" distances.}
@@ -56,7 +56,7 @@ conditions
 This function predicts the potential distribution of a species based on
 environmental conditions represented by raster layers. The prediction is
 based on the model statistics and environmental variables specified in
-'model_variables'. If 'mve' is \code{T}, the minimum volume ellipsoid algorithm
+'model_variables'. If 'mve' is \code{TRUE}, the minimum volume ellipsoid algorithm
 is used to model the niche space. The output can be either "suitability",
 or "mahalanobis", indicating distance to the niche center.
 Note that each SpatRaster in the 'layers' parameter should have the

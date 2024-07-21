@@ -36,7 +36,7 @@ Defaults to NULL.}
 \item{zlab}{Character vector with the name of the z-axis label
 (if plotting in 3D).}
 
-\item{mve}{Logical. If \code{T}, fits a minimum volume ellipsoid model.}
+\item{mve}{Logical. If \code{TRUE}, fits a minimum volume ellipsoid model.}
 
 \item{level}{Numeric value indicating the proportion of points to be
 included inside the ellipsoid model.}
@@ -47,9 +47,9 @@ included inside the ellipsoid model.}
 
 \item{lty_axes}{Line type for ellipsoid semi-axes.}
 
-\item{semiaxes}{Logical. If \code{T}, shows semi-axes of the ellipsoid.}
+\item{semiaxes}{Logical. If \code{TRUE}, shows semi-axes of the ellipsoid.}
 
-\item{add}{Logical. If \code{T}, add plot to existing plot (for 2D plots only).}
+\item{add}{Logical. If \code{TRUE}, add plot to existing plot (for 2D plots only).}
 
 \item{...}{Additional arguments to pass to base::plot,
 rgl::plot3d, rgl::wire3d, or other plotting functions}

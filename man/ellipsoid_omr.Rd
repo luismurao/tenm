@@ -30,17 +30,17 @@ the approximated prevalence of the model.}
 Equivalent to the error (E) proposed by Peterson et al. (2008).
 \doi{10.1016/j.ecolmodel.2007.11.008}.}
 
-\item{mve}{Logical. If \code{T}, computes a minimum volume ellipsoid using
-\code{\link[MASS]{cov.rob}} from the MASS package. If \code{F}, uses the
-covariance matrix of the input data.}
+\item{mve}{Logical. If \code{TRUE}, computes a minimum volume ellipsoid using
+\code{\link[MASS]{cov.rob}} from the MASS package. If \code{FALSE},
+uses the covariance matrix of the input data.}
 
-\item{proc}{Logical. If \code{T}, performs a partial ROC test.}
+\item{proc}{Logical. If \code{TRUE}, performs a partial ROC test.}
 
 \item{proc_iter}{Numeric. Total number of iterations for the partial ROC
 bootstrap.}
 
-\item{rseed}{Logical. If \code{T}, sets a random seed for the partial
-ROC bootstrap. Default is \code{T}.}
+\item{rseed}{Logical. If \code{TRUE}, sets a random seed for the partial
+ROC bootstrap. Default is \code{TRUE}.}
 }
 \value{
 A data.frame with the following columns:
