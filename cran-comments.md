@@ -1,5 +1,9 @@
 ## Resubmission
 
+* TRUE and FALSE instead of T and F in function arguments.
+
+## Resubmission
+
 This resubmission incorporates the following revisions based on the reviewer's feedback:
 
 * I have utilized single quotes for the package name in the description file.
