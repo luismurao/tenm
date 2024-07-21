@@ -85,13 +85,13 @@ Equivalent to the error (E) proposed by Peterson et al. (2008).
 
 
 <dt id="arg-mve">mve<a class="anchor" aria-label="anchor" href="#arg-mve"></a></dt>
-<dd><p>Logical. If <code>T</code>, computes a minimum volume ellipsoid using
-<code><a href="https://rdrr.io/pkg/MASS/man/cov.rob.html" class="external-link">cov.rob</a></code> from the MASS package. If <code>F</code>, uses the
-covariance matrix of the input data.</p></dd>
+<dd><p>Logical. If <code>TRUE</code>, computes a minimum volume ellipsoid using
+<code><a href="https://rdrr.io/pkg/MASS/man/cov.rob.html" class="external-link">cov.rob</a></code> from the MASS package. If <code>FALSE</code>,
+uses the covariance matrix of the input data.</p></dd>
 
 
 <dt id="arg-proc">proc<a class="anchor" aria-label="anchor" href="#arg-proc"></a></dt>
-<dd><p>Logical. If <code>T</code>, performs a partial ROC test.</p></dd>
+<dd><p>Logical. If <code>TRUE</code>, performs a partial ROC test.</p></dd>
 
 
 <dt id="arg-proc-iter">proc_iter<a class="anchor" aria-label="anchor" href="#arg-proc-iter"></a></dt>
@@ -100,8 +100,8 @@ bootstrap.</p></dd>
 
 
 <dt id="arg-rseed">rseed<a class="anchor" aria-label="anchor" href="#arg-rseed"></a></dt>
-<dd><p>Logical. If <code>T</code>, sets a random seed for the partial
-ROC bootstrap. Default is <code>T</code>.</p></dd>
+<dd><p>Logical. If <code>TRUE</code>, sets a random seed for the partial
+ROC bootstrap. Default is <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

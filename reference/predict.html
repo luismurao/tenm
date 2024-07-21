@@ -92,7 +92,7 @@ ellipsoid algorithm.</p></dd>
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
 <dd><p>Proportion of data to include inside the ellipsoid
-if mve is <code>T</code>.</p></dd>
+if mve is <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-output">output<a class="anchor" aria-label="anchor" href="#arg-output"></a></dt>
@@ -115,7 +115,7 @@ Mahalanobis distances to niche center.</p>
     <p>This function predicts the potential distribution of a species based on
 environmental conditions represented by raster layers. The prediction is
 based on the model statistics and environmental variables specified in
-'model_variables'. If 'mve' is <code>T</code>, the minimum volume ellipsoid algorithm
+'model_variables'. If 'mve' is <code>TRUE</code>, the minimum volume ellipsoid algorithm
 is used to model the niche space. The output can be either "suitability",
 or "mahalanobis", indicating distance to the niche center.
 Note that each SpatRaster in the 'layers' parameter should have the
