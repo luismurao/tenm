@@ -22,6 +22,7 @@ set.seed(123)
 [![R-CMD-check](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/luismurao/tenm/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/luismurao/tenm/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/luismurao/bamm/actions/workflows/test-coverage.yaml)
 [![Codecov test coverage](https://codecov.io/gh/luismurao/tenm/branch/main/graph/badge.svg)](https://app.codecov.io/gh/luismurao/tenm?branch=main)
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/tenm)](https://github.com/r-hub/cranlogs.app)
 <!-- badges: end -->
 
 An R package with a set of functions to calibrate time-specific ecological 
