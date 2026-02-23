@@ -11,7 +11,9 @@ clean_dup(
   threshold = 0,
   by_mask = FALSE,
   raster_mask = NULL,
-  n_ngbs = 0
+  n_ngbs = 0,
+  process_ngbs_by = 100,
+  progress = TRUE
 )
 }
 \arguments{
@@ -41,6 +43,11 @@ helps determine which occurrences are duplicates:
 \item 1 considers duplicates all occurrences within a distance of one pixel.
 \item n considers duplicates all occurrences within a distance of n pixels.
 }}
+
+\item{process_ngbs_by}{Numeric parameter to improve memory management.
+It process neighbor cells by a quantity specified by the user.}
+
+\item{progress}{Logical. If \code{TRUE}, show computation progress.}
 }
 \value{
 Returns a data.frame with cleaned occurrence records, excluding

@@ -19,6 +19,10 @@
 #'   - 0 removes occurrences within the same pixel, keeping one.
 #'   - 1 considers duplicates all occurrences within a distance of one pixel.
 #'   - n considers duplicates all occurrences within a distance of n pixels.
+#' @param process_ngbs_by Numeric parameter to improve memory management.
+#' It process neighbor cells by a quantity specified by the user.
+#' @param progress Logical. If \code{TRUE}, show computation progress.
+#' @return Returns a data.frame with cleaned occurrence records, excluding
 #' @return An object of class sp.temporal.modeling containing a temporal
 #' data.frame with cleaned occurrence data, including columns for
 #'  longitude, latitude, date variable, layers_dates, and layers_path.
@@ -66,7 +70,8 @@
 #'
 
 clean_dup_by_date <- function(this_species,threshold,by_mask = FALSE,
-                              raster_mask = NULL, n_ngbs = 0){
+                              raster_mask = NULL, n_ngbs = 0,
+                              process_ngbs_by =100,progress =TRUE){
   stopifnot(inherits(this_species, "sp.temporal.modeling"))
   df_occs_date <- this_species$temporal_df
   df_occs_dateL <- split(df_occs_date,df_occs_date$layers_path,drop=T)
@@ -78,7 +83,9 @@ clean_dup_by_date <- function(this_species,threshold,by_mask = FALSE,
                             threshold = threshold,
                             by_mask = by_mask,
                             raster_mask = raster_mask,
-                            n_ngbs = n_ngbs)
+                            n_ngbs = n_ngbs,
+                            process_ngbs_by = process_ngbs_by,
+                            progress =progress)
       return(dd)
     },.progress = TRUE,
     .options = furrr::furrr_options(globals = c("this_species",

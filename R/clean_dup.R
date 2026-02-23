@@ -21,6 +21,9 @@
 #'   - 0 removes occurrences within the same pixel, keeping one.
 #'   - 1 considers duplicates all occurrences within a distance of one pixel.
 #'   - n considers duplicates all occurrences within a distance of n pixels.
+#' @param process_ngbs_by Numeric parameter to improve memory management.
+#' It process neighbor cells by a quantity specified by the user.
+#' @param progress Logical. If \code{TRUE}, show computation progress.
 #' @return Returns a data.frame with cleaned occurrence records, excluding
 #' duplicates based on the specified criteria.
 #' @details
@@ -57,7 +60,8 @@
 #' @export
 #'
 clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
-                      raster_mask = NULL, n_ngbs = 0){
+                      raster_mask = NULL, n_ngbs = 0,
+                      process_ngbs_by =100,progress =TRUE){
   data <- data[!is.na(data[,longitude]),]
 
 
@@ -86,10 +90,34 @@ clean_dup <- function(data,longitude,latitude,threshold=0.0, by_mask = FALSE,
       return(dat2)
     } else {
       dat2$cellid <- cellids2
-      cellids2 <- sort(cellids2)
-      adj_cells <- terra::adjacent(x = raster_mask,cells=cellids2,
-                                   directions = ngMat,
-                                   pairs = TRUE)
+      cellids2 <- base::sort(cellids2)
+      n_cells <- length(cellids2)
+      cut_offs <- ceiling(n_cells/process_ngbs_by)
+      if(cut_offs > 1){
+        pro_cells <- base::cut(x = seq_len(n_cells),cut_offs)
+        cell_idsL <- base::split(cellids2,pro_cells)
+
+      } else{
+        cell_idsL <- list(cellids2)
+
+      }
+
+
+      #adj_cells <- terra::adjacent(x = raster_mask,cells=cellids2,
+      #                             directions = ngMat,
+      #                             pairs = TRUE)
+
+      adj_cells <- seq_along(cell_idsL) |> purrr::map(function(x){
+        adj_cells <- terra::adjacent(x = raster_mask,
+                                     cells = cell_idsL[[x]],pairs=TRUE,
+                                     directions = ngMat,include=FALSE)
+        adj_cells <- data.frame(adj_cells)
+        return(adj_cells)
+
+      },.progress = progress)
+      adj_cells <- purrr::compact(adj_cells)
+      adj_cells <- purrr::list_rbind(adj_cells)
+
       #occ_adj_id <- which(adj_cells[,2] %in% cellids2)
       #if(length(occ_adj_id)>0L){
       #  adj_cells <- adj_cells[occ_adj_id,]

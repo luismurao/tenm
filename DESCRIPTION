@@ -5,7 +5,7 @@ Authors@R: c(
   person(given = "Luis", family = "Osorio-Olvera", 
   email = "luismurao@gmail.com", role = c("aut", "cre"),
   comment = c(ORCID = "0000-0003-0701-5398")), 
-  person (given = "Miguel", family = "Hernández",
+  person (given = "Miguel A.", family = "Hernández-Gutiérrez",
   email = "316282666@iztacala.unam.mx", role = c("aut"),
   comment = c(ORCID = "0000-0002-6086-3460")),
   person(given = "Rusby G.", family = "Contreras-Díaz", 

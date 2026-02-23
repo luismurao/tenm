@@ -1,8 +1,8 @@
-library(testthat)
-library(tenm)
+
 #testthat::context_start_file("check-output")
 # Test
-test_that("sp_temporal_data, returns an object of class sp.temporal.modeling", {
+testthat::test_that("sp_temporal_data, returns an object of class sp.temporal.modeling", {
+  library(tenm)
   data("abronia")
   tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
   abt <- tenm::sp_temporal_data(occs = abronia,
@@ -17,7 +17,7 @@ test_that("sp_temporal_data, returns an object of class sp.temporal.modeling", {
 })
 
 # Test
-test_that("clean_dup, returns a data.frame of cleaned occurrences", {
+testthat::test_that("clean_dup, returns a data.frame of cleaned occurrences", {
   data(abronia)
   tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
   tenm_mask <- terra::rast(file.path(tempora_layers_dir,"1939/bio_01.tif"))
@@ -50,7 +50,7 @@ test_that("clean_dup, returns a data.frame of cleaned occurrences", {
   expect_match(class(ab_3),"data.frame")
 
 })
-test_that("clean_dup_by_date, returns an object of class sp.temporal.modeling",{
+testthat::test_that("clean_dup_by_date, returns an object of class sp.temporal.modeling",{
   data("abronia")
   tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
   tenm_mask <- terra::rast(file.path(tempora_layers_dir,"1939/bio_01.tif"))
@@ -75,7 +75,7 @@ test_that("clean_dup_by_date, returns an object of class sp.temporal.modeling",{
 
 })
 
-test_that("correlation_finder, returns a list with non-correlated variables",{
+testthat::test_that("correlation_finder, returns a list with non-correlated variables",{
   temperature <- rnorm(n = 100,mean = 25, sd= 5)
   precip <- rnorm(n = 100,mean = 1000, sd= 5)
   dfp <- data.frame(temperature, precip)
@@ -95,7 +95,7 @@ test_that("correlation_finder, returns a list with non-correlated variables",{
 
 })
 
-test_that("cells2samp, returns the cell ids of a raster layer to be sampled",{
+testthat::test_that("cells2samp, returns the cell ids of a raster layer to be sampled",{
   data(abronia)
   temporal_layer <- system.file("extdata/bio/2016/bio_01.tif",package = "tenm")
   raster_mask <- terra::rast(temporal_layer)
@@ -133,7 +133,7 @@ test_that("cells2samp, returns the cell ids of a raster layer to be sampled",{
 
 })
 
-test_that("tests for pROC",{
+testthat::test_that("tests for pROC",{
   data(abronia)
   # pROC test
   # ----------------------------------------------------------------------------
@@ -149,7 +149,7 @@ test_that("tests for pROC",{
   # ----------------------------------------------------------------------------
 })
 
-test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
+testthat::test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
           ellipsoid_projection, plot_ellipsoid, ellipsoid_omr,
           ellipsoid_selection, tenm_selection",
 {
@@ -277,10 +277,11 @@ test_that("tests for tdf2swd, cov_center, inEllipsoid, ellipsoid_omr,
   testthat::expect_s3_class(eor,"data.frame")
   # ----------------------------------------------------------------------------
 
-
+  bio15_id <- which(names(abex$env_data) == "bio_15")
 
   varcorrs <- tenm::correlation_finder(environmental_data =
-                                         abex$env_data[,-ncol(abex$env_data)],
+                                         abex$env_data[,-c(ncol(abex$env_data),
+                                                           bio15_id)],
                                        method = "spearman",
                                        threshold = 0.8,
                                        verbose = FALSE)

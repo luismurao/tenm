@@ -319,7 +319,7 @@ they are not duplicates).
 abtc <- tenm::clean_dup_by_date(this_species = abt,
                                 by_mask = TRUE,
                                 threshold = terra::res(tenm_mask)[1],
-                                raster_mask = tenm_mask[1],
+                                raster_mask = tenm_mask,
                                 n_ngbs = 0)
 # Check number of records
 head(tidyr::as_tibble(abtc$temporal_df))
