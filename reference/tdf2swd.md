@@ -1,0 +1,54 @@
+# Temporal data.frame to Samples With Data format
+
+Converts a temporal data.frame to Samples With Data (SWD) table for use
+with other modeling platforms such as MaxEnt.
+
+## Usage
+
+``` r
+tdf2swd(this_species, sp_name = "sp")
+```
+
+## Arguments
+
+- this_species:
+
+  An object of class sp.temporal.env (see [`ex_by_date`](ex_by_date.md)
+  ) or sp.temporal.bg (see [`bg_by_date`](bg_by_date.md)).
+
+- sp_name:
+
+  Character vector specifying the species name.
+
+## Value
+
+A data.frame formatted as Samples With Data (SWD) table.
+
+## Examples
+
+``` r
+# \donttest{
+library(tenm)
+data("abronia")
+tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+abt <- tenm::sp_temporal_data(occs = abronia,
+                              longitude = "decimalLongitude",
+                              latitude = "decimalLatitude",
+                              sp_date_var = "year",
+                              occ_date_format="y",
+                              layers_date_format= "y",
+                              layers_by_date_dir = tempora_layers_dir,
+                              layers_ext="*.tif$")
+abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+future::plan("multisession",workers=2)
+abex <- tenm::ex_by_date(this_species = abtc,
+                         train_prop=0.7)
+abbg <- tenm::bg_by_date(abex,
+                         buffer_ngbs=10,n_bg=50000)
+future::plan("sequential")
+# SWD table for occurrence records
+occ_swd <- tdf2swd(this_species=abex,sp_name="abro_gram")
+# SWD table for background data
+bg_swd <- tdf2swd(this_species=abbg)
+# }
+```

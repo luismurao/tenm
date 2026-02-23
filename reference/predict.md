@@ -1,0 +1,195 @@
+# Predict the potential distribution of species based on environmental conditions
+
+Predict the potential distribution of species based on environmental
+conditions
+
+## Usage
+
+``` r
+# S4 method for class 'sp.temporal.selection'
+predict(
+  object,
+  model_variables = NULL,
+  layers = NULL,
+  layers_path = NULL,
+  layers_ext = NULL,
+  mve = TRUE,
+  level = 0.975,
+  output = "suitability",
+  ...
+)
+```
+
+## Arguments
+
+- object:
+
+  An object of class sp.temporal.selection
+
+- model_variables:
+
+  A character vector specifying the variable names used to build the
+  model.
+
+- layers:
+
+  A SpatRaster object or a list where each element is a SpatRaster.
+
+- layers_path:
+
+  Path to the directory containing raster layers.
+
+- layers_ext:
+
+  File extension of the raster layers.
+
+- mve:
+
+  Logical indicating whether to use the minimum volume ellipsoid
+  algorithm.
+
+- level:
+
+  Proportion of data to include inside the ellipsoid if mve is `TRUE`.
+
+- output:
+
+  Character indicating if the model outputs "suitability" values or
+  "mahalanobis" distances.
+
+- ...:
+
+  Additional parameters passed to
+  [`ellipsoid_projection`](ellipsoid_projection.md).
+
+## Value
+
+A SpatRaster object representing predicted suitability values or
+Mahalanobis distances to niche center.
+
+## Details
+
+This function predicts the potential distribution of a species based on
+environmental conditions represented by raster layers. The prediction is
+based on the model statistics and environmental variables specified in
+'model_variables'. If 'mve' is `TRUE`, the minimum volume ellipsoid
+algorithm is used to model the niche space. The output can be either
+"suitability", or "mahalanobis", indicating distance to the niche
+center. Note that each SpatRaster in the 'layers' parameter should have
+the same number of elements (layers) as 'model_variables'. The predict
+method assumes that variables in each SpatRaster correspond to those in
+'model_variables'. If layers in the 'layers' parameter are given as a
+list of objects of class SpatRaster, then the number of prediction
+layers will have the same number of elements in the list.
+
+## Examples
+
+``` r
+# \donttest{
+library(tenm)
+data("abronia")
+tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
+abt <- tenm::sp_temporal_data(occs = abronia,
+                              longitude = "decimalLongitude",
+                              latitude = "decimalLatitude",
+                              sp_date_var = "year",
+                              occ_date_format="y",
+                              layers_date_format= "y",
+                              layers_by_date_dir = tempora_layers_dir,
+                              layers_ext="*.tif$")
+abtc <- tenm::clean_dup_by_date(abt,threshold = 10/60)
+future::plan("multisession",workers=2)
+abex <- tenm::ex_by_date(this_species = abtc,train_prop=0.7)
+abbg <- tenm::bg_by_date(this_species = abex,
+                         buffer_ngbs=NULL,n_bg=50000)
+abbg <- tenm::bg_by_date(this_species = abex,
+                         buffer_ngbs=10,n_bg=50000)
+future::plan("sequential")
+varcorrs <- tenm::correlation_finder(environmental_data =
+                                       abex$env_data[,-ncol(abex$env_data)],
+                                     method = "spearman",
+                                     threshold = 0.8,
+                                     verbose = FALSE)
+#> Warning: the standard deviation is zero
+mod_sel <- tenm::tenm_selection(this_species = abbg,
+                                omr_criteria =0.1,
+                                ellipsoid_level=0.975,
+                                vars2fit = varcorrs$descriptors,
+                                nvars_to_fit=c(3,4),
+                                proc = TRUE,
+                                RandomPercent = 50,
+                                NoOfIteration=1000,
+                                parallel=TRUE,
+                                n_cores=2)
+#> -------------------------------------------------------------------
+#>      **** Starting model selection process ****
+#> -------------------------------------------------------------------
+#> 
+#> A total number of 84 models will be created for combinations of 9 variables taken by 3 
+#> 
+#> A total number of 126 models will be created for combinations of 9 variables taken by 4 
+#> 
+#> -------------------------------------------------------------------
+#>   **A total number of 210 models will be tested **
+#> 
+#> -------------------------------------------------------------------
+#> Doing calibration from model  1 to  100 in process  1 
+#> 
+#> Doing calibration from model  101 to  200 in process  2 
+#> 
+#> Doing calibration from model  201 to  210 in process  3 
+#> 
+#> Finishing calibration of models  1 to  100 
+#> 
+#> Finishing calibration of models  101 to  200 
+#> 
+#> Finishing calibration of models  201 to  210 
+#> 
+#> Finishing...
+#> 
+#> -------------------------------------------------------------------
+#>   124 models passed omr_criteria for train data
+#>   19 models passed omr_criteria for test data
+#>   19 models passed omr_criteria for train and test data
+# Prediction using variables path
+layers_70_00_dir <- system.file("extdata/bio_1970_2000",package = "tenm")
+# The if the 'model_variables' parameter is set to NULL, the method uses
+# the first model in the results table (mod_sel$mods_table)
+suit_1970_2000 <- predict(mod_sel,
+                          model_variables = NULL,
+                          layers_path = layers_70_00_dir,
+                          layers_ext = ".tif$")
+#> No selected variables. Using the first model in mods_table
+#>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+# You can select the modeling variables used to project the model
+suit_1970_2000 <- predict(mod_sel,
+                          model_variables = c("bio_01","bio_04",
+                                              "bio_07","bio_12"),
+                          layers_path = layers_70_00_dir,
+                          layers_ext = ".tif$")
+#>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+
+# Pass a list containing the paths of the modeling layers
+layers_1939_2016 <- file.path(tempora_layers_dir,c("1939","2016"))
+suit_1939_2016 <- predict(mod_sel,model_variables = NULL,
+                          layers_path = layers_1939_2016,
+                          layers_ext = ".tif$")
+#> No selected variables. Using the first model in mods_table
+#>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+# Pass a list of raster layers
+layers_1939 <- terra::rast(list.files(layers_1939_2016[1],
+                                      pattern = ".tif$",full.names = TRUE))
+layers_2016 <- terra::rast(list.files(layers_1939_2016[2],
+                                      pattern = ".tif$",full.names = TRUE))
+layers_1939 <- layers_1939[[c("bio_01","bio_04","bio_07")]]
+layers_2016 <- layers_2016[[c("bio_01","bio_04","bio_07")]]
+layers_list <- list(layers_1939,layers_2016)
+suit_1939_2016 <- predict(object = mod_sel,
+                          model_variables = c("bio_01","bio_04","bio_07"),
+                          layers_path = NULL,
+                          layers = layers_list,
+                          layers_ext = ".tif$")
+#>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+
+# }
+```
