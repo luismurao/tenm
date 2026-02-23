@@ -49,6 +49,10 @@ First, we load the `tenm` R package.
 
 ``` r
 library(tenm)
+#> Warning: package 'tenm' was built under R version 4.3.3
+#> Registered S3 method overwritten by 'future':
+#>   method               from      
+#>   all.equal.connection parallelly
 ## basic example code
 ```
 
@@ -74,9 +78,6 @@ head(abronia)
 #> 4 https://doi.org/10.15468/dl.teyjm9
 #> 5 https://doi.org/10.15468/dl.teyjm9
 #> 6 https://doi.org/10.15468/dl.teyjm9
-```
-
-``` r
 dim(abronia)
 #> [1] 106   5
 ```
@@ -103,6 +104,7 @@ legend("bottomright",
 
 <img src="man/figures/README-pressure-1.png" alt="Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the year of observation." width="100%" />
 <p class="caption">
+
 Fig. 1. Occurrence points of *Abronia graminea*. Colors represent the
 year of observation.
 </p>
@@ -206,7 +208,7 @@ located.
 ``` r
 tempora_layers_dir <- system.file("extdata/bio",package = "tenm")
 print(tempora_layers_dir)
-#> [1] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio"
+#> [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio"
 ```
 
 We explore the structure of the directory that contains our modeling
@@ -214,38 +216,38 @@ layers.
 
 ``` r
 list.dirs(tempora_layers_dir,recursive = FALSE)
-#>  [1] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1939"
-#>  [2] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1940"
-#>  [3] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1941"
-#>  [4] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1950"
-#>  [5] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1952"
-#>  [6] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1963"
-#>  [7] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1969"
-#>  [8] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1970"
-#>  [9] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1971"
-#> [10] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1972"
-#> [11] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1973"
-#> [12] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1974"
-#> [13] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1976"
-#> [14] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1977"
-#> [15] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1980"
-#> [16] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1981"
-#> [17] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1982"
-#> [18] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1983"
-#> [19] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1988"
-#> [20] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1991"
-#> [21] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1993"
-#> [22] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1994"
-#> [23] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1995"
-#> [24] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1996"
-#> [25] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1998"
-#> [26] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/2002"
-#> [27] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/2008"
-#> [28] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/2011"
-#> [29] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/2012"
-#> [30] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/2014"
-#> [31] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/2015"
-#> [32] "/home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/2016"
+#>  [1] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939"
+#>  [2] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1940"
+#>  [3] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1941"
+#>  [4] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1950"
+#>  [5] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1952"
+#>  [6] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1963"
+#>  [7] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1969"
+#>  [8] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1970"
+#>  [9] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1971"
+#> [10] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1972"
+#> [11] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1973"
+#> [12] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1974"
+#> [13] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1976"
+#> [14] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1977"
+#> [15] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1980"
+#> [16] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1981"
+#> [17] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1982"
+#> [18] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1983"
+#> [19] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1988"
+#> [20] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1991"
+#> [21] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1993"
+#> [22] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1994"
+#> [23] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1995"
+#> [24] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1996"
+#> [25] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1998"
+#> [26] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2002"
+#> [27] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2008"
+#> [28] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2011"
+#> [29] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2012"
+#> [30] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2014"
+#> [31] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2015"
+#> [32] "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/2016"
 ```
 
 **Note that the directory contains other directories named with the
@@ -261,9 +263,6 @@ list.files(list.dirs(tempora_layers_dir,
 #>  [6] "bio_06.tif" "bio_07.tif" "bio_08.tif" "bio_09.tif" "bio_10.tif"
 #> [11] "bio_11.tif" "bio_12.tif" "bio_13.tif" "bio_14.tif" "bio_15.tif"
 #> [16] "bio_16.tif" "bio_17.tif" "bio_18.tif" "bio_19.tif"
-```
-
-``` r
 # Directory for year 1972
 list.files(list.dirs(tempora_layers_dir,
                      recursive = FALSE)[10],
@@ -272,9 +271,6 @@ list.files(list.dirs(tempora_layers_dir,
 #>  [6] "bio_06.tif" "bio_07.tif" "bio_08.tif" "bio_09.tif" "bio_10.tif"
 #> [11] "bio_11.tif" "bio_12.tif" "bio_13.tif" "bio_14.tif" "bio_15.tif"
 #> [16] "bio_16.tif" "bio_17.tif" "bio_18.tif" "bio_19.tif"
-```
-
-``` r
 # Directory for year 2014
 list.files(list.dirs(tempora_layers_dir,
                      recursive = FALSE)[30],
@@ -343,12 +339,12 @@ tidyr::as_tibble(head(abt$temporal_df))
 #> # A tibble: 6 × 5
 #>   decimalLongitude decimalLatitude  year layer_dates layers_path                
 #>              <dbl>           <dbl> <int> <date>      <chr>                      
-#> 1            -98.2            20.0  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…
-#> 2            -98.1            19.9  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…
-#> 3            -98.1            19.9  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…
-#> 4            -98.1            19.9  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…
-#> 5            -98.1            19.8  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…
-#> 6            -98.2            19.9  2014 2014-01-01  /home/luis/R/x86_64-pc-lin…
+#> 1            -98.2            20.0  2014 2014-01-01  /Library/Frameworks/R.fram…
+#> 2            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…
+#> 3            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…
+#> 4            -98.1            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…
+#> 5            -98.1            19.8  2014 2014-01-01  /Library/Frameworks/R.fram…
+#> 6            -98.2            19.9  2014 2014-01-01  /Library/Frameworks/R.fram…
 ```
 
 ### Time-specific spatial data thinning
@@ -367,20 +363,19 @@ abtc <- tenm::clean_dup_by_date(this_species = abt,
                                 threshold = terra::res(tenm_mask)[1],
                                 raster_mask = tenm_mask[1],
                                 n_ngbs = 0)
+#> Warning: package 'future' was built under R version 4.3.3
+#> Warning: package 'purrr' was built under R version 4.3.3
 # Check number of records
 head(tidyr::as_tibble(abtc$temporal_df))
 #> # A tibble: 6 × 5
 #>   decimalLongitude decimalLatitude  year layer_dates layers_path                
 #>              <dbl>           <dbl> <int> <date>      <chr>                      
-#> 1            -97.3            18.7  1939 1939-01-01  /home/luis/R/x86_64-pc-lin…
-#> 2            -97.3            18.7  1940 1940-01-01  /home/luis/R/x86_64-pc-lin…
-#> 3            -97.0            19.6  1941 1941-01-01  /home/luis/R/x86_64-pc-lin…
-#> 4            -97.3            18.7  1941 1941-01-01  /home/luis/R/x86_64-pc-lin…
-#> 5            -97.3            18.7  1950 1950-01-01  /home/luis/R/x86_64-pc-lin…
-#> 6            -97.1            19.7  1950 1950-01-01  /home/luis/R/x86_64-pc-lin…
-```
-
-``` r
+#> 1            -97.3            18.7  1939 1939-01-01  /Library/Frameworks/R.fram…
+#> 2            -97.3            18.7  1940 1940-01-01  /Library/Frameworks/R.fram…
+#> 3            -97.0            19.6  1941 1941-01-01  /Library/Frameworks/R.fram…
+#> 4            -97.3            18.7  1941 1941-01-01  /Library/Frameworks/R.fram…
+#> 5            -97.3            18.7  1950 1950-01-01  /Library/Frameworks/R.fram…
+#> 6            -97.1            19.7  1950 1950-01-01  /Library/Frameworks/R.fram…
 nrow(abtc$temporal_df)
 #> [1] 40
 ```
@@ -419,6 +414,7 @@ legend("bottomright",
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" alt="Fig. 2. Comparison of the spatial distribution of occurrence records for the standard thinning processs and the time-specific thinning process. Left panel shows the records after the standard thinning process. Right panel shows the spatial distribution of the records after the time-specific thinning process; note that some records overlap but are from different years." width="100%" />
 <p class="caption">
+
 Fig. 2. Comparison of the spatial distribution of occurrence records for
 the standard thinning processs and the time-specific thinning process.
 Left panel shows the records after the standard thinning process. Right
@@ -455,12 +451,12 @@ head(abex$temporal_df)
 #> # A tibble: 6 × 26
 #>   decimalLongitude decimalLatitude  year layer_dates layers_path   cell_ids_year
 #>              <dbl>           <dbl> <int> <date>      <chr>                 <dbl>
-#> 1            -97.3            18.7  1939 1939-01-01  /home/luis/R…           272
-#> 2            -97.3            18.7  1940 1940-01-01  /home/luis/R…           272
-#> 3            -97.0            19.6  1941 1941-01-01  /home/luis/R…           173
-#> 4            -97.3            18.7  1941 1941-01-01  /home/luis/R…           271
-#> 5            -97.3            18.7  1950 1950-01-01  /home/luis/R…           272
-#> 6            -97.1            19.7  1950 1950-01-01  /home/luis/R…           173
+#> 1            -97.3            18.7  1939 1939-01-01  /Library/Fra…           272
+#> 2            -97.3            18.7  1940 1940-01-01  /Library/Fra…           272
+#> 3            -97.0            19.6  1941 1941-01-01  /Library/Fra…           173
+#> 4            -97.3            18.7  1941 1941-01-01  /Library/Fra…           271
+#> 5            -97.3            18.7  1950 1950-01-01  /Library/Fra…           272
+#> 6            -97.1            19.7  1950 1950-01-01  /Library/Fra…           173
 #> # ℹ 20 more variables: bio_01 <int>, bio_02 <int>, bio_03 <int>, bio_04 <int>,
 #> #   bio_05 <int>, bio_06 <int>, bio_07 <int>, bio_08 <int>, bio_09 <int>,
 #> #   bio_10 <int>, bio_11 <int>, bio_12 <int>, bio_13 <int>, bio_14 <int>,
@@ -487,13 +483,13 @@ abbg <- tenm::bg_by_date(this_species = abex,
                          buffer_ngbs=10,n_bg=10000)
 future::plan("sequential")
 head(abbg$env_bg)
-#>                                                              ID_YEAR
-#> 1 /home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1939
-#> 2 /home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1939
-#> 3 /home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1939
-#> 4 /home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1939
-#> 5 /home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1939
-#> 6 /home/luis/R/x86_64-pc-linux-gnu-library/4.4/tenm/extdata/bio/1939
+#>                                                                                      ID_YEAR
+#> 1 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939
+#> 2 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939
+#> 3 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939
+#> 4 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939
+#> 5 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939
+#> 6 /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/tenm/extdata/bio/1939
 #>   decimalLongitude decimalLatitude bio_01 bio_02 bio_03 bio_04 bio_05 bio_06
 #> 1        -97.75000        18.91667    155     92     57   2177    223     62
 #> 2        -98.25000        18.75000    192    100     60   1990    264     97
@@ -546,9 +542,6 @@ head(tidyr::as_tibble(occ_swd))
 #> #   bio_09 <int>, bio_10 <int>, bio_11 <int>, bio_12 <int>, bio_13 <int>,
 #> #   bio_14 <int>, bio_15 <int>, bio_16 <int>, bio_17 <int>, bio_18 <int>,
 #> #   bio_19 <int>
-```
-
-``` r
 head(tidyr::as_tibble(bg_swd))
 #> # A tibble: 6 × 23
 #>   sp_name    decimalLongitude decimalLatitude  year bio_01 bio_02 bio_03 bio_04
@@ -579,11 +572,8 @@ varcorrs <- tenm::correlation_finder(environmental_data =
                                      method = "spearman",
                                      threshold = 0.8,
                                      verbose = FALSE)
-#> Warning in stats::cor(environmental_data, method = method): La desviación
-#> estándar es cero
-```
-
-``` r
+#> Warning in stats::cor(environmental_data, method = method): the standard
+#> deviation is zero
 # Selected variables
 vars2fit <- varcorrs$descriptors
 print(vars2fit)
@@ -738,31 +728,31 @@ head(mod_sel$mods_table,27)
 #>    env_bg_paucratio env_bg_auc mean_omr_train_test rank_by_omr_train_test
 #> 1          1.520879  0.7985825            0.031250                     11
 #> 2          1.505433  0.7996963            0.031250                      7
-#> 3          1.500235  0.7974812            0.031250                      8
+#> 3          1.500235  0.7974813            0.031250                      8
 #> 4          1.467522  0.7828762            0.046875                     22
-#> 5          1.465208  0.7519788            0.015625                      1
-#> 6          1.462961  0.7858312            0.031250                      9
+#> 5          1.465208  0.7519787            0.015625                      1
+#> 6          1.462961  0.7858313            0.031250                      9
 #> 7          1.448599  0.7549675            0.046875                     21
 #> 8          1.431383  0.7479400            0.031250                     10
 #> 9          1.429927  0.7371300            0.015625                      2
 #> 10         1.424194  0.7454525            0.046875                     23
-#> 11         1.412775  0.7362138            0.046875                     24
+#> 11         1.421630  0.7479862            0.046875                     24
 #> 12         1.409348  0.7345675            0.031250                     15
 #> 13         1.409145  0.7019625            0.031250                     14
 #> 14         1.382147  0.6807450            0.031250                     12
 #> 15         1.379969  0.7115000            0.031250                     18
 #> 16         1.374939  0.6537675            0.031250                     16
-#> 17         1.373252  0.7036713            0.031250                     17
+#> 17         1.373252  0.7036712            0.031250                     17
 #> 18         1.365017  0.7032725            0.031250                     13
 #> 19         1.329613  0.6943437            0.015625                      3
-#> 20         1.320850  0.6851075            0.031250                     20
+#> 20         1.313198  0.6819888            0.031250                     20
 #> 21         1.307749  0.6769513            0.015625                      5
 #> 22         1.288655  0.6388300            0.031250                     19
 #> 23         1.267623  0.6472100            0.015625                      4
 #> 24         1.261588  0.6146950            0.046875                     25
 #> 25         1.253496  0.5970800            0.046875                     26
 #> 26         1.240056  0.5891425            0.046875                     27
-#> 27         1.193064  0.5648688            0.015625                      6
+#> 27         1.193064  0.5648687            0.015625                      6
 #>    rank_omr_aucratio
 #> 1                  1
 #> 2                  2
@@ -814,6 +804,7 @@ suit_2016 <- predict(mod_sel,
 
 <img src="man/figures/README-unnamed-chunk-21-1.png" alt="Fig. 3. A selected niche model projected using environmental layers from 2016." width="100%" />
 <p class="caption">
+
 Fig. 3. A selected niche model projected using environmental layers from
 2016.
 </p>
@@ -835,6 +826,7 @@ suit_1970_2000 <- predict(mod_sel,
 
 <img src="man/figures/README-unnamed-chunk-22-1.png" alt="Fig. 4. A selected niche model projected using environmental layers from 1970-2000." width="100%" />
 <p class="caption">
+
 Fig. 4. A selected niche model projected using environmental layers from
 1970-2000.
 </p>
@@ -853,6 +845,7 @@ terra::plot(suit_1970_2000, main="Prediction for 1970-2000")
 
 <img src="man/figures/README-unnamed-chunk-23-1.png" alt="Fig. 5. Geographic projection of a selected model. Left panel, the projection using environmental layers from 2016. Right panel, the projection using environmental layers from 1970-2000" width="100%" />
 <p class="caption">
+
 Fig. 5. Geographic projection of a selected model. Left panel, the
 projection using environmental layers from 2016. Right panel, the
 projection using environmental layers from 1970-2000
@@ -884,13 +877,14 @@ tenm::plot_ellipsoid(x = abbg$temporal_df$bio_01,
                      z = abbg$temporal_df$bio_12,
                      col = "#E7298A",
                      add = TRUE)
-#> Warning in graphics::par(oldpar): llamada par(new=TRUE) sin gráfico
+#> Warning in graphics::par(oldpar): calling par(new=TRUE) with no plot
 ```
 
 <div class="figure">
 
 <img src="man/figures/README-unnamed-chunk-24-1.png" alt="Fig. 6. Time-specific niche model vs. standard niche model. Pink ellipsoid represents the time-specific niche model. Green ellipsoid represents a ellipsoid model fitted using the standard approach." width="100%" />
 <p class="caption">
+
 Fig. 6. Time-specific niche model vs. standard niche model. Pink
 ellipsoid represents the time-specific niche model. Green ellipsoid
 represents a ellipsoid model fitted using the standard approach.
